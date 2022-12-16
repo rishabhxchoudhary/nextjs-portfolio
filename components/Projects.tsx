@@ -34,7 +34,7 @@ function Projects({}: Props) {
                 >
                     <motion.div
                         initial={{
-                            y: -300,
+                            y: -50,
                             opacity: 0
                         }}
                         whileInView={{
@@ -54,11 +54,11 @@ function Projects({}: Props) {
                         />
                     </motion.div>
                     <div className='space-y-10 px-0 md:px-10 max-w-6xl'> 
-                        <h4 className='text-4xl font-semibold text-center'>
+                        <h4 className='text-xl font-semibold text-center md:text-4xl'>
                             <span className='underline decoration-[#F7AB0A]'>Project 1 of 4 :</span><br></br>
                             CareFi - Women Health Care Website</h4>
                     </div>
-                    <p className='text-lg text-center md:text-left'>
+                    <p className='text-sm md:text-lg text-center md:text-left'>
                         A women safety website build using HTML, CSS, JS, Bootstrap and GSAP.
                     </p>
                 </div>
@@ -67,7 +67,7 @@ function Projects({}: Props) {
                 >
                     <motion.div
                         initial={{
-                            y: -300,
+                            y: -50,
                             opacity: 0
                         }}
                         whileInView={{
@@ -87,11 +87,11 @@ function Projects({}: Props) {
                         />
                     </motion.div>
                     <div className='space-y-10 px-0 md:px-10 max-w-6xl'> 
-                        <h4 className='text-4xl font-semibold text-center'>
+                    <h4 className='text-xl font-semibold text-center md:text-4xl'>
                             <span className='underline decoration-[#F7AB0A]'>Project 2 of 4 :</span><br></br>
                             Task Diary App</h4>
                     </div>
-                    <p className='text-lg text-center md:text-left'>
+                    <p className='text-sm md:text-lg text-center md:text-left'>
                         A simple app to keep track of daily tasks. Made using React and Firebase.
                     </p>
                 </div>
@@ -101,7 +101,7 @@ function Projects({}: Props) {
                 >
                     <motion.div
                         initial={{
-                            y: -300,
+                            y: -50,
                             opacity: 0
                         }}
                         whileInView={{
@@ -121,7 +121,7 @@ function Projects({}: Props) {
                         />
                     </motion.div>
                     <div className='space-y-10 px-0 md:px-10 max-w-6xl'> 
-                        <h4 className='text-4xl font-semibold text-center'>
+                        <h4 className='text-xl md:text-4xl font-semibold text-center'>
                             <span className='underline decoration-[#F7AB0A]'>Project 3 of 4 :</span><br></br>
                             Wall-E-Waste</h4>
                     </div>
@@ -134,7 +134,7 @@ function Projects({}: Props) {
                 >
                     <motion.div
                         initial={{
-                            y: -300,
+                            y: -50,
                             opacity: 0
                         }}
                         whileInView={{
@@ -154,7 +154,7 @@ function Projects({}: Props) {
                         />
                     </motion.div>
                     <div className='space-y-10 px-0 md:px-10 max-w-6xl'> 
-                        <h4 className='text-4xl font-semibold text-center'>
+                        <h4 className='text-xl md:text-4xl font-semibold text-center'>
                             <span className='underline decoration-[#F7AB0A]'>Project 4 of 4 :</span><br></br>
                             Python Telegram Bot</h4>
                     </div>
