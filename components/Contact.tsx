@@ -20,7 +20,7 @@ function ContactMe({}: Props) {
 
   return (
     <div className='h-screen flex relative flex-col text-center md:text-left max-w-7xl px-10 justify-evenly mx-auto items-center'>
-        <h3 className='mt-24 uppercase tracking-[20px] text-gray-500 text-2xl' >
+        <h3 className='mt-2 uppercase tracking-[20px] text-gray-500 text-2xl' >
             Contact Me
         </h3>
 
