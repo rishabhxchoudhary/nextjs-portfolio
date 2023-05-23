@@ -13,9 +13,9 @@ about: "The Sparse Table is a data structure used to efficiently answer range qu
 - It allows us to perform range queries in O(1) time complexity while having a preprocessing time of O(n log n). 
 - This makes it an excellent choice for scenarios where the array is static or changes infrequently.
 
-## **The Sparse Table Basically Stores 2<sup>i</sup> th Parent of Nodes**
+## **The Sparse Table Basically Stores 2<sup>i</sup>-th Parent of Nodes**
 
-- Lets try to make Sparse Table of the following Binary Tree.
+- Let's try to construct a Sparse Table for the following Binary Tree.
 
 <img style="width: 500px;" src="/images/sparse_table_and_lca/bin_tree.png"/>
 
@@ -27,7 +27,7 @@ about: "The Sparse Table is a data structure used to efficiently answer range qu
 - Node 6 1st parent as 3 and 2nd parent as 1 and 4th parent as 0.
 - Node 7 and 8 have 1st parent as 4 and 2nd parent as 2 and 4th parent as 0.
 
-*Basically we want to look at 2<sup>i</sup> th parent of every node and store it in a table.*
+*Basically we want to look at 2<sup>i</sup>-th parent of every node and store it in a table.*
 
 - Hence the Sparce Table for this Binary Tree will look like : 
  
@@ -74,7 +74,7 @@ private:
     vector<int> DEPTH;
 
 public:
-    Sparse_Tale(vector<vector<int>> &graph)
+    Sparse_Table(vector<vector<int>> &graph)
     {
         M = int(log2(graph.size())) + 1;
         PARENT.resize(graph.size(), vector<int>(M, -1));
