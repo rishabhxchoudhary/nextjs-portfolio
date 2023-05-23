@@ -106,7 +106,32 @@ public:
 
 
 - **Lowest Common Ancestor (LCA)**: Sparse tables can be applied to efficiently find the lowest common ancestor of two nodes in a tree. By precomputing information about the tree, sparse tables can answer LCA queries in O(1) time after O(n log n) preprocessing.
+```
+# Python Code:
+class LCA:
+    def __init__(self, graph: dict):
+        self.table = Sparse_Table(graph)
 
+    # Returns the LCA of Nodes U and V
+    def getLCA(self, u: int, v: int):
+        if self.table.depth[u] < self.table.depth[v]:
+            u, v = v, u
+        diff = self.table.depth[u] - self.table.depth[v]
+        for i in range(self.table.M-1, -1, -1):
+            if (diff >> i) & 1:
+                u = self.table.parent[u][i]
+        if u == v:
+            return u
+        for i in range(self.table.M-1, -1, -1):
+            if self.table.parent[u][i] != self.table.parent[v][i]:
+                u = self.table.parent[u][i]
+                v = self.table.parent[v][i]
+        return self.table.parent[u][0]
+
+    Returns the Distance between U and V
+    def dist(self, u: int, v: int):
+        return self.table.depth[u] + self.table.depth[v] - 2*self.table.depth[self.getLCA(u, v)]
+```
 
 - **Range Mode Query**: Sparse tables can be extended to find the mode (most frequent element) in a given range of an array efficiently. By storing additional information during preprocessing, sparse tables can answer mode queries in O(1) time after O(n log n) preprocessing.
 
