@@ -1,5 +1,5 @@
 ---
-title: "Sparse Table Data Structure Review"
+title: "Sparse Table for LCA"
 date: "23 May 2023"
 category: "Competitive Programming"
 tags: ['Data Structure','Sparse Table']
