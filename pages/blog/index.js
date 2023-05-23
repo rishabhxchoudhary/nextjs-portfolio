@@ -9,16 +9,16 @@ import sortByDate from '../../utils/index'
 import { useState } from 'react'
 
 function Index({ categories }) {
-    const [cat, setCat] = useState('Latest');
-    console.log(categories);
+    const [cat, setCat] = useState(`Latest`);
+    // console.log(categories);
     return (
         <>
             <Head>
-                <title>Rk's WeBlog</title>
+                <title>Rk&apos;s WeBlog</title>
             </Head>
             <div className='w-full flex flex-col items-center'>
                 <div className='p-14 flex flex-col items-center md:items-start max-w-7xl'>
-                    <h1 className='text-4xl font-bold mb-10'>RK's WeBlog</h1>
+                    <h1 className='text-4xl font-bold mb-10'>RK&apos;s WeBlog</h1>
                     <div className="section-navigator flex flex-wrap gap-10 mb-10">
                         {categories && Object.keys(categories).map((category, index) => (
                             <div key={index} className="flex flex-col items-center cursor-pointer" onClick={() => { setCat(category) }}>
