@@ -44,7 +44,7 @@ Recurrence Relation is given as :
 </code>
 
 ### Python Code :
-```python:
+```Python:
 class Sparse_Table:
     def __init__(self, graph: dict):
         self.M = int(math.log2(len(graph)+3) + 2)
@@ -64,50 +64,46 @@ class Sparse_Table:
         dfs1(1, 0)
 ```
 
-### C++ Code : 
-```
-class Sparse_Tale
-{
-private:
-    int M;
-    vector<vector<int>> PARENT;
-    vector<int> DEPTH;
-
-public:
-    Sparse_Table(vector<vector<int>> &graph)
-    {
-        M = int(log2(graph.size())) + 1;
-        PARENT.resize(graph.size(), vector<int>(M, -1));
-        DEPTH.resize(graph.size(), -1);
-        DFS(graph, 1, 0);
-    }
-
-    void DFS(vector<vector<int>> &graph, int node, int parent)
-    {
-        PARENT[node][0] = parent;
-        DEPTH[node] = DEPTH[parent] + 1;
-        for (int j = 1; j < M; j++)
-            PARENT[node][j] = PARENT[PARENT[node][j - 1]][j - 1];
-        for (int i : graph[node])
-        {
-            if (i != parent)
-                DFS(graph, i, node);
-        }
-    }
-};
-```
-
 ## Common Applications of Sparce Table
 
 - **Range Minimum/Maximum Query (RMQ):** Sparse tables can be used to solve the RMQ problem efficiently. They can answer queries for finding the minimum or maximum value in a given range of an array in O(1) time after O(n log n) preprocessing, where n is the size of the array.
 
+```Python:
+import math
+
+class RMQ:
+    def __init__(self, arr):
+        self.arr = arr
+        self.n = len(arr)
+        self.lookup = [[0 for i in range(self.n)] for j in range(self.n)]
+        self.buildSparseTable()
+
+    def buildSparseTable(self):
+        for i in range(0, self.n):
+            self.lookup[i][0] = self.arr[i]
+        j = 1
+        while (1 << j) <= self.n:
+            i = 0
+            while (i + (1 << j) - 1) < self.n:
+                if self.lookup[i][j - 1] < self.lookup[i + (1 << (j - 1))][j - 1]:
+                    self.lookup[i][j] = self.lookup[i][j - 1]
+                else:
+                    self.lookup[i][j] = self.lookup[i + (1 << (j - 1))][j - 1]
+                i += 1
+            j += 1
+
+    def query(self, L, R):
+        j = int(math.log2(R - L + 1))
+        if self.lookup[L][j] <= self.lookup[R - (1 << j) + 1][j]:
+            return self.lookup[L][j]
+        else:
+            return self.lookup[R - (1 << j) + 1][j]
+```
 
 - **Range Sum Query (RSQ)**: Sparse tables can also be used to solve the RSQ problem, which involves finding the sum of elements in a given range of an array. They can answer queries for range sums in O(1) time after O(n log n) preprocessing.
 
-
 - **Lowest Common Ancestor (LCA)**: Sparse tables can be applied to efficiently find the lowest common ancestor of two nodes in a tree. By precomputing information about the tree, sparse tables can answer LCA queries in O(1) time after O(n log n) preprocessing.
-```
-# Python Code:
+```Python:
 class LCA:
     def __init__(self, graph: dict):
         self.table = Sparse_Table(graph)
@@ -137,7 +133,32 @@ class LCA:
 
 
 - **Range GCD/LCM Query**: Sparse tables can be used to find the greatest common divisor (GCD) or least common multiple (LCM) of a given range of elements in an array. They can answer GCD/LCM queries in O(1) time after O(n log n) preprocessing.
+```Python:
+import math
 
+class Range_GCD_Query:
+    def __init__(self, arr):
+        self.arr = arr
+        self.n = len(arr)
+        self.lookup = [[0 for i in range(self.n)] for j in range(self.n)]
+        self.buildSparseTable()
+
+    def buildSparseTable(self):
+        for i in range(0, self.n):
+            self.lookup[i][0] = self.arr[i]
+        j = 1
+        while (1 << j) <= self.n:
+            i = 0
+            while (i + (1 << j) - 1) < self.n:
+                self.lookup[i][j] = math.gcd(
+                    self.lookup[i][j - 1], self.lookup[i + (1 << (j - 1))][j - 1])
+                i += 1
+            j += 1
+
+    def query(self, L, R):
+        j = int(math.log2(R - L + 1))
+        return math.gcd(self.lookup[L][j], self.lookup[R - (1 << j) + 1][j])
+```
 
 - **Range Kth Smallest/Largest Query**: Sparse tables can be employed to find the Kth smallest or largest element in a given range of an array. By storing additional information during preprocessing, sparse tables can answer Kth smallest/largest queries in O(1) time after O(n log n) preprocessing.
 
