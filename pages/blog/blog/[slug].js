@@ -14,7 +14,7 @@ export default function PostPage({
             <Head>
                 <title>{title}</title>
             </Head>
-            <div className="max-w-4xl mx-auto mt-10 px-10">
+            <div className="max-w-4xl mx-auto mt-10 px-10 post">
                 <h1 className="text-4xl md:text-7xl font-bold blog-title">{title}</h1>
                 <p className=" mb-4 text-[#A5A5A5;] my-5">written on {date}</p>
                 <div dangerouslySetInnerHTML={{ __html: marked(content) }} />
