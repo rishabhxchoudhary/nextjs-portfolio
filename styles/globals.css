@@ -91,6 +91,7 @@ code {
     font-size: 14px;
     line-height: 1.4;
     border-radius: 4px;
+    overflow-x: auto; /* Add horizontal scroll for small screens */
   }
   
   code .keyword {
@@ -110,6 +111,7 @@ code {
     code {
       font-size: 12px;
       word-wrap: break-word;
+      overflow-x: scroll; /* Add scroll for small screens */
     }
   }
   
