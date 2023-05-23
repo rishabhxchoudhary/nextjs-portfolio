@@ -8,7 +8,7 @@ import Link from 'next/link'
 import sortByDate from '../../utils/index'
 import { useState } from 'react'
 
-function index({ categories }) {
+function Index({ categories }) {
     const [cat, setCat] = useState('Latest');
     console.log(categories);
     return (
@@ -76,7 +76,7 @@ function index({ categories }) {
     )
 }
 
-export default index
+export default Index
 
 export async function getStaticProps() {
     const files = fs.readdirSync(path.join('blogs'))
