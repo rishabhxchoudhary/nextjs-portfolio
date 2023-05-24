@@ -2,7 +2,7 @@
 title: "Database Scaling Techniques"
 date: "24 May 2023"
 category: "Web Development"
-tags: ['Scaling']
+tags: ['DatabaseScaling','ScalingStrategies']
 about: "Scaling a web application to handle 10 million users requires careful planning and the implementation of various strategies. Scaling databases can be done in two main ways: vertical scaling and horizontal scaling. The approach you choose depends on the specific database technology you're using and the requirements of your application."
 ---
 
