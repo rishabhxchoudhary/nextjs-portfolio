@@ -5,7 +5,6 @@ import matter from 'gray-matter'
 import Posts from '../../components/Posts'
 import Head from 'next/head'
 import Link from 'next/link'
-import sortByDate from '../../utils/index'
 import { useState } from 'react'
 
 function Index({ categories }) {
@@ -15,9 +14,9 @@ function Index({ categories }) {
         <>
             <Head>
                 <title>Rk&apos;s WeBlog</title>
-                <meta name="description" content="I am Rishabh. This is my personal Blog page"/>
+                <meta name="description" content="I am Rishabh. This is my personal Blog page" />
                 <meta name="keywords" content='HTML CSS JS JAVASCRIPT NEXTjs REACTjs  Codechef  Codeforces Competitive Programming Web3 Blockchain Solidity' />
-                <meta name="author" content='Rishabh'/>
+                <meta name="author" content='Rishabh' />
                 <meta name="robots" content="index, follow"></meta>
                 <meta property="og:title" content="Rishabh's Portfolio & Blog" />
                 <meta property="og:description" content="This is my Portfolio and Weblog" />
@@ -114,6 +113,10 @@ export async function getStaticProps() {
             }
         }
     )
+
+    const sortByDate = (a, b) => {
+        return new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
+    }
 
     for (const key in categories) {
         categories[key] = categories[key].sort(sortByDate);
