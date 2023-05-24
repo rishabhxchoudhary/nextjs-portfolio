@@ -11,6 +11,13 @@ export default function Home() {
     <div className='scroll-smooth home bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/10 scrollbar-thumb-[#F7AB0A]/80'>
       <Head>
         <title>Rishabh Kumar</title>
+        <meta name="description" content="I am Rishabh. I am a Web Developer and Competitive Programmer. I also post blogs."/>
+        <meta name="keywords" content='HTML CSS JS JAVASCRIPT NEXTjs REACTjs, Codechef, Codeforces' />
+        <meta name="author" content='Rishabh'/>
+        <meta name="robots" content="index, follow"></meta>
+        <meta property="og:title" content="Rishabh's Portfolio & Blog" />
+        <meta property="og:description" content="This is my Portfolio and Weblog" />
+        <meta property="og:image" content="https://www.rishabhxchoudhary.study/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FRK.667e98c0.jpg&w=3840&q=75" />
       </Head>
       <Header/>
 
