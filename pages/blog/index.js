@@ -17,9 +17,9 @@ function Index({ categories }) {
                 <title>Rk&apos;s WeBlog</title>
             </Head>
             <div className='w-full flex flex-col items-center'>
-                <div className='p-14 flex flex-col items-center md:items-start max-w-7xl'>
+                <div className='p-4 md:p-10 lg:p-14 flex flex-col items-center md:items-start max-w-7xl'>
                     <h1 className='text-4xl font-bold mb-10'>RK&apos;s WeBlog</h1>
-                    <div className="section-navigator flex flex-wrap gap-10 mb-10">
+                    <div className="section-navigator flex flex-wrap gap-2 md:gap-5 mb-10">
                         {categories && Object.keys(categories).map((category, index) => (
                             <div key={index} className="flex flex-col items-center cursor-pointer" onClick={() => { setCat(category) }}>
                                 {cat == category ? <div className="rectangle active"></div> : <div className="rectangle"></div>}
@@ -30,7 +30,7 @@ function Index({ categories }) {
                     {cat != 'Contact Me' ?
                         (<>
                             {categories[cat].map((item, index) => (
-                                < Posts key={index} post={item} />
+                                < Posts key={index} post={item} setCat={setCat} />
                             ))}
                         </>) :
                         (
