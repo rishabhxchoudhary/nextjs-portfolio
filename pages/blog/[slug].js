@@ -13,7 +13,7 @@ export default function PostPage({
 }) {
     const [views, setViews] = useState(0);
     useEffect(() => {
-        axios.post('http://localhost:3000/api/register', {
+        axios.post('https://www.rishabhxchoudhary.study/api/register', {
             slug: slug
         }).then(res => {
             setViews(res.data);
