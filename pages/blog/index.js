@@ -15,6 +15,13 @@ function Index({ categories }) {
         <>
             <Head>
                 <title>Rk&apos;s WeBlog</title>
+                <meta name="description" content="I am Rishabh. This is my personal Blog page"/>
+                <meta name="keywords" content='HTML CSS JS JAVASCRIPT NEXTjs REACTjs  Codechef  Codeforces Competitive Programming Web3 Blockchain Solidity' />
+                <meta name="author" content='Rishabh'/>
+                <meta name="robots" content="index, follow"></meta>
+                <meta property="og:title" content="Rishabh's Portfolio & Blog" />
+                <meta property="og:description" content="This is my Portfolio and Weblog" />
+                <meta property="og:image" content="https://www.rishabhxchoudhary.study/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FRK.667e98c0.jpg&w=3840&q=75" />
             </Head>
             <div className='w-full flex flex-col items-center'>
                 <div className='p-4 md:p-10 lg:p-14 flex flex-col items-center md:items-start max-w-7xl'>

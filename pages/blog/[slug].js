@@ -23,6 +23,12 @@ export default function PostPage({
         <>
             <Head>
                 <title>{title}</title>
+                <meta name="description" content="I am Rishabh. This is my personal Blog page" />
+                <meta name="keywords" content={JSON.stringify(tags) + category} />
+                <meta name="author" content='Rishabh' />
+                <meta name="robots" content="index, follow"></meta>
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={about} />
             </Head>
             <div className="max-w-4xl mx-auto mt-10 px-10 post">
                 <h1 className="text-4xl md:text-7xl font-bold blog-title">{title}</h1>
