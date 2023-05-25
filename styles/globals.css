@@ -17,11 +17,7 @@ body{
     color: #fff;
 }
 
-.post-title{
-    margin-bottom: 1rem;
-    font-family: serif;
-    color: #6EEB83;
-}
+
 
 
 .read-more{
@@ -51,6 +47,12 @@ body{
     width: 100%;
 }
 
+.post-title{
+    margin-bottom: 1rem;
+    font-family: serif;
+    color: #6EEB83;
+}
+
 .post .blog-title{
     font-family: serif;
     color: #6EEB83;
@@ -78,9 +80,11 @@ body{
     margin: 25px 0;
 }
 
-.post ul,p{
-    padding: 10px 0;
+.post ul , p , ol{
+    all: revert;
 }
+
+
 
 code {
     display: block;
