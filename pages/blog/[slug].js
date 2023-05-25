@@ -39,7 +39,7 @@ export default function PostPage({
         <>
             <Head>
                 <title>{title}</title>
-                <meta name="description" content="I am Rishabh. This is my personal Blog page" />
+                <meta name="description" content={about} />
                 <meta name="keywords" content={JSON.stringify(tags) + category} />
                 <meta name="author" content='Rishabh' />
                 <meta name="robots" content="index, follow"></meta>
