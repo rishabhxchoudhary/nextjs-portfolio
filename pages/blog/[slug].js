@@ -2,9 +2,19 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { marked } from 'marked'
+import { mangle } from "marked-mangle";
+import { gfmHeadingId } from "marked-gfm-heading-id";
 import Head from 'next/head'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import Script from 'next/script';
+
+const options = {
+    prefix: "my-prefix-",
+};
+
+marked.use(mangle());
+marked.use(gfmHeadingId(options));
 
 export default function PostPage({
     frontmatter: { title, date, category, about, tags },
@@ -18,6 +28,12 @@ export default function PostPage({
         }).then(res => {
             setViews(res.data);
         })
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']]
+            }
+        };
+
     }, [])
     return (
         <>
@@ -35,6 +51,22 @@ export default function PostPage({
                 <p className=" mb-4 text-[#A5A5A5;] my-5">written on {date}</p>
                 <p className=" mb-4 text-[#A5A5A5;] ">Views : {views == 0 ? "Loading..." : views}</p>
                 <div dangerouslySetInnerHTML={{ __html: marked(content) }} />
+                {/* <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+                <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> */}
+                <Script
+                    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+                    strategy="lazyOnload"
+                    onLoad={() =>
+                        console.log(`script loaded correctly, window.FB has been populated`)
+                    }
+                />
+                {/* <script>
+                    window.MathJax = {
+                        tex: {
+                        inlineMath: [['$', '$']]
+                                }
+                            };
+                </script> */}
             </div>
         </>
     )
