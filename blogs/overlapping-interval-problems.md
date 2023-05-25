@@ -1,5 +1,5 @@
 ---
-title: "Overlapping Inverval Problems in Competitive Programming"
+title: "Overlapping Interval Problems in Competitive Programming"
 date: "26 May 2023"
 category: "Competitive Programming"
 tags: ['Overlapping Invervals']
@@ -352,7 +352,7 @@ print("Intervals Intersecting with", search_interval, "are", result)
 
 ___
 
-## 6. Interval Partitioning / Activity Selection Probelms :
+## 6. Interval Partitioning / Activity Selection Problems :
 Divide a set of intervals into a minimum number of disjoint subsets, where no intervals in the same subset overlap.
 
 **Example Problem:**
