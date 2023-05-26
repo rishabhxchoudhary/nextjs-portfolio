@@ -1,7 +1,7 @@
 ---
 title: "Overlapping Interval Problems in Competitive Programming"
 date: "26 May 2023"
-category: "Competitive Programming"
+category: "CP & Interviews"
 tags: ['Overlapping Invervals']
 about: "Interval overlapping problems in competitive programming involve manipulating intervals (ranges) and determining if they overlap with each other. The goal is to design an efficient algorithm to solve these problems.The general idea to solve interval overlapping problems is to sort the intervals based on their start or end points and then traverse them to identify the overlaps."
 ---

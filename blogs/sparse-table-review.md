@@ -1,7 +1,7 @@
 ---
 title: "Sparse Table for LCA"
 date: "23 May 2023"
-category: "Competitive Programming"
+category: "CP & Interviews"
 tags: ['Data Structure','Sparse Table']
 about: "The Sparse Table is a data structure used to efficiently answer range queries on a static array. It is used for frequent range queries, such as finding the minimum, maximum, sum, or any other associative operation over a subarray.The main advantage of the Sparse Table is that it allows us to perform range queries in O(1) time complexity while having a preprocessing time of O(n log n). This makes it an excellent choice for scenarios where the array is static or changes infrequently."
 ---

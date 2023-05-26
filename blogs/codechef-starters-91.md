@@ -1,7 +1,7 @@
 ---
 title: "Solutions to Codechef Contest Starters 91 Div 2"
 date: "25 May 2023"
-category: "Competitive Programming"
+category: "CP & Interviews"
 tags: ['Codechef','Starters 91']
 about: "Codechef Contest Starters provide an excellent platform for budding programmers to test their coding skills and enhance their problem-solving abilities. In this blog post, we will delve into the solutions of the problems from Codechef Contest Starters 91 Div 2. By understanding these solutions, you can sharpen your coding prowess and gain valuable insights into tackling similar challenges in the future."
 ---
