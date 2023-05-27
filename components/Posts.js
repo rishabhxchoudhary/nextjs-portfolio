@@ -5,7 +5,7 @@ import axios from 'axios'
 function Posts({ post, setCat, cat }) { // slug, title, date, category, about, tags
     const [views, setViews] = useState(0);
     useEffect(() => {
-        axios.post('http://localhost:3000/api/count', {
+        axios.post('https://www.rishabhxchoudhary.study/api/count', {
             slug: post.slug
         }).then(res => {
             setViews(res.data);
