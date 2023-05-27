@@ -4,13 +4,13 @@ import axios from 'axios'
 
 function Posts({ post, setCat, cat }) { // slug, title, date, category, about, tags
     const [views, setViews] = useState(0);
-    useEffect(() => {
-        axios.post('https://www.rishabhxchoudhary.study/api/count', {
-            slug: post.slug
-        }).then(res => {
-            setViews(res.data);
-        })
-    }, [views])
+    // useEffect(() => {
+    //     axios.post('https://www.rishabhxchoudhary.study/api/count', {
+    //         slug: post.slug
+    //     }).then(res => {
+    //         setViews(res.data);
+    //     })
+    // }, [views])
 
     return (
         // <Link href={`/blog/${post.slug}`}>
@@ -21,7 +21,7 @@ function Posts({ post, setCat, cat }) { // slug, title, date, category, about, t
             </div>
             <hr></hr>
             <p className='pb-3 text-left'>{String(post.frontmatter.about).slice(0, 500)} <Link href={`/blog/${post.slug}`}><u className='read-more cursor-pointer'> Read More</u></Link></p>
-            <div className="text-sm">Views : {views == 0 ? "Loading" : views}</div>
+            {/* <div className="text-sm">Views : {views == 0 ? "Loading" : views}</div> */}
             <div className='mt-2 flex flex-wrap'>
                 {post.frontmatter.tags?.map((tag, index) => (
                     <span key={index} className='tag p-2 m-1 border text-sm md:text-base rounded-lg'>{tag}</span>
