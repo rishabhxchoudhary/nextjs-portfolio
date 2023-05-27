@@ -36,7 +36,7 @@ function Index({ categories }) {
                     {cat != 'Contact Me' ?
                         (<>
                             {categories[cat].map((item, index) => (
-                                < Posts key={index} post={item} setCat={setCat} />
+                                < Posts key={index} post={item} setCat={setCat} cat={cat} />
                             ))}
                         </>) :
                         (
