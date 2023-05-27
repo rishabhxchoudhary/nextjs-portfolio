@@ -3,7 +3,7 @@ title: "Important Problems on Sliding Window"
 date: "27 May 2023"
 category: "CP & Interviews"
 tags: ['Interviews','sliding-window']
-about: ""
+about: "Delving into the Vital Challenges of Sliding Window: Unveiling the critical hurdles faced in the realm of sliding window methodologies, this blog sheds light on the complexities involved and offers insights into overcoming obstacles for seamless and effective data processing."
 ---
 
 # 1. Maximum Sum Subarray of Size K
