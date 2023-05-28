@@ -1,6 +1,6 @@
 ---
 title: "Important Problems on Heaps for Interviews"
-date: "29 May 2023"
+date: "28 May 2023"
 category: "CP & Interviews"
 tags: ['Interviews','Heaps']
 about: "Discover the key challenges and solutions in the realm of heaps, a fundamental data structure frequently encountered in interviews. This insightful blog explores important problems such as heap construction, insertion, deletion, and heap sort. Dive into efficient algorithms and clever techniques to optimize heap operations and handle edge cases. Sharpen your understanding of heaps and enhance your problem-solving skills for successful coding interviews."
