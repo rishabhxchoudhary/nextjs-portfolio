@@ -1,9 +1,9 @@
 ---
-title: "Important Problems on Sliding Window"
+title: "Mastering Crucial Problems on Sliding Window for Interviews"
 date: "27 May 2023"
 category: "CP & Interviews"
-tags: ['Interviews','sliding-window']
-about: "Delving into the Vital Challenges of Sliding Window: Unveiling the critical hurdles faced in the realm of sliding window methodologies, this blog sheds light on the complexities involved and offers insights into overcoming obstacles for seamless and effective data processing."
+tags: ['Interviews','Sliding Window']
+about: "Explore the essential challenges of sliding window methodologies in this comprehensive blog. Gain valuable insights into the complexities involved and discover effective strategies for overcoming obstacles in data processing. Enhance your understanding of sliding window techniques, equipping yourself with the knowledge needed to tackle these critical problems with confidence during interviews and competitive programming challenges."
 ---
 
 # 1. Maximum Sum Subarray of Size K

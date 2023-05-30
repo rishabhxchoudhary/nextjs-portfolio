@@ -1,9 +1,9 @@
 ---
-title: "Sparse Table for LCA"
+title: "Optimizing Range Queries with Sparse Table for LCA"
 date: "23 May 2023"
 category: "CP & Interviews"
 tags: ['Data Structure','Sparse Table']
-about: "The Sparse Table is a data structure used to efficiently answer range queries on a static array. It is used for frequent range queries, such as finding the minimum, maximum, sum, or any other associative operation over a subarray.The main advantage of the Sparse Table is that it allows us to perform range queries in O(1) time complexity while having a preprocessing time of O(n log n). This makes it an excellent choice for scenarios where the array is static or changes infrequently."
+about: "Discover the power of the Sparse Table, a highly efficient data structure for answering range queries on static arrays. This blog explores its applications in solving frequent range queries, such as finding the minimum, maximum, sum, or any other associative operation over a subarray. With a preprocessing time complexity of O(n log n) and an impressive O(1) time complexity for range queries, the Sparse Table is a valuable tool in scenarios where the array is static or undergoes infrequent changes. Enhance your understanding of this data structure to excel in interviews and competitive programming challenges."
 ---
 
 # Sparse Table: A Powerful Data Structure for Efficient Range Queries

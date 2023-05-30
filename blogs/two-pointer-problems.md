@@ -1,9 +1,9 @@
 ---
-title: "Important Problems on Two Pointer Approach"
+title: "Mastering Important Problems with the Two Pointer Approach"
 date: "26 May 2023"
 category: "CP & Interviews"
-tags: ['Interviews','two-pointers']
-about: "In this comprehensive guide, we explore a curated selection of problems that leverage the power of Two Pointers to efficiently solve a variety of coding challenges. From simple tasks like finding pairs with a given sum to more complex problems such as three-sum variants and array transformations, we delve into real-world examples and provide detailed explanations and solutions."
+tags: ['Interviews','Two Pointers']
+about: "Unlock the potential of the Two Pointer Approach with this comprehensive guide. Explore a curated selection of problems that harness the efficiency of this technique to solve a wide range of coding challenges. From basic tasks like finding pairs with a given sum to more complex problems like three-sum variants and array transformations, this guide offers real-world examples, detailed explanations, and comprehensive solutions. Sharpen your skills and gain confidence in tackling coding challenges by mastering the art of the Two Pointer Approach."
 ---
 
 # 1. Check if a linked list is a Pallindrome

@@ -1,9 +1,9 @@
 ---
-title: "Important Problems on Modified Binary Search"
+title: "Crucial Problems on Modified Binary Search for Technical Interviews"
 date: "28 May 2023"
 category: "CP & Interviews"
 tags: ['Interviews','Binary Search']
-about: "In this blog, we explore crucial problems related to Binary Search that frequently appear in technical interviews. Binary Search is a fundamental algorithm used to efficiently search for a target element in a sorted array. By examining key problem variations, strategies, and potential pitfalls, this article equips aspiring tech interviewees with the essential knowledge needed to tackle Binary Search challenges with confidence."
+about: "Discover important problems related to Modified Binary Search that commonly arise in technical interviews. Binary Search is a vital algorithm utilized for efficient searching of a target element in a sorted array. This blog delves into key problem variations, effective strategies, and potential pitfalls, equipping aspiring tech interviewees with essential knowledge to confidently tackle Binary Search challenges."
 ---
 
 # 1. Kth Smallest Element in a Sorted Matrix
