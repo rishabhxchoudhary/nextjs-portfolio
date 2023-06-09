@@ -42,39 +42,3 @@ Shifting from JavaScript to TypeScript can be a beneficial transition for web de
 
 ## Conclusion:
 Migrating from JavaScript to TypeScript can bring numerous advantages, including improved code quality, early error detection, and enhanced tooling support. While there are some minor drawbacks such as the additional compilation step and the need for stricter coding discipline, the benefits outweigh the challenges. By following the installation steps and understanding the core concepts of TypeScript, developers can smoothly transition and take full advantage of the language's features in
-
-<!-- - All JS file are valid ts file
-- TS is basically JS with Type Checking
-
-Benefits:
-- Static Typing
-- Helps to catch a lot of errors while compiling.
-- Optimizes code completion in IDEs because type of variable is known
-
-Drawbacks:
-- Compilation
-- Discipline in coding.
-
-
-Installation: 
-```
-npm install -g typescript
-```
-This will install typescript compiler
-
-Assining a variable:
-```ts:
-let a:number = 20;
-```
-
-in tsconfig.json file, use ES2016, because its the safest option that supoorts almost all browsers
-
-Datatypes in typescript:
-- any
-- unknown
-- never
-- enum
-- tuple
-
-
- -->
