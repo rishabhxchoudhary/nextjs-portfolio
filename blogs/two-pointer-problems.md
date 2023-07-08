@@ -58,20 +58,20 @@ ___
     Continue moving the pointers until they either meet at an intersection point (i.e., the same node reference) or both reach the end of the linked lists (i.e., become None).
     * If the pointers meet at an intersection point, return that node. Otherwise, if both pointers become None, there is no intersection, and you can return None.
 
-```Python:
-def getIntersectionNode(headA,headB):
-    a = headA
-    b = headB
-    while a!=b:
-        if a==None:
-            a = headB
-        else:
-            a = a.next
-        if b==None:
-            b = headA
-        else:
-            b = b.next
-    return a
+```CPP:
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *a = headA, *b = headB;
+        while(a!=b){
+            if (a==NULL) a = headB;
+            else a = a->next;
+            if (b==NULL) b = headA;
+            else b = b->next;
+        }
+        return a;
+    }
+};
 ```
 
 
