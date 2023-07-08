@@ -89,21 +89,20 @@ Floyd's cycle-finding algorithm / Tortoise and Hare algorithm:
 4. If the slow and fast pointers meet (i.e., they point to the same node), it indicates the presence of a cycle in the linked list. Return True.
 5. Repeat steps 2 to 4 until a cycle is detected or the end of the linked list is reached.
 
-```Python:
-def hasCycle(head):
-    if not head or not head.next:
-        return False
-
-    slow = head
-    fast = head.next
-
-    while slow != fast:
-        if not fast or not fast.next:
-            return False
-        slow = slow.next
-        fast = fast.next.next
-
-    return True
+```CPP:
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if(head==NULL || head->next==NULL) return false;
+        ListNode *fast = head, *slow = head;
+        while(fast!=NULL && fast->next!=NULL){
+            fast = fast->next->next;
+            slow = slow->next;
+            if (fast==slow) return true;
+        }
+        return false;
+    }
+};
 ```
 
 <br>
