@@ -12,30 +12,38 @@ about: "Unlock the potential of the Two Pointer Approach with this comprehensive
 * Reverse the second half of the linked list starting from the node pointed to by the slow pointer. This can be done by reversing the next pointers of the nodes.
 * Reset the fast pointer to the head of the linked list, and move both pointers (fast and slow) one step at a time, comparing the values of the nodes they are pointing to. If at any point the values are not equal, the linked list is not a palindrome.
 * If the pointers reach the end of the list without any unequal values, the linked list is a palindrome.
-```Python:
-def reverse_linked_list(head):
-    prev = None
-    curr = head
-    while curr:
-        next_node = curr.next
-        curr.next = prev
-        prev = curr
-        curr = next_node
-    return prev
-def is_palindrome(head):
-    if not head or not head.next:
-        return True
-    slow = fast = head
-    while fast and fast.next:
-        slow = slow.next
-        fast = fast.next.next
-    slow = reverse_linked_list(slow)
-    while slow:
-        if head.val != slow.val:
-            return False
-        head = head.next
-        slow = slow.next
-    return True
+```CPP:
+ListNode* reverseList(ListNode* head) {
+    ListNode *cur = head, *prev=NULL,*nxt=NULL;
+    while(cur!=NULL){
+        nxt = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = nxt;
+    }
+    return prev;
+}
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode *slow = head,*fast = head;
+        if (head==NULL || head->next==NULL)
+            return true;
+        while (fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        slow = reverseList(slow);
+        while(head!=NULL && slow!=NULL){
+            if (slow->val!=head->val){
+                return false;
+            }
+            slow = slow->next;
+            head = head->next;
+        }
+        return true;
+    }
+};
 ```
 
 <br>
