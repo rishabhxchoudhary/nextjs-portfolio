@@ -614,3 +614,112 @@ class Solution:
         return dp[n][n]
                         
 ```
+
+# Projects
+
+Link: https://cses.fi/problemset/task/1140/
+
+- This problem is based on Overlapping subproblems and Optimal substructure (making locally optimal choices).
+- The maximum amount of money you can earn by attending projects depends on the maximum amount of money earned until the last project that ends before the current project. This dependency creates overlapping subproblems, as the same subproblems are encountered multiple times during the computation.
+- Sort the projects based on their ending days in ascending order. This sorting step is important for the dynamic programming approach to work efficiently.
+- Create an array, let's call it "dp," of size n+1, where dp[i] represents the maximum amount of money you can earn until the i-th project (including the i-th project).
+- Initialize dp[0] = 0, indicating that you haven't attended any project yet, so the maximum amount of money earned is 0.
+- Iterate over each project starting from the first project:
+    1. Find the last project that ends before the starting day of the current project. You can use binary search to efficiently find this project since the projects are sorted based on their ending days.
+    2. Calculate the maximum amount of money you can earn by either attending the current project or skipping it. To attend the current project, add the reward of the current project to the maximum amount of money earned until the last project that ends before the starting day of the current project. To skip the current project, use the maximum amount of money earned until the previous project.
+    3. Update dp[i] with the maximum amount of money calculated in step 4b.
+
+```cpp:
+int binary_search(vector<tuple<int, int, int>> &projects, int &target)
+{
+    int low = 0, high = projects.size() - 1, result = -1;
+    while (low <= high)
+    {
+        int mid = low + (high - low) / 2;
+        if (get<1>(projects[mid]) < target)
+        {
+            result = mid;
+            low = mid + 1;
+        }
+        else
+            high = mid - 1;
+    }
+    return result;
+}
+
+signed main()
+{
+    int n;
+    cin >> n;
+    vector<tuple<int, int, int>> projects;
+
+    for (int i = 0; i < n; i++)
+    {
+        int a, b, c;
+        cin >> a >> b >> c;
+        projects.emplace_back(make_tuple(a, b, c));
+    }
+    sort(projects.begin(), projects.end(), [](tuple<int, int, int> &a, tuple<int, int, int> &b)
+         { return get<1>(a) < get<1>(b); });
+
+    vector<int> dp(n + 1, 0);
+    for (int i = 1; i < n + 1; i++)
+    {
+        int j = binary_search(projects, get<0>(projects[i - 1]));
+        dp[i] = max(get<2>(projects[i - 1]) + dp[j + 1], dp[i - 1]);
+    }
+    
+    cout << dp[n];
+
+    return 0;
+}
+```
+
+# Elevator Rides
+
+Link: https://cses.fi/problemset/task/1653
+
+There are n people who want to get to the top of a building which has only one elevator. You know the weight of each person and the maximum allowed weight in the elevator. What is the minimum number of elevator rides?
+
+Solution:
+
+- If we look at the constraints, n <=20 and x<=10^9. Since n is very small, and x is very large, the complexity can go exponential in the order of n as 2^20 is almost 10^10. This is a hint to use DP with bitmasking.
+- We want to fit as many people at a time in the lift. finding those set of people is a very tough task.
+- This problem is based of DP with bitmasking. 
+- mask will store which people we want to lift, like for 0001 only the last peoson
+- let DP[mask] = {minimum no. rides, weight carried by list on the last ride}.
+- We will iterate over all the masks from 1 to 2^n-1. 
+- mask of 2^n -1 represents 11111... n times, hence dp[2^n -1].first is our answer.
+- for every mask:
+    - traverse in the weights array and try to minimize the number of lift rides. 
+
+```CPP:
+signed main()
+{
+    int n, x;
+    cin >> n >> x;
+    vector<int> weights(n, 0);
+    for (int i = 0; i < n; i++)
+        cin >> weights[i];
+    int INF = 1e9;
+    vector< pair<int,int> > dp(1<<n,{INF,INF});
+    dp[0] = {0,INF};
+    for(int mask = 1;mask<(1<<n);mask++){
+        pair<int,int> best = {INF,INF};
+        for(int i=0;i<n;i++){
+            pair<int,int> cur = dp[mask ^ (1<<i)];
+            if (cur.second + weights[i]>x){
+                cur = {cur.first+1,weights[i]};
+            }
+            else{
+                cur.second+=weights[i];
+            }
+            best = min(best,cur);
+        }
+        dp[mask] = best;
+    }
+    cout<< dp[(1<<n)-1].first <<endl;
+    return 0;
+}
+```
+
