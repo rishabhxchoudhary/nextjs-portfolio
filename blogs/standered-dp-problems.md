@@ -1,16 +1,22 @@
 ---
-title: "Dynamic Programming Standered Problems"
+title: "Dynamic Programming Standard Problems - Solutions for CSES and Other Problem Sets"
 date: "12 July 2023"
 category: "CP & Interviews"
-tags: ['Dynamic Programming']
-about: "Solutions of CSES and other good problem set on Dynamic Programming"
+tags: ['Dynamic Programming',"CSES"]
+about: "Explore efficient solutions to dynamic programming problems from the CSES problem set and other reputable sources. Improve your algorithm optimization skills and enhance your competitive programming and interview preparation"
 ---
 
 # Dice Combinations
 
 Problem Link: https://cses.fi/problemset/task/1633
 
+Your task is to count the number of ways to construct sum n by throwing a dice one or more times. Each throw produces an outcome between 1 and 6.
+
 Solution:
+
+- If I want to make a sum S, and I have options 1,2,3,4,5,6. then I can add 1 to S-1,S-2,S-3,S-4,S-5 and make the sum S.
+- Let DP[i] = number of ways to make the sum i.
+- DP[i] = DP[i-1]+DP[i-2]+DP[i-3]+DP[i-4]+DP[i-5]+DP[i-6]. as I can add 1 to all these to make the sum i.
 
 ```cpp:
 int main()
@@ -41,6 +47,11 @@ Problem Link: https://cses.fi/problemset/task/1634/
 Consider a money system consisting of n coins. Each coin has a positive integer value. Your task is to produce a sum of money x using the available coins in such a way that the number of coins is minimal.
 
 Solution:
+
+- This is a classical DP problem.
+- It is very similar to previous problem. Let DP[i] = minimum coins to make the sum i.
+- Let the target sum be S and coins c1,c2,c3..cn.
+- DP[i] = min(DP[i-c1]+1,DP[i-c2]+1,DP[i-c3]+1,....DP[i-cn]+1) as i can add 1 coin value to all these to make the sum i.
 
 ```CPP:
 int main()
@@ -78,6 +89,23 @@ Consider a money system consisting of n coins. Each coin has a positive integer 
 
 Solution:
 
+- Here, "distinct ways" refers to counting the total number of different combinations or arrangements of coins that can be used to produce the money sum x.
+- For example, if the coins are {2,3,5} and the desired sum is 9, there are 8 ways:
+   - 2+2+5
+   - 2+5+2
+   - 5+2+2
+   - 3+3+3
+   - 2+2+2+3
+   - 2+2+3+2
+   - 2+3+2+2
+   - 3+2+2+2
+- Let DP[i] = number of ways to make the sum i.
+- Now similar to previous problem, I can reach DP[i] from DP[i-c1],DP[i-c2],DP[i-c3],....DP[i-cn].
+- But we do not want to minimize it this time.
+- let DP[0] = 1, because only 1 way to obtain sum 0, i.e. to not use any coins.
+- DP[i] = DP[i-c1]+DP[i-c2]+DP[i-c3]+...+DP[i-cn].
+- Notice that each of DP[i-ci] may contribute 1 or more than 1 the answer.
+
 ```CPP:
 int main()
 {
@@ -104,6 +132,21 @@ int main()
 Link: https://cses.fi/problemset/task/1636
 
 Consider a money system consisting of n coins. Each coin has a positive integer value. Your task is to calculate the number of distinct ordered ways you can produce a money sum x using the available coins.
+
+Solution: 
+- Here "distinct ordered ways" refers to counting the total number of different sequences or permutations of coins that can be used to produce the money sum x. 
+
+- For example, if the coins are {2,3,5} and the desired sum is 9, there are 3 ways:
+   - 2+2+5
+   - 3+3+3
+   - 2+2+2+3
+
+- Let DP[i][j] = the number of distinct ordered ways to obtain the sum j using the first i coins.
+- Then DP[i][0] = 0 for all i.
+- Iterate over the coins from 1 to n. For each coin value c, iterate over the range from 1 to S. 
+- For each value j in the range, update dp[i][j] by adding dp[i-1][j] (the number of ways to obtain the sum j without using the ith coin) and dp[i][j-c] (the number of ways to obtain the remaining sum (j-c) using the ith coin).
+- At the end, dp[n][x] will represent the total number of distinct ordered ways to produce the money sum x using the available coins.
+- We can actually reduce the space to linear by iterating over the coins first.
 
 ```CPP:
 int main()
@@ -185,6 +228,19 @@ int main()
 Link: https://cses.fi/problemset/task/1158
 
 You are in a book shop which sells n different books. You know the price and number of pages of each book.
+You have decided that the total price of your purchases will be at most x. What is the maximum number of pages you can buy? You can buy each book at most once.
+
+Solution:
+- This is very similar to the classical Dynamic Programming problem known as the "Knapsack Problem". In the Knapsack Problem, you are given a set of items, each with a weight and a value, and a knapsack with a maximum weight capacity. The goal is to select items to maximize the total value while ensuring that the total weight does not exceed the capacity of the knapsack.
+- The books correspond to the items in the Knapsack Problem, and the price of the books corresponds to the weight of the items. The number of pages in the books can be seen as the value of the items. You are trying to maximize the total number of pages (value) you can buy while ensuring that the total price (weight) does not exceed a given budget (capacity).
+
+- Let DP[i][j] = the maximum number of pages that can be bought with a budget of 'j' considering the first 'i' books.
+- dp[0][j] = 0 for all j, as with no books, the number of pages is 0.
+- dp[i][0] = 0 for all i, as with no budget, the number of pages is 0.
+- For each book 'i' (1 ≤ i ≤ n) and each budget 'j' (1 ≤ j ≤ x), we have two choices:
+    1. We don't buy the current book 'i': In this case, dp[i][j] = dp[i-1][j].
+    2. We buy the current book 'i': In this case, dp[i][j] = pages[i] + dp[i-1][j-price[i]], where
+- The maximum number of pages that can be bought will be the maximum value between the two choices: dp[i][j] = max(dp[i-1][j], pages[i] + dp[i-1][j-price[i]]).
 
 ```CPP:
 int main()
