@@ -321,6 +321,28 @@ The allowed operations are:
     - Remove one character from the string.
     - Replace one character in the string.
 
+Solution:
+
+- This is a standered DP problem. 
+- Problems like Minimum ASCII Delete Sum for Two Strings,Longest Common Subsequence (LCS) and many more are special cases of this problem.
+    1. Minimum ASCII Delete Sum for Two Strings:
+        - In this problem, instead of counting the number of operations, we calculate the minimum sum of ASCII values of characters to delete from two strings to make them equal.
+        - It is essentially the same as the edit distance problem, but the cost of each operation is the ASCII value of the character being deleted.
+        - If we change the cost of deletion to ASCII value of the character being deleted, edit distance becomes this problem.
+    2. Longest Common Subsequence (LCS):
+        - The LCS problem involves finding the longest subsequence that two strings have in common.
+        - You can set the cost of replacement to infinity (or a very large value), effectively making this operations impossible. The cost of deletion and insertion can be set to 0 or 1 since deleting characters is allowed.
+
+
+- Initialize a 2D DP table of size (n+1) x (m+1). The extra 1 in each dimension is for accommodating the empty string as a base case.
+- Initialize the first row and first column of the DP table. 
+    - The value at DP[i][0] will represent the edit distance between s1[0...i-1] and the empty string (which requires i deletions). 
+    - Similarly, the value at DP[0][j] will represent the edit distance between the empty string and s2[0...j-1] (which requires j insertions).
+- Iterate over the DP table row by row and column by column, starting from DP[1][1]. For each position DP[i][j], consider the characters s1[i-1] and s2[j-1]:
+    - If s1[i-1] and s2[j-1] are equal, the current characters match, so no operation is needed. Therefore, DP[i][j] will be equal to DP[i-1][j-1].
+    - If s1[i-1] and s2[j-1] are different, we need to choose the minimum cost operation among adding, removing, or replacing a character. The three options correspond to the values DP[i][j-1] (insertion), DP[i-1][j] (deletion), and DP[i-1][j-1] (replacement). The current DP[i][j] value will be one plus the minimum of these three options.
+-  Once the DP table is filled, the minimum edit distance will be stored in DP[n][m]
+
 ```cpp:
 int main()
 {
@@ -352,6 +374,20 @@ int main()
 Link: https://cses.fi/problemset/task/1744/
 
 Given an a×b rectangle, your task is to cut it into squares. On each move you can select a rectangle and cut it into two rectangles in such a way that all side lengths remain integers. What is the minimum possible number of moves?
+
+Solution:
+
+- This is a variation of the standered DP Problem called "Minimum Cost of Cutting a Rod". In the standard problem, we are given a rod of length n and a list of prices for different lengths of the rod. The task is to cut the rod into pieces of integer lengths to maximize the total price.
+- The approach used in solving the rectangle cutting problem is similar to the standard rod cutting problem, but with some modifications to handle the two-dimensional nature of the rectangle.
+- Instead of maximizing the total price, in the rectangle cutting problem, we aim to minimize the number of cuts required. The DP table stores the minimum number of cuts for subproblems, considering both horizontal and vertical cuts.
+- let dp of size (a+1) x (b+1) with all values set to a very large number (1e9 is a common way to represent infinity in competitive programming).
+- For each cell (i,j), consider two cases:
+    1. Horizontal cut
+        - For each possible cut height h (1 <= h < i), calculate the minimum number of moves required for the remaining rectangle (i-h) x j and add 1 to account for the current cut.
+    2. Vertical cut: 
+        - For each possible cut width w (1 <= w < j), calculate the minimum number of moves required for the remaining rectangle i x (j-w) and add 1 to account for the current cut.
+    - Take the minimum value between the horizontal cut and vertical cut for each cell and store it in dp[i][j].
+- Return dp[a][b] as the final answer.
 
 ```cpp:
 int main()
@@ -385,32 +421,48 @@ Link: https://cses.fi/problemset/task/1745
 
 You have n coins with certain values. Your task is to find all money sums you can create using these coins.
 
+Solution:
+- This problem can be seen as a variation of the subset sum problem, which is a well-known dynamic programming problem. 
+- In the subset sum problem, we are given a set of integers, and the goal is to determine if there exists a subset of the integers that sums up to a given target value. The solution to the subset sum problem can be modified to solve the problem of finding all money sums.
+
+- Lets first find S = sum of all coins, this is the maximum sum we can get.
+- Initialize a boolean array dp of size S+1, where S is the sum of all coin values.
+- Set all elements of dp to false initially. 
+- Set dp[0] to true, indicating that we can always make a sum of 0 using an empty set.
+- Iterate over each coin value from 1 to n (assuming the coins are stored in an array called coins).
+    - Iterate backward from S to coins[i].
+    - If dp[j - coins[i]] is true, set dp[j] to true, indicating that we can make a sum of j using the current coin.
+    - By iterating backward, we ensure that each coin is used only once in creating the money sums. The dynamic programming table dp keeps track of the possible sums that can be formed.
+- After completing the iterations, all indices j for which dp[j] is true represent the money sums that can be created using the given coins.
+
 ```CPP:
-int main()
+signed main()
 {
-    fast;
     int n; cin>>n;
-    int N=1000*n;
-    vector<int> coins(n+1,0);
-    for(int i=1;i<=n;i++) cin>>coins[i];
-    vector< vector<int> > dp(n+1, vector<int>(N+1,0));
-    dp[0][0]=1;
-    int ans=0;
-    for(int i=1;i<n+1;i++){
-        for(int j=1;j<=N;j++){
-            if (dp[i-1][j]) dp[i][j]=1;
-            if (coins[i]==j) dp[i][j]=1;
-            int l=j-coins[i];
-            if (l>0){
-                if (dp[i-1][l]) dp[i][j]=1;
-            }
-            if(i==n){
-                if (dp[i][j]==1)ans++;
-            }
+    int coin_sum = 0;
+    vector<int> coins;
+    for(int i=0;i<n;i++){
+        int c;cin>>c;
+        coins.emplace_back(c);
+        coin_sum+=c;
+    }
+    vector<bool>dp(coin_sum+1,false);
+    dp[0]=true;
+
+    for(int coin: coins){
+        for(int i=coin_sum;i>=coin;i--){
+            if (dp[i-coin]) dp[i]=true;
         }
     }
-    cout<<ans<<endl;
-    for(int i=1;i<=N;i++) if (dp[n][i]) cout<<i<<" ";
+    int count = 0;
+    for(int i=1;i<coin_sum+1;i++){
+        if (dp[i]) count++;
+    }
+    cout<<count<<endl;
+    for(int i=1;i<coin_sum+1;i++){
+        if (dp[i]) cout<<i<<" ";
+    }
+    cout<<endl;
     return 0;
 }
 ```
@@ -420,6 +472,27 @@ int main()
 Link: https://cses.fi/problemset/task/1097/
 
 There is a list of n numbers and two players who move alternately. On each move, a player removes either the first or last number from the list, and their score increases by that number. Both players try to maximize their scores.
+
+Solution:
+
+- This is a well-known and frequently studied problem in game theory and dynamic programming.
+- It can be categorized as a variation of the classic game called "Nim," which involves two players taking turns removing objects from distinct piles.
+- It is an advanced problem involving game theory and optimal decision-making in competitive scenarios.
+- A solution video by MIT can be found here: https://youtu.be/Tw1k46ywN6E?t=3267
+
+- For every position (i,j), we have some choices:
+    - we can either remove L[i] or L[j] and maximize the score.
+    - If we pick L[i]:
+        - dp[i][j] will increase by +L[i]
+        - The opponent will see L[i+1:j], but L[i+1:j] is not the list that current player will see when he plays.
+        - We have to model this somehow. We cannot put DP[i+1][j] there as it is not controlled by the current player.
+        - Opponent has a DP[i+1][j] subproblem
+        - Current player is garanteed the min(DP[i+1][j-1],DP[i+2][j]), as the opponent will obviously chose the maximum.
+    - If we pick L[j]
+        - Opponent has a DP[i][j-1] subproblem.
+        - Current player is garanteed the min(DP[i+1][j-2],DP[i+1][j-1]), as the opponent will obviously chose the maximum.
+    - Take the maximum of these 2 cases.
+- Memoize the solution.
 
 ```CPP:
 ll score(vector<vector<ll>> &dp, ll l[], int i, int j)
@@ -463,6 +536,18 @@ Link: https://cses.fi/problemset/task/1093
 
 Your task is to count the number of ways numbers 1,2,…,n can be divided into two sets of equal sum.
 
+Solution:
+- This is a classical problem in combinatorial mathematics. Unfortunately, finding an exact solution for large values of n is a computationally difficult problem, known as an NP-complete problem. 
+- To solve this problem using dynamic programming, we can break it down into smaller subproblems. 
+- We'll build a table dp to store the intermediate results, where dp[i][j] represents the number of ways to divide the numbers 1, 2, ..., i into two sets with a sum of j.
+- There is only one way to achieve a sum of 0 using an empty set, so dp[0][0] is initialized to 1.
+- Iterate through the numbers from 1 to n:
+    1. For each number i, iterate through the possible sums j from 0 to the targetSum.
+    2. For each dp[i][j], there are two possibilities:
+        - Exclude the current number i: The number of ways to form the sum j without including i is given by dp[i - 1][j]. So, we assign dp[i][j] = dp[i - 1][j].
+        - Include the current number i: If j is greater than or equal to i, it means that the current number i can contribute to the sum j. In this case, the number of ways to form the sum j by including i is given by dp[i - 1][j - i]. So, we assign dp[i][j] += dp[i - 1][j - i].
+- Return the value at dp[n][targetSum] as the final result.
+
 ```cpp:
 int main()
 {
@@ -488,3 +573,44 @@ int main()
 }
 ```
 
+# Longest Pallindromic Subsequence
+
+Link: https://www.interviewbit.com/problems/longest-palindromic-subsequence/
+
+Solution:
+
+- MIT Solution Video: https://youtu.be/Tw1k46ywN6E?t=317
+
+- Let DP[i][j] = length of longest Pallindromic subsequence in range A[i:j]
+- For every i and j pair, we have 2 choices:
+    - if i==j: return 1 # as array of length 1 is always a pallindrome.
+    - if A[i]==A[j]: # we can try to find the length of LPS in this range
+        1. if i+1==j: return 2
+        2. else: return 2+ DP[i+1][j-1]
+    - else: return max(DP[i][j-1],DP[i+1][j]) # else we have to remove either the left or right character and take max.
+- Memoize it for pair (i,j), then the final complexity if O(n^2).
+
+or
+
+- It is a special case of LCS. LPS is same as LCS of A and reversed A.
+
+```
+class Solution:
+    # @param A : string
+    # @return an integer
+    def solve(self, A):
+        n = len(A)
+        B = A[::-1]
+        dp = [[0 for i in range(n+1)] for j in range(n+1)]
+        for i in range(n+1):
+            for j in range(n+1):
+                if i==0 or j==0:
+                    dp[i][j]=0
+                else:
+                    if A[i-1]==B[j-1]:
+                        dp[i][j]=1+dp[i-1][j-1]
+                    else:
+                        dp[i][j]=max(dp[i-1][j],dp[i][j-1])
+        return dp[n][n]
+                        
+```
