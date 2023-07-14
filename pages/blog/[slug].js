@@ -45,6 +45,15 @@ export default function PostPage({
                 <meta name="robots" content="index, follow"></meta>
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={about} />
+                <script
+                    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+                    async
+                />
+                {/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-okaidia.min.css" /> */}
+                <script
+                    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"
+                    async
+                />
             </Head>
             <div className="max-w-4xl mx-auto mt-10 px-10 post">
                 <h1 className="text-4xl md:text-7xl font-bold blog-title">{title}</h1>
@@ -53,13 +62,7 @@ export default function PostPage({
                 <div dangerouslySetInnerHTML={{ __html: marked(content) }} />
                 {/* <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
                 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> */}
-                <Script
-                    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-                    strategy="afterInteractive"
-                    onLoad={() =>
-                        console.log(`script loaded correctly, window.FB has been populated`)
-                    }
-                />
+
                 {/* <script>
                     window.MathJax = {
                         tex: {

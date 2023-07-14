@@ -40,6 +40,8 @@ int main()
 }
 ```
 
+___
+
 # Minimizing Coins
 
 Problem Link: https://cses.fi/problemset/task/1634/
@@ -53,7 +55,7 @@ Solution:
 - Let the target sum be S and coins c1,c2,c3..cn.
 - DP[i] = min(DP[i-c1]+1,DP[i-c2]+1,DP[i-c3]+1,....DP[i-cn]+1) as i can add 1 coin value to all these to make the sum i.
 
-```CPP:
+```cpp:
 int main()
 {
     int n,x;cin>>n>>x;
@@ -81,6 +83,8 @@ int main()
 }
 ```
 
+___
+
 # Coin Combinations I
 
 Link: https://cses.fi/problemset/task/1635
@@ -106,7 +110,7 @@ Solution:
 - DP[i] = DP[i-c1]+DP[i-c2]+DP[i-c3]+...+DP[i-cn].
 - Notice that each of DP[i-ci] may contribute 1 or more than 1 the answer.
 
-```CPP:
+```cpp:
 int main()
 {
     int n,x;
@@ -126,6 +130,9 @@ int main()
     return 0;
 }
 ```
+
+___
+
 
 # Coin Combinations II
 
@@ -148,7 +155,7 @@ Solution:
 - At the end, dp[n][x] will represent the total number of distinct ordered ways to produce the money sum x using the available coins.
 - We can actually reduce the space to linear by iterating over the coins first.
 
-```CPP:
+```cpp:
 int main()
 {
     int n,x;
@@ -169,13 +176,22 @@ int main()
 }
 ```
 
+___
+
+
 # Grid Paths
 
 Link: https://cses.fi/problemset/task/1638
 
 Consider an n×n grid whose squares may have traps. It is not allowed to move to a square with a trap.
 
-```CPP:
+Solution:
+- This is a problem on Grid DP.
+- if a cell $(x, y)$ is normal, we can use the recurrence normally. But, if cell $(x, y)$ has an asterisk, the dp-value is $0$, because no path can end on a trap.
+
+$$\texttt{dp}[x][y] = \begin{cases} \texttt{dp}[x-1][y] + \texttt{dp}[x][y-1] & \text{if $(x, y)$ is not a trap} \\ ,0: & \text{if $(x, y)$ is a trap} \end{cases}$$
+
+```cpp:
 typedef long long ll;
 ll mod = 1000000007;
 int main()
@@ -223,6 +239,9 @@ int main()
 }
 ```
 
+___
+
+
 # Book Shop
 
 Link: https://cses.fi/problemset/task/1158
@@ -242,7 +261,7 @@ Solution:
     2. We buy the current book 'i': In this case, dp[i][j] = pages[i] + dp[i-1][j-price[i]], where
 - The maximum number of pages that can be bought will be the maximum value between the two choices: dp[i][j] = max(dp[i-1][j], pages[i] + dp[i-1][j-price[i]]).
 
-```CPP:
+```cpp:
 int main()
 {
     int n,x; cin>>n>>x;
@@ -266,6 +285,9 @@ int main()
 }
 ```
 
+___
+
+
 # Array Description
 
 Link: https://cses.fi/problemset/task/1746
@@ -273,7 +295,7 @@ Link: https://cses.fi/problemset/task/1746
 You know that an array has n integers between 1 and m, and the absolute difference between two adjacent values is at most 1.
 Given a description of the array where some values may be unknown, your task is to count the number of arrays that match the description.
 
-```CPP:
+```cpp:
 int main()
 {
     fast;
@@ -309,6 +331,9 @@ int main()
     return 0;
 }
 ```
+
+___
+
 
 # Edit Distance
 
@@ -369,6 +394,9 @@ int main()
 }
 ```
 
+___
+
+
 # Rectangle Cutting
 
 Link: https://cses.fi/problemset/task/1744/
@@ -415,6 +443,9 @@ int main()
 }
 ```
 
+___
+
+
 # Money Sums
 
 Link: https://cses.fi/problemset/task/1745
@@ -435,7 +466,7 @@ Solution:
     - By iterating backward, we ensure that each coin is used only once in creating the money sums. The dynamic programming table dp keeps track of the possible sums that can be formed.
 - After completing the iterations, all indices j for which dp[j] is true represent the money sums that can be created using the given coins.
 
-```CPP:
+```cpp:
 signed main()
 {
     int n; cin>>n;
@@ -467,6 +498,9 @@ signed main()
 }
 ```
 
+___
+
+
 # Removal Game
 
 Link: https://cses.fi/problemset/task/1097/
@@ -494,7 +528,7 @@ Solution:
     - Take the maximum of these 2 cases.
 - Memoize the solution.
 
-```CPP:
+```cpp:
 ll score(vector<vector<ll>> &dp, ll l[], int i, int j)
 {
     if (dp[i][j] != 1e9) return dp[i][j];
@@ -529,6 +563,9 @@ int main()
     return 0;
 }
 ```
+
+___
+
 
 # Two Sets II
 
@@ -573,6 +610,9 @@ int main()
 }
 ```
 
+___
+
+
 # Longest Pallindromic Subsequence
 
 Link: https://www.interviewbit.com/problems/longest-palindromic-subsequence/
@@ -614,6 +654,10 @@ class Solution:
         return dp[n][n]
                         
 ```
+
+
+___
+
 
 # Projects
 
@@ -675,6 +719,9 @@ signed main()
 }
 ```
 
+___
+
+
 # Elevator Rides
 
 Link: https://cses.fi/problemset/task/1653
@@ -693,7 +740,7 @@ Solution:
 - for every mask:
     - traverse in the weights array and try to minimize the number of lift rides. 
 
-```CPP:
+```cpp:
 signed main()
 {
     int n, x;
@@ -722,4 +769,60 @@ signed main()
     return 0;
 }
 ```
+
+___
+
+
+# Hamiltonian Flight
+
+Link: https://cses.fi/problemset/task/1690
+
+There are n cities and m flight connections between them. You want to travel from Syrjälä to Lehmälä so that you visit each city exactly once. How many possible routes are there?
+
+Solution:
+
+```cpp:
+signed main()
+{
+    int n, m;
+    cin >> n >> m;
+    vector<vector<int>> dp((1 << n), vector<int>(n, 0));
+    vector<vector<int>> graph(n, vector<int>());
+    for (int i = 0; i < m; i++)
+    {
+        int u, v;
+        cin >> u >> v;
+        graph[--v].emplace_back(--u);
+    }
+    dp[1][0] = 1;
+    for (int mask = 2; mask < (1 << n); mask++){
+        if ((mask & 1) == 0) continue;
+        if (((mask & (1 << (n - 1)))) && (mask != ((1 << n) - 1))) continue;
+        for (int i = 0; i < n; i++){
+            if ((mask & (1 << i)) == 0) continue;
+            int new_mask = mask ^ (1 << i);
+            for (int prev_city : graph[i]) {
+                if (mask & (1 << prev_city)) {
+                    dp[mask][i] += dp[new_mask][prev_city];
+                    dp[mask][i] %= mod;
+                }
+            }
+        }
+    }
+    cout << dp[(1 << n) - 1][n - 1] << endl;
+    return 0;
+}
+
+```
+
+___
+
+
+<footer>
+<br>
+<br>
+Thanks for Reading.
+<br>
+<br>
+</footer>
 
