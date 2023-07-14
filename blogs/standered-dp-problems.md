@@ -10,13 +10,13 @@ about: "Explore efficient solutions to dynamic programming problems from the CSE
 
 Problem Link: https://cses.fi/problemset/task/1633
 
-Your task is to count the number of ways to construct sum n by throwing a dice one or more times. Each throw produces an outcome between 1 and 6.
+Your task is to count the number of ways to construct a sum $n$ by throwing a dice one or more times. Each throw produces an outcome between $1$ and $6$.
 
 Solution:
 
-- If I want to make a sum S, and I have options 1,2,3,4,5,6. then I can add 1 to S-1,S-2,S-3,S-4,S-5 and make the sum S.
-- Let DP[i] = number of ways to make the sum i.
-- DP[i] = DP[i-1]+DP[i-2]+DP[i-3]+DP[i-4]+DP[i-5]+DP[i-6]. as I can add 1 to all these to make the sum i.
+- If I want to make a sum $S$, and I have options $1,2,3,4,5,6$, then I can add $1$ to $S-1, S-2, S-3, S-4, S-5$ and make the sum $S$.
+- Let $DP[i]$ be the number of ways to make the sum $i$.
+- $DP[i] = DP[i-1] + DP[i-2] + DP[i-3] + DP[i-4] + DP[i-5] + DP[i-6]$, as I can add $1$ to all these to make the sum $i$.
 
 ```cpp:
 int main()
@@ -40,20 +40,22 @@ int main()
 }
 ```
 
+<br>
+
 ___
 
 # Minimizing Coins
 
 Problem Link: https://cses.fi/problemset/task/1634/
 
-Consider a money system consisting of n coins. Each coin has a positive integer value. Your task is to produce a sum of money x using the available coins in such a way that the number of coins is minimal.
+Consider a money system consisting of $n$ coins. Each coin has a positive integer value. Your task is to produce a sum of money $x$ using the available coins in such a way that the number of coins is minimal.
 
 Solution:
 
 - This is a classical DP problem.
-- It is very similar to previous problem. Let DP[i] = minimum coins to make the sum i.
-- Let the target sum be S and coins c1,c2,c3..cn.
-- DP[i] = min(DP[i-c1]+1,DP[i-c2]+1,DP[i-c3]+1,....DP[i-cn]+1) as i can add 1 coin value to all these to make the sum i.
+- It is very similar to the previous problem. Let $DP[i]$ be the minimum number of coins to make the sum $i$.
+- Let the target sum be $S$ and coins $c_1, c_2, c_3, \ldots, c_n$.
+- $DP[i] = \min(DP[i-c_1]+1, DP[i-c_2]+1, DP[i-c_3]+1, \ldots, DP[i-c_n]+1)$, as I can add 1 coin value to all these to make the sum $i$.
 
 ```cpp:
 int main()
@@ -89,26 +91,26 @@ ___
 
 Link: https://cses.fi/problemset/task/1635
 
-Consider a money system consisting of n coins. Each coin has a positive integer value. Your task is to calculate the number of distinct ways you can produce a money sum x using the available coins.
+Consider a money system consisting of $n$ coins. Each coin has a positive integer value. Your task is to calculate the number of distinct ways you can produce a money sum $x$ using the available coins.
 
 Solution:
 
-- Here, "distinct ways" refers to counting the total number of different combinations or arrangements of coins that can be used to produce the money sum x.
-- For example, if the coins are {2,3,5} and the desired sum is 9, there are 8 ways:
-   - 2+2+5
-   - 2+5+2
-   - 5+2+2
-   - 3+3+3
-   - 2+2+2+3
-   - 2+2+3+2
-   - 2+3+2+2
-   - 3+2+2+2
-- Let DP[i] = number of ways to make the sum i.
-- Now similar to previous problem, I can reach DP[i] from DP[i-c1],DP[i-c2],DP[i-c3],....DP[i-cn].
-- But we do not want to minimize it this time.
-- let DP[0] = 1, because only 1 way to obtain sum 0, i.e. to not use any coins.
-- DP[i] = DP[i-c1]+DP[i-c2]+DP[i-c3]+...+DP[i-cn].
-- Notice that each of DP[i-ci] may contribute 1 or more than 1 the answer.
+- Here, "distinct ways" refers to counting the total number of different combinations or arrangements of coins that can be used to produce the money sum $x$.
+- For example, if the coins are ${2, 3, 5}$ and the desired sum is $9$, there are $8$ ways:
+    - $2+2+5$
+    - $2+5+2$
+    - $5+2+2$
+    - $3+3+3$
+    - $2+2+2+3$
+    - $2+2+3+2$
+    - $2+3+2+2$
+    - $3+2+2+2$
+- Let $DP[i]$ be the number of ways to make the sum $i$.
+- Now, similar to the previous problem, I can reach $DP[i]$ from $DP[i-c_1]$, $DP[i-c_2]$, $DP[i-c_3]$, $\ldots$, $DP[i-c_n]$.
+- But this time, we do not want to minimize it.
+- Let $DP[0] = 1$, because there is only $1$ way to obtain a sum of $0$, i.e., to not use any coins.
+- $DP[i] = DP[i-c_1] + DP[i-c_2] + DP[i-c_3] + \ldots + DP[i-c_n]$.
+- Notice that each of $DP[i-c_i]$ may contribute $1$ or more than $1$ to the answer.
 
 ```cpp:
 int main()
@@ -138,21 +140,19 @@ ___
 
 Link: https://cses.fi/problemset/task/1636
 
-Consider a money system consisting of n coins. Each coin has a positive integer value. Your task is to calculate the number of distinct ordered ways you can produce a money sum x using the available coins.
+Consider a money system consisting of $n$ coins. Each coin has a positive integer value. Your task is to calculate the number of distinct ordered ways you can produce a money sum $x$ using the available coins.
 
-Solution: 
-- Here "distinct ordered ways" refers to counting the total number of different sequences or permutations of coins that can be used to produce the money sum x. 
-
-- For example, if the coins are {2,3,5} and the desired sum is 9, there are 3 ways:
-   - 2+2+5
-   - 3+3+3
-   - 2+2+2+3
-
-- Let DP[i][j] = the number of distinct ordered ways to obtain the sum j using the first i coins.
-- Then DP[i][0] = 0 for all i.
-- Iterate over the coins from 1 to n. For each coin value c, iterate over the range from 1 to S. 
-- For each value j in the range, update dp[i][j] by adding dp[i-1][j] (the number of ways to obtain the sum j without using the ith coin) and dp[i][j-c] (the number of ways to obtain the remaining sum (j-c) using the ith coin).
-- At the end, dp[n][x] will represent the total number of distinct ordered ways to produce the money sum x using the available coins.
+Solution:
+- Here "distinct ordered ways" refers to counting the total number of different sequences or permutations of coins that can be used to produce the money sum $x$.
+- For example, if the coins are $\{2,3,5\}$ and the desired sum is 9, there are 3 ways:
+   - $2+2+5$
+   - $3+3+3$
+   - $2+2+2+3$
+- Let $DP[i][j]$ be the number of distinct ordered ways to obtain the sum $j$ using the first $i$ coins.
+- Then $DP[i][0] = 0$ for all $i$.
+- Iterate over the coins from $1$ to $n$. For each coin value $c$, iterate over the range from $1$ to $S$. 
+- For each value $j$ in the range, update $DP[i][j]$ by adding $DP[i-1][j]$ (the number of ways to obtain the sum $j$ without using the $i$th coin) and $DP[i][j-c]$ (the number of ways to obtain the remaining sum $(j-c)$ using the $i$th coin).
+- At the end, $DP[n][x]$ will represent the total number of distinct ordered ways to produce the money sum $x$ using the available coins.
 - We can actually reduce the space to linear by iterating over the coins first.
 
 ```cpp:
@@ -183,13 +183,14 @@ ___
 
 Link: https://cses.fi/problemset/task/1638
 
-Consider an n×n grid whose squares may have traps. It is not allowed to move to a square with a trap.
+Consider an $n \times n$ grid whose squares may have traps. It is not allowed to move to a square with a trap.
 
 Solution:
 - This is a problem on Grid DP.
-- if a cell $(x, y)$ is normal, we can use the recurrence normally. But, if cell $(x, y)$ has an asterisk, the dp-value is $0$, because no path can end on a trap.
+- If a cell $(x, y)$ is normal, we can use the recurrence normally. But if cell $(x, y)$ has an asterisk, the dp-value is $0$, because no path can end on a trap.
 
-$$\texttt{dp}[x][y] = \begin{cases} \texttt{dp}[x-1][y] + \texttt{dp}[x][y-1] & \text{if $(x, y)$ is not a trap} \\ ,0: & \text{if $(x, y)$ is a trap} \end{cases}$$
+$$\text{dp}[x][y] = \begin{cases} \text{dp}[x-1][y] + \text{dp}[x][y-1] & \text{if $(x, y)$ is not a trap} \\ 0 & \text{if $(x, y)$ is a trap} \end{cases}$$
+
 
 ```cpp:
 typedef long long ll;
@@ -246,20 +247,21 @@ ___
 
 Link: https://cses.fi/problemset/task/1158
 
-You are in a book shop which sells n different books. You know the price and number of pages of each book.
-You have decided that the total price of your purchases will be at most x. What is the maximum number of pages you can buy? You can buy each book at most once.
+You are in a book shop which sells $n$ different books. You know the price and number of pages of each book.
+You have decided that the total price of your purchases will be at most $x$. What is the maximum number of pages you can buy? You can buy each book at most once.
 
 Solution:
 - This is very similar to the classical Dynamic Programming problem known as the "Knapsack Problem". In the Knapsack Problem, you are given a set of items, each with a weight and a value, and a knapsack with a maximum weight capacity. The goal is to select items to maximize the total value while ensuring that the total weight does not exceed the capacity of the knapsack.
 - The books correspond to the items in the Knapsack Problem, and the price of the books corresponds to the weight of the items. The number of pages in the books can be seen as the value of the items. You are trying to maximize the total number of pages (value) you can buy while ensuring that the total price (weight) does not exceed a given budget (capacity).
 
-- Let DP[i][j] = the maximum number of pages that can be bought with a budget of 'j' considering the first 'i' books.
-- dp[0][j] = 0 for all j, as with no books, the number of pages is 0.
-- dp[i][0] = 0 for all i, as with no budget, the number of pages is 0.
-- For each book 'i' (1 ≤ i ≤ n) and each budget 'j' (1 ≤ j ≤ x), we have two choices:
-    1. We don't buy the current book 'i': In this case, dp[i][j] = dp[i-1][j].
-    2. We buy the current book 'i': In this case, dp[i][j] = pages[i] + dp[i-1][j-price[i]], where
-- The maximum number of pages that can be bought will be the maximum value between the two choices: dp[i][j] = max(dp[i-1][j], pages[i] + dp[i-1][j-price[i]]).
+- Let $DP[i][j]$ be the maximum number of pages that can be bought with a budget of $j$ considering the first $i$ books.
+- $DP[0][j] = 0$ for all $j$, as with no books, the number of pages is 0.
+- $DP[i][0] = 0$ for all $i$, as with no budget, the number of pages is 0.
+- For each book $i$ $(1 \leq i \leq n)$ and each budget $j$ $(1 \leq j \leq x)$, we have two choices:
+    1. We don't buy the current book $i$: In this case, $DP[i][j] = DP[i-1][j]$.
+    2. We buy the current book $i$: In this case, $DP[i][j] = \text{pages}[i] + DP[i-1][j-\text{price}[i]]$, where
+- The maximum number of pages that can be bought will be the maximum value between the two choices: $DP[i][j] = \max(DP[i-1][j], \text{pages}[i] + DP[i-1][j-\text{price}[i]])$.
+
 
 ```cpp:
 int main()
@@ -342,31 +344,31 @@ Link: https://cses.fi/problemset/task/1639
 The edit distance between two strings is the minimum number of operations required to transform one string into the other.
 
 The allowed operations are:
-    - Add one character to the string.
-    - Remove one character from the string.
-    - Replace one character in the string.
+- Add one character to the string.
+- Remove one character from the string.
+- Replace one character in the string.
 
 Solution:
 
-- This is a standered DP problem. 
-- Problems like Minimum ASCII Delete Sum for Two Strings,Longest Common Subsequence (LCS) and many more are special cases of this problem.
+- This is a standard DP problem.
+- Problems like Minimum ASCII Delete Sum for Two Strings, Longest Common Subsequence (LCS), and many more are special cases of this problem.
     1. Minimum ASCII Delete Sum for Two Strings:
         - In this problem, instead of counting the number of operations, we calculate the minimum sum of ASCII values of characters to delete from two strings to make them equal.
         - It is essentially the same as the edit distance problem, but the cost of each operation is the ASCII value of the character being deleted.
-        - If we change the cost of deletion to ASCII value of the character being deleted, edit distance becomes this problem.
+        - If we change the cost of deletion to the ASCII value of the character being deleted, the edit distance becomes this problem.
     2. Longest Common Subsequence (LCS):
         - The LCS problem involves finding the longest subsequence that two strings have in common.
-        - You can set the cost of replacement to infinity (or a very large value), effectively making this operations impossible. The cost of deletion and insertion can be set to 0 or 1 since deleting characters is allowed.
+        - You can set the cost of replacement to infinity (or a very large value), effectively making this operation impossible. The cost of deletion and insertion can be set to 0 or 1 since deleting characters is allowed.
 
+- Initialize a 2D DP table of size $(n+1) \times (m+1)$. The extra 1 in each dimension is for accommodating the empty string as a base case.
+- Initialize the first row and first column of the DP table.
+    - The value at $DP[i][0]$ will represent the edit distance between $s1[0...i-1]$ and the empty string (which requires $i$ deletions).
+    - Similarly, the value at $DP[0][j]$ will represent the edit distance between the empty string and $s2[0...j-1]$ (which requires $j$ insertions).
+- Iterate over the DP table row by row and column by column, starting from $DP[1][1]$. For each position $DP[i][j]$, consider the characters $s1[i-1]$ and $s2[j-1]$:
+    - If $s1[i-1]$ and $s2[j-1]$ are equal, the current characters match, so no operation is needed. Therefore, $DP[i][j]$ will be equal to $DP[i-1][j-1]$.
+    - If $s1[i-1]$ and $s2[j-1]$ are different, we need to choose the minimum cost operation among adding, removing, or replacing a character. The three options correspond to the values $DP[i][j-1]$ (insertion), $DP[i-1][j]$ (deletion), and $DP[i-1][j-1]$ (replacement). The current $DP[i][j]$ value will be one plus the minimum of these three options.
+- Once the DP table is filled, the minimum edit distance will be stored in $DP[n][m]$.
 
-- Initialize a 2D DP table of size (n+1) x (m+1). The extra 1 in each dimension is for accommodating the empty string as a base case.
-- Initialize the first row and first column of the DP table. 
-    - The value at DP[i][0] will represent the edit distance between s1[0...i-1] and the empty string (which requires i deletions). 
-    - Similarly, the value at DP[0][j] will represent the edit distance between the empty string and s2[0...j-1] (which requires j insertions).
-- Iterate over the DP table row by row and column by column, starting from DP[1][1]. For each position DP[i][j], consider the characters s1[i-1] and s2[j-1]:
-    - If s1[i-1] and s2[j-1] are equal, the current characters match, so no operation is needed. Therefore, DP[i][j] will be equal to DP[i-1][j-1].
-    - If s1[i-1] and s2[j-1] are different, we need to choose the minimum cost operation among adding, removing, or replacing a character. The three options correspond to the values DP[i][j-1] (insertion), DP[i-1][j] (deletion), and DP[i-1][j-1] (replacement). The current DP[i][j] value will be one plus the minimum of these three options.
--  Once the DP table is filled, the minimum edit distance will be stored in DP[n][m]
 
 ```cpp:
 int main()
@@ -401,21 +403,22 @@ ___
 
 Link: https://cses.fi/problemset/task/1744/
 
-Given an a×b rectangle, your task is to cut it into squares. On each move you can select a rectangle and cut it into two rectangles in such a way that all side lengths remain integers. What is the minimum possible number of moves?
+Given an $a \times b$ rectangle, your task is to cut it into squares. On each move, you can select a rectangle and cut it into two rectangles in such a way that all side lengths remain integers. What is the minimum possible number of moves?
 
 Solution:
 
-- This is a variation of the standered DP Problem called "Minimum Cost of Cutting a Rod". In the standard problem, we are given a rod of length n and a list of prices for different lengths of the rod. The task is to cut the rod into pieces of integer lengths to maximize the total price.
+- This is a variation of the standard DP problem called "Minimum Cost of Cutting a Rod". In the standard problem, we are given a rod of length $n$ and a list of prices for different lengths of the rod. The task is to cut the rod into pieces of integer lengths to maximize the total price.
 - The approach used in solving the rectangle cutting problem is similar to the standard rod cutting problem, but with some modifications to handle the two-dimensional nature of the rectangle.
 - Instead of maximizing the total price, in the rectangle cutting problem, we aim to minimize the number of cuts required. The DP table stores the minimum number of cuts for subproblems, considering both horizontal and vertical cuts.
-- let dp of size (a+1) x (b+1) with all values set to a very large number (1e9 is a common way to represent infinity in competitive programming).
-- For each cell (i,j), consider two cases:
-    1. Horizontal cut
-        - For each possible cut height h (1 <= h < i), calculate the minimum number of moves required for the remaining rectangle (i-h) x j and add 1 to account for the current cut.
-    2. Vertical cut: 
-        - For each possible cut width w (1 <= w < j), calculate the minimum number of moves required for the remaining rectangle i x (j-w) and add 1 to account for the current cut.
-    - Take the minimum value between the horizontal cut and vertical cut for each cell and store it in dp[i][j].
-- Return dp[a][b] as the final answer.
+- Let $dp$ be a 2D array of size $(a+1) \times (b+1)$ with all values set to a very large number (often represented as $1e9$ to denote infinity in competitive programming).
+- For each cell $(i,j)$, consider two cases:
+    1. Horizontal cut:
+        - For each possible cut height $h$ $(1 \leq h < i)$, calculate the minimum number of moves required for the remaining rectangle $(i-h) \times j$ and add 1 to account for the current cut.
+    2. Vertical cut:
+        - For each possible cut width $w$ $(1 \leq w < j)$, calculate the minimum number of moves required for the remaining rectangle $i \times (j-w)$ and add 1 to account for the current cut.
+    - Take the minimum value between the horizontal cut and vertical cut for each cell and store it in $dp[i][j]$.
+- Return $dp[a][b]$ as the final answer.
+
 
 ```cpp:
 int main()
@@ -450,21 +453,22 @@ ___
 
 Link: https://cses.fi/problemset/task/1745
 
-You have n coins with certain values. Your task is to find all money sums you can create using these coins.
+You have $n$ coins with certain values. Your task is to find all money sums you can create using these coins.
 
 Solution:
-- This problem can be seen as a variation of the subset sum problem, which is a well-known dynamic programming problem. 
+- This problem can be seen as a variation of the subset sum problem, which is a well-known dynamic programming problem.
 - In the subset sum problem, we are given a set of integers, and the goal is to determine if there exists a subset of the integers that sums up to a given target value. The solution to the subset sum problem can be modified to solve the problem of finding all money sums.
 
-- Lets first find S = sum of all coins, this is the maximum sum we can get.
-- Initialize a boolean array dp of size S+1, where S is the sum of all coin values.
-- Set all elements of dp to false initially. 
-- Set dp[0] to true, indicating that we can always make a sum of 0 using an empty set.
-- Iterate over each coin value from 1 to n (assuming the coins are stored in an array called coins).
-    - Iterate backward from S to coins[i].
-    - If dp[j - coins[i]] is true, set dp[j] to true, indicating that we can make a sum of j using the current coin.
-    - By iterating backward, we ensure that each coin is used only once in creating the money sums. The dynamic programming table dp keeps track of the possible sums that can be formed.
-- After completing the iterations, all indices j for which dp[j] is true represent the money sums that can be created using the given coins.
+- Let's first find $S$, which is the sum of all coin values. This is the maximum sum we can get.
+- Initialize a boolean array $dp$ of size $(S+1)$, where $S$ is the sum of all coin values.
+- Set all elements of $dp$ to false initially.
+- Set $dp[0]$ to true, indicating that we can always make a sum of 0 using an empty set.
+- Iterate over each coin value from 1 to $n$ (assuming the coins are stored in an array called $coins$).
+    - Iterate backward from $S$ to $coins[i]$.
+    - If $dp[j - coins[i]]$ is true, set $dp[j]$ to true, indicating that we can make a sum of $j$ using the current coin.
+    - By iterating backward, we ensure that each coin is used only once in creating the money sums. The dynamic programming table $dp$ keeps track of the possible sums that can be formed.
+- After completing the iterations, all indices $j$ for which $dp[j]$ is true represent the money sums that can be created using the given coins.
+
 
 ```cpp:
 signed main()
@@ -505,28 +509,29 @@ ___
 
 Link: https://cses.fi/problemset/task/1097/
 
-There is a list of n numbers and two players who move alternately. On each move, a player removes either the first or last number from the list, and their score increases by that number. Both players try to maximize their scores.
+There is a list of $n$ numbers and two players who move alternately. On each move, a player removes either the first or last number from the list, and their score increases by that number. Both players try to maximize their scores.
 
 Solution:
 
 - This is a well-known and frequently studied problem in game theory and dynamic programming.
 - It can be categorized as a variation of the classic game called "Nim," which involves two players taking turns removing objects from distinct piles.
 - It is an advanced problem involving game theory and optimal decision-making in competitive scenarios.
-- A solution video by MIT can be found here: https://youtu.be/Tw1k46ywN6E?t=3267
+- A solution video by MIT can be found [here](https://youtu.be/Tw1k46ywN6E?t=3267).
 
-- For every position (i,j), we have some choices:
-    - we can either remove L[i] or L[j] and maximize the score.
-    - If we pick L[i]:
-        - dp[i][j] will increase by +L[i]
-        - The opponent will see L[i+1:j], but L[i+1:j] is not the list that current player will see when he plays.
-        - We have to model this somehow. We cannot put DP[i+1][j] there as it is not controlled by the current player.
-        - Opponent has a DP[i+1][j] subproblem
-        - Current player is garanteed the min(DP[i+1][j-1],DP[i+2][j]), as the opponent will obviously chose the maximum.
-    - If we pick L[j]
-        - Opponent has a DP[i][j-1] subproblem.
-        - Current player is garanteed the min(DP[i+1][j-2],DP[i+1][j-1]), as the opponent will obviously chose the maximum.
-    - Take the maximum of these 2 cases.
+- For every position $(i,j)$, we have some choices:
+    - We can either remove $L[i]$ or $L[j]$ and maximize the score.
+    - If we pick $L[i]$:
+        - $dp[i][j]$ will increase by $L[i]$.
+        - The opponent will see $L[i+1:j]$, but $L[i+1:j]$ is not the list that the current player will see when they play.
+        - We have to model this somehow. We cannot put $DP[i+1][j]$ there as it is not controlled by the current player.
+        - The opponent has a $DP[i+1][j]$ subproblem.
+        - The current player is guaranteed the $\min(DP[i+1][j-1], DP[i+2][j])$, as the opponent will obviously choose the maximum.
+    - If we pick $L[j]$:
+        - The opponent has a $DP[i][j-1]$ subproblem.
+        - The current player is guaranteed the $\min(DP[i+1][j-2], DP[i+1][j-1])$, as the opponent will obviously choose the maximum.
+    - Take the maximum of these two cases.
 - Memoize the solution.
+
 
 ```cpp:
 ll score(vector<vector<ll>> &dp, ll l[], int i, int j)
@@ -571,19 +576,20 @@ ___
 
 Link: https://cses.fi/problemset/task/1093
 
-Your task is to count the number of ways numbers 1,2,…,n can be divided into two sets of equal sum.
+Your task is to count the number of ways numbers $1, 2, \ldots, n$ can be divided into two sets of equal sum.
 
 Solution:
-- This is a classical problem in combinatorial mathematics. Unfortunately, finding an exact solution for large values of n is a computationally difficult problem, known as an NP-complete problem. 
-- To solve this problem using dynamic programming, we can break it down into smaller subproblems. 
-- We'll build a table dp to store the intermediate results, where dp[i][j] represents the number of ways to divide the numbers 1, 2, ..., i into two sets with a sum of j.
-- There is only one way to achieve a sum of 0 using an empty set, so dp[0][0] is initialized to 1.
-- Iterate through the numbers from 1 to n:
-    1. For each number i, iterate through the possible sums j from 0 to the targetSum.
-    2. For each dp[i][j], there are two possibilities:
-        - Exclude the current number i: The number of ways to form the sum j without including i is given by dp[i - 1][j]. So, we assign dp[i][j] = dp[i - 1][j].
-        - Include the current number i: If j is greater than or equal to i, it means that the current number i can contribute to the sum j. In this case, the number of ways to form the sum j by including i is given by dp[i - 1][j - i]. So, we assign dp[i][j] += dp[i - 1][j - i].
-- Return the value at dp[n][targetSum] as the final result.
+- This is a classical problem in combinatorial mathematics. Unfortunately, finding an exact solution for large values of $n$ is a computationally difficult problem, known as an NP-complete problem.
+- To solve this problem using dynamic programming, we can break it down into smaller subproblems.
+- We'll build a table $dp$ to store the intermediate results, where $dp[i][j]$ represents the number of ways to divide the numbers $1, 2, \ldots, i$ into two sets with a sum of $j$.
+- There is only one way to achieve a sum of 0 using an empty set, so $dp[0][0]$ is initialized to 1.
+- Iterate through the numbers from 1 to $n$:
+    1. For each number $i$, iterate through the possible sums $j$ from 0 to the targetSum.
+    2. For each $dp[i][j]$, there are two possibilities:
+        - Exclude the current number $i$: The number of ways to form the sum $j$ without including $i$ is given by $dp[i - 1][j]$. So, we assign $dp[i][j] = dp[i - 1][j]$.
+        - Include the current number $i$: If $j$ is greater than or equal to $i$, it means that the current number $i$ can contribute to the sum $j$. In this case, the number of ways to form the sum $j$ by including $i$ is given by $dp[i - 1][j - i]$. So, we assign $dp[i][j] += dp[i - 1][j - i]$.
+- Return the value at $dp[n][\text{targetSum}]$ as the final result.
+
 
 ```cpp:
 int main()
@@ -619,20 +625,21 @@ Link: https://www.interviewbit.com/problems/longest-palindromic-subsequence/
 
 Solution:
 
-- MIT Solution Video: https://youtu.be/Tw1k46ywN6E?t=317
+- MIT Solution Video: [https://youtu.be/Tw1k46ywN6E?t=317](https://youtu.be/Tw1k46ywN6E?t=317)
 
-- Let DP[i][j] = length of longest Pallindromic subsequence in range A[i:j]
-- For every i and j pair, we have 2 choices:
-    - if i==j: return 1 # as array of length 1 is always a pallindrome.
-    - if A[i]==A[j]: # we can try to find the length of LPS in this range
-        1. if i+1==j: return 2
-        2. else: return 2+ DP[i+1][j-1]
-    - else: return max(DP[i][j-1],DP[i+1][j]) # else we have to remove either the left or right character and take max.
-- Memoize it for pair (i,j), then the final complexity if O(n^2).
+- Let $DP[i][j]$ be the length of the longest palindromic subsequence in the range $A[i:j]$.
+- For every $i$ and $j$ pair, we have 2 choices:
+    - If $i=j$, return 1, as an array of length 1 is always a palindrome.
+    - If $A[i]=A[j]$, we can try to find the length of the longest palindromic subsequence in this range:
+        1. If $i+1=j$, return 2.
+        2. Else, return $2 + DP[i+1][j-1]$.
+    - Else, return $\max(DP[i][j-1], DP[i+1][j])$, as we have to remove either the left or right character and take the maximum.
+- Memoize it for the pair $(i,j)$, then the final complexity is $O(n^2)$.
 
 or
 
-- It is a special case of LCS. LPS is same as LCS of A and reversed A.
+- It is a special case of the Longest Common Subsequence (LCS) problem. The longest palindromic subsequence is the same as the LCS of $A$ and the reversed $A$.
+
 
 ```
 class Solution:
@@ -661,17 +668,17 @@ ___
 
 # Projects
 
-Link: https://cses.fi/problemset/task/1140/
+Link: [https://cses.fi/problemset/task/1140/](https://cses.fi/problemset/task/1140/)
 
-- This problem is based on Overlapping subproblems and Optimal substructure (making locally optimal choices).
+- This problem is based on overlapping subproblems and optimal substructure (making locally optimal choices).
 - The maximum amount of money you can earn by attending projects depends on the maximum amount of money earned until the last project that ends before the current project. This dependency creates overlapping subproblems, as the same subproblems are encountered multiple times during the computation.
 - Sort the projects based on their ending days in ascending order. This sorting step is important for the dynamic programming approach to work efficiently.
-- Create an array, let's call it "dp," of size n+1, where dp[i] represents the maximum amount of money you can earn until the i-th project (including the i-th project).
-- Initialize dp[0] = 0, indicating that you haven't attended any project yet, so the maximum amount of money earned is 0.
+- Create an array, let's call it "dp," of size $n+1$, where $dp[i]$ represents the maximum amount of money you can earn until the $i$-th project (including the $i$-th project).
+- Initialize $dp[0] = 0$, indicating that you haven't attended any project yet, so the maximum amount of money earned is 0.
 - Iterate over each project starting from the first project:
     1. Find the last project that ends before the starting day of the current project. You can use binary search to efficiently find this project since the projects are sorted based on their ending days.
     2. Calculate the maximum amount of money you can earn by either attending the current project or skipping it. To attend the current project, add the reward of the current project to the maximum amount of money earned until the last project that ends before the starting day of the current project. To skip the current project, use the maximum amount of money earned until the previous project.
-    3. Update dp[i] with the maximum amount of money calculated in step 4b.
+    3. Update $dp[i]$ with the maximum amount of money calculated in step 2.
 
 ```cpp:
 int binary_search(vector<tuple<int, int, int>> &projects, int &target)
@@ -724,21 +731,16 @@ ___
 
 # Elevator Rides
 
-Link: https://cses.fi/problemset/task/1653
+Link: [https://cses.fi/problemset/task/1653](https://cses.fi/problemset/task/1653)
 
-There are n people who want to get to the top of a building which has only one elevator. You know the weight of each person and the maximum allowed weight in the elevator. What is the minimum number of elevator rides?
-
-Solution:
-
-- If we look at the constraints, n <=20 and x<=10^9. Since n is very small, and x is very large, the complexity can go exponential in the order of n as 2^20 is almost 10^10. This is a hint to use DP with bitmasking.
-- We want to fit as many people at a time in the lift. finding those set of people is a very tough task.
-- This problem is based of DP with bitmasking. 
-- mask will store which people we want to lift, like for 0001 only the last peoson
-- let DP[mask] = {minimum no. rides, weight carried by list on the last ride}.
-- We will iterate over all the masks from 1 to 2^n-1. 
-- mask of 2^n -1 represents 11111... n times, hence dp[2^n -1].first is our answer.
-- for every mask:
-    - traverse in the weights array and try to minimize the number of lift rides. 
+- If we look at the constraints, $n \leq 20$ and $x \leq 10^9$. Since $n$ is very small, and $x$ is very large, the complexity can go exponential in the order of $n$ as $2^{20}$ is almost $10^{10}$. This is a hint to use DP with bitmasking.
+- We want to fit as many people at a time in the lift. Finding the set of people to lift is a challenging task.
+- This problem is based on DP with bitmasking.
+- Let $DP[\text{mask}] = \{\text{minimum number of rides}, \text{weight carried by the lift on the last ride}\}$.
+- We will iterate over all the masks from 1 to $2^n-1$.
+- The mask $2^n-1$ represents $11111...$ $n$ times, hence $DP[2^n-1].\text{first}$ is our answer.
+- For every mask:
+    - Traverse through the weights array and try to minimize the number of lift rides.
 
 ```cpp:
 signed main()
