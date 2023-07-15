@@ -1,5 +1,5 @@
 ---
-title: "Optimal Solutions for CSES Sorting and Searching Problems | CSES Problem Set Guide"
+title: "Solutions for CSES Graph Problems | CSES Problem Set Guide"
 date: "12 July 2023"
 category: "CP & Interviews"
 tags: ["CSES", "Sorting", "Searching"]
@@ -18,7 +18,7 @@ You are given a map of a building, and your task is to count the number of its r
 - Whenever we encounter an unvisited square increase the count.
 - Run the dfs and set all the visited to true for connected squares.
 
-```CPP:
+```cpp:
 #include<bits/stdc++.h>
 using namespace std;
  
@@ -331,3 +331,106 @@ signed main()
 }
 ```
 
+<br>
+
+___
+
+
+
+# Building Teams
+
+Link: https://cses.fi/problemset/task/1668
+
+There are n pupils in Uolevi's class, and m friendships between them. Your task is to divide the pupils into two teams in such a way that no two pupils in a team are friends. You can freely choose the sizes of the teams.
+
+Solution:
+- This is a problem of graph coloring.
+- Keep assigning the teams and check for contradictions using DFS.
+
+```cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+#define int ll
+#define endl '\n'
+
+const ll mod = 1000000007;
+
+int N = 100001;
+
+vector<int> team(N, 0);
+vector<vector<int>> graph(N, vector<int>());
+bool check = true;
+
+void dfs(int node)
+{
+    if (team[node]==0) team[node]=1;
+    int new_team;
+    if (team[node] == 1)
+        new_team = 2;
+    else
+        new_team = 1;
+    for (int child : graph[node]){
+        if (team[child] == 0){
+            team[child] = new_team;
+            dfs(child);
+        }
+        else{
+            if (team[child] != new_team){
+                check = false;
+                return;
+            }
+        }
+    }
+}
+
+signed main()
+{
+    int n, m;
+    cin >> n >> m;
+    for (int i = 0; i < m; i++){
+        int u, v;
+        cin >> u >> v;
+        graph[u].push_back(v);
+        graph[v].push_back(u);
+    }
+    for (int i = 1; i < n + 1; i++){
+        if (team[i] == 0){
+            dfs(i);
+        }
+        if (!check){
+            cout << "IMPOSSIBLE";
+            break;
+        }
+    }
+    if (check){
+        for (int i = 1; i <= n; i++){
+            cout << team[i] << " ";
+        }
+    }
+    return 0;
+}
+```
+
+<br>
+
+___
+
+
+# Round Trip
+
+Link: https://cses.fi/problemset/task/1669
+
+Byteland has n cities and m roads between them. Your task is to design a round trip that begins in a city, goes through two or more other cities, and finally returns to the starting city. Every intermediate city on the route has to be distinct.
+
+Solution:
+
+
+```
+
+```
+
+<br>
+
+___
