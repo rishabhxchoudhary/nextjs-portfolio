@@ -884,7 +884,7 @@ Solution:
 - This question expects a solution in \(O(n \log n)\).
 - We are given the number of products and asked to find the minimum time taken to make these products.
 - Let's try to solve a different problem. Suppose we are given a time \(x\). We also have an array \(machines\), where \(machines[i]\) represents the time taken to make 1 product by the \(i\)th machine. What is the maximum number of products you can make in time \(x\)?
-- This problem can be solved in \(O(n)\) using the formula \(\sum_{i=1}^{n} \left(\frac{x}{\text{{machines}}[i]}\right)\).
+- This problem can be solved in \(O(n)\) using the formula \(\sum_{i=1}^{n} \frac{x}{{\text{machines}[i]}}\).
 - Now we can use this to solve the main problem.
 - The lower bound to make products is 1, and the upper bound is \(10^{18}\).
 - We can apply modified binary search to solve this. The bounds represent time. At each iteration, we get the middle time. If the number of products I can make in mid time is less than \(t\), then I will need more time, so we set \(low = \text{{mid}} + 1\).
