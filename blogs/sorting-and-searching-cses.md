@@ -1035,12 +1035,12 @@ ___
 
 # Sum of Three Values
 
-Link: https://cses.fi/problemset/task/1641
+Link: [https://cses.fi/problemset/task/1641](https://cses.fi/problemset/task/1641)
 
-You are given an array of n integers, and your task is to find three values (at distinct positions) whose sum is x.
+You are given an array of \(n\) integers, and your task is to find three values (at distinct positions) whose sum is \(x\).
 
 Solution:
-- We can fix the first element, then the problems becomes sum of 2 values for the remaining part of the array.
+- We can fix the first element, then the problem becomes finding the sum of 2 values for the remaining part of the array.
 
 ```cpp:
 int main()
@@ -1074,12 +1074,12 @@ ___
 
 # Sum of Four Values
 
-Link: https://cses.fi/problemset/task/1642/
+Link: [https://cses.fi/problemset/task/1642/](https://cses.fi/problemset/task/1642/)
 
-You are given an array of n integers, and your task is to find four values (at distinct positions) whose sum is x.
+You are given an array of \(n\) integers, and your task is to find four values (at distinct positions) whose sum is \(x\).
 
 Solution:
-- Store the sum of pairs in a dictionary/map and chck if there are 2 pair or pairs whose sum if x optimally.
+- Store the sum of pairs in a dictionary/map and check if there are two pairs whose sum is \(x\) optimally.
 
 ```cpp:
 int main()
@@ -1113,13 +1113,13 @@ ___
 
 # Nearest Smaller Values
 
-Link: https://cses.fi/problemset/task/1645/
+Link: [https://cses.fi/problemset/task/1645/](https://cses.fi/problemset/task/1645/)
 
-Given an array of n integers, your task is to find for each array position the nearest position to its left having a smaller value.
+Given an array of \(n\) integers, your task is to find, for each array position, the nearest position to its left that has a smaller value.
 
 Solution:
-- This is a standered problem on Stack data structure.
-- Pop the stack till the top element is smaller than the current element, then push the position of the current element in the stack.
+- This is a standard problem on the Stack data structure.
+- Pop the stack until the top element is smaller than the current element, then push the position of the current element onto the stack.
 
 ```cpp:
 int main()
@@ -1151,13 +1151,13 @@ ___
 
 # Subarray Sums I
 
-Link: https://cses.fi/problemset/task/1660/
+Link: [https://cses.fi/problemset/task/1660/](https://cses.fi/problemset/task/1660/)
 
-Given an array of n positive integers, your task is to count the number of subarrays having sum x.
+Given an array of \(n\) positive integers, your task is to count the number of subarrays that have a sum of \(x\).
 
 Solution:
-- We can solve it using 2 pointers and sliding window.
-- As all the elements in the array are greater than 0, we can solve it using 2 pointers, shifitng the right pointer by 1 will only increase the sum, and shifting the left pointer will for sure decrease the sum of the window.
+- We can solve it using two pointers and a sliding window approach.
+- Since all the elements in the array are greater than 0, we can use two pointers. Shifting the right pointer by 1 will only increase the sum, and shifting the left pointer will always decrease the sum of the window.
 
 ```cpp:
 int main()
@@ -1186,16 +1186,15 @@ int main()
 
 # Subarray Sums II
 
-Link: https://cses.fi/problemset/task/1661/
+Link: [https://cses.fi/problemset/task/1661/](https://cses.fi/problemset/task/1661/)
 
-Given an array of n integers, your task is to count the number of subarrays having sum x.
+Given an array of \(n\) integers, your task is to count the number of subarrays that have a sum of \(x\).
 
 Solution:
-
 - The only difference between this problem and the previous problem is that we can have negative numbers in the array.
-- Remember that we can find the number sum of a subarray using prefix sums using the formula:
-    - Sum(A[i:j]) = prefix_sum(A[j]) - prefix_sum(A[i-1])
-- Using this we can store the prefix sum in a map and calculate out answer.
+- Remember that we can find the sum of a subarray using prefix sums with the formula:
+    - \(\text{Sum}(A[i:j]) = \text{prefix\_sum}(A[j]) - \text{prefix\_sum}(A[i-1])\)
+- Using this, we can store the prefix sums in a map and calculate our answer.
 
 ```cpp:
 signed main()
@@ -1360,14 +1359,15 @@ ___
 
 # Sliding Median
 
-Link: https://cses.fi/problemset/task/1076/
+Link: [https://cses.fi/problemset/task/1076/](https://cses.fi/problemset/task/1076/)
 
-You are given an array of n integers. Your task is to calculate the median of each window of k elements, from left to right.
-The median is the middle element when the elements are sorted. If the number of elements is even, there are two possible medians and we assume that the median is the smaller of them.
+You are given an array of \(n\) integers. Your task is to calculate the median of each window of \(k\) elements, from left to right.
+The median is the middle element when the elements are sorted. If the number of elements is even, there are two possible medians, and we assume that the median is the smaller of them.
 
 Solution:
-- One of the possible ways is to use 2 heaps.
-- We can also use policy based data structures like ordered_set which allow insertion and deletion in O(logn) to stimulate the process.
+- One possible way is to use two heaps.
+- Another approach is to use policy-based data structures like ordered_set, which allow insertion and deletion in \(O(\log n)\) time complexity to simulate the process.
+
 
 ```cpp:
 #include<bits/stdc++.h>
