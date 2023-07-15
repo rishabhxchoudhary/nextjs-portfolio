@@ -1,5 +1,5 @@
 ---
-title: "Optimal Solutions for CSES Sorting and Searching Problems | CSES Problem Set Guide"
+title: "Solutions for CSES Sorting and Searching Problems | CSES Problem Set Guide"
 date: "15 July 2023"
 category: "CP & Interviews"
 tags: ["CSES", "Sorting", "Searching"]

@@ -1,5 +1,5 @@
 ---
-title: "Dynamic Programming Standard Problems - Solutions for CSES and Other Problem Sets"
+title: "Dynamic Programming Solutions for CSES and Other Problem Sets"
 date: "12 July 2023"
 category: "CP & Interviews"
 tags: ['Dynamic Programming',"CSES"]
