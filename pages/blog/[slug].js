@@ -30,7 +30,7 @@ export default function PostPage({
         })
         window.MathJax = {
             tex: {
-                inlineMath: [['$', '$']]
+                inlineMath: [['$', '$'], ['\(', '\)']]
             }
         };
 
