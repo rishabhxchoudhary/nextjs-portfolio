@@ -1367,6 +1367,8 @@ The median is the middle element when the elements are sorted. If the number of 
 Solution:
 - One possible way is to use two heaps.
 - Another approach is to use policy-based data structures like ordered_set, which allow insertion and deletion in \(O(\log n)\) time complexity to simulate the process.
+- We can also use 2 multisets.
+- Another approach is to use fenwick tree to stimulate the ordred set.
 
 
 ```cpp:
@@ -1400,7 +1402,255 @@ signed main(){
 }
 ```
 
+OR
+
+```
+void insert(int val, multiset<int>&low, multiset<int>&high,int &k){
+    int a = *low.rbegin(); // current median
+    if (a<val){
+        high.insert(val);
+        if (high.size()>k/2){
+            low.insert(*high.begin());
+            high.erase(high.find(*high.begin()));
+        }
+    } else {
+        low.insert(val);
+        if (low.size()>(k+1)/2){
+            high.insert(*low.rbegin());
+            low.erase(low.find(*low.rbegin()));
+        }
+    }
+ 
+}
+void erase(int val, multiset<int>&low, multiset<int>&high){
+	if (high.find(val) != high.end()) high.erase(high.find(val));
+	else low.erase(low.find(val));
+	if (low.empty()) {
+		low.insert(*high.begin());
+		high.erase(high.find(*high.begin()));
+	}
+}
+ 
+signed main()
+{ 
+    multiset<int>low,high;
+    int n,k;
+    cin>>n>>k;
+    vector < int > a(n,0);
+    for (int i = 0; i < n; i++) cin>>a[i];
+    low.insert(a[0]);
+    for (int i = 1; i < k; i++) insert(a[i],low,high,k);
+    cout<<*low.rbegin()<<" ";
+    for (int i = k; i < n; i++) {
+        if (k==1){
+            insert(a[i],low,high,k);
+            erase(a[i-1],low,high);
+        }
+        else{
+            erase(a[i-k],low,high);
+            insert(a[i],low,high,k);
+        }
+        cout<<*low.rbegin()<<" ";
+    }
+    cout<<endl;
+ 
+    return 0;
+}
+```
+
 <br>
 
 ___
 
+
+# Sliding Cost
+
+Link: https://cses.fi/problemset/task/1077
+
+You are given an array of n integers. Your task is to calculate for each window of k elements, from left to right, the minimum total cost of making all elements equal.
+You can increase or decrease each element with cost x where x is the difference between the new and the original value. The total cost is the sum of such costs.
+
+Solution:
+
+- This problem is an extension of the previous problem.
+- Idea is to use 2 multisets for lower k/2 and upper k/2 elements.
+- We know that we have to change all the elements to the median of the window.
+- Hence we must find the sum distances of all the elements from the median.
+- we'll split the elements in the window into two groups and calculate the cost.
+- The smallest $K/2$ elements in the window will be in the lower group while the largest $K/2$ elements in the window will be in the upper group.
+
+- The cost of the window can be expressed as a function of $K,S_1,S_2$, and $M$, where $S_1$ and $S_2$ denote the sum of elements in the lower and upper group respectively, and $M$ denotes the median of the window. 
+- The cost of the lower group will be $\sum_{i=1}^{K/2} M-e_i$, and the cost of the upper group will be $\sum_{i=1}^{K/2} e_i-M$, where $e$ represents an element in the group. 
+- These expressions can be simplified to $M\times K/2 - S_1$ and $S_2 - M\times K/2$.
+- The total cost of the window is the sum of the costs contributed by both groups, or $S_2-S_1$.
+
+```cpp:
+void insert(int val, multiset<int>&low, multiset<int>&high,int &k,int &sum_high,int &sum_low){
+    int a = *low.rbegin(); // current median
+    if (a<val){
+        high.insert(val);
+        sum_high+=val;
+        if (high.size()>k/2){
+            sum_low+=*high.begin();
+            sum_high-=*high.begin();
+            low.insert(*high.begin());
+            high.erase(high.find(*high.begin()));
+        }
+    } else {
+        low.insert(val);
+        sum_low+=val;
+        if (low.size()>(k+1)/2){
+            sum_low-= *low.rbegin();
+            sum_high+= *low.rbegin();
+            high.insert(*low.rbegin());
+            low.erase(low.find(*low.rbegin()));
+        }
+    }
+
+}
+
+void erase(int val, multiset<int>&low, multiset<int>&high,int &sum_high,int &sum_low){
+	if (high.find(val) != high.end()) {high.erase(high.find(val)); sum_high-=val;}
+	else {low.erase(low.find(val)); sum_low-=val;}
+	if (low.empty()) {
+        sum_high-=*high.begin();
+        sum_low+=*high.begin();
+		low.insert(*high.begin());
+		high.erase(high.find(*high.begin()));
+	}
+}
+
+int med(int &k,multiset<int> &low){
+    return (k % 2 == 0) ? 0 : (*low.rbegin());
+}
+
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+
+    multiset<int>low,high;
+    int n,k,sum_low=0,sum_high=0;
+    cin>>n>>k;
+    vector < int > a(n,0);
+    for (int i = 0; i < n; i++) cin>>a[i];
+    low.insert(a[0]);
+    sum_low+=a[0];
+    for (int i = 1; i < k; i++) insert(a[i],low,high,k,sum_high,sum_low);
+    cout<<sum_high-sum_low+med(k,low)<<" ";
+    for (int i = k; i < n; i++) {
+        if (k==1){
+            insert(a[i],low,high,k,sum_high,sum_low);
+            erase(a[i-1],low,high,sum_high,sum_low);
+        }
+        else{
+            erase(a[i-k],low,high,sum_high,sum_low);
+            insert(a[i],low,high,k,sum_high,sum_low);
+        }
+       cout<<sum_high-sum_low+med(k,low)<<" ";
+    }
+    cout<<endl;
+
+    return 0;
+}
+```
+
+<br>
+
+___
+
+
+# Movie Festival II
+
+Link: https://cses.fi/problemset/task/1629
+
+In a movie festival n movies will be shown. You know the starting and ending time of each movie. What is the maximum number of movies you can watch entirely?
+
+Solution:
+- Just like in the problem Movie Festival, end time matters, so we will sort all the intervals by end time.
+- We can use a multiset or priority queue to get the closest member who is not watching a movie currently and assign it.
+
+```cpp
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+
+    int n,k;
+    cin>>n>>k;
+    vector < pair<int,int >  > v;
+    for (int i = 0; i < n; i++) {
+        int startTime,endTime; cin>>startTime>>endTime;
+        v.push_back(make_pair(endTime,startTime));
+    }
+    sort(v.begin(),v.end());
+    int ans = 0;
+    multiset<int> endTimes;
+    multiset<int>::iterator it;
+
+    for (int i = 0; i < k; i++) endTimes.insert(0);
+
+    for (int i = 0; i < n; i++) {
+        it = endTimes.upper_bound(v[i].second);
+        if (it==endTimes.begin()) continue;
+        endTimes.erase(prev(it));
+        endTimes.insert(v[i].first);
+        ans++;
+    }
+    cout<<ans;
+
+    return 0;
+}
+```
+
+<br>
+
+___
+
+
+# Maximum Subarray Sum II
+
+Link: https://cses.fi/problemset/task/1644
+
+Given an array of n integers, your task is to find the maximum sum of values in a contiguous subarray with length between a and b.
+
+Solution:
+- Notice that we are trying to maximize $\textrm{prefixSum}[i] - \textrm{prefixSum}[j]$. 
+- Since $j$ is guaranteed to be within the window $[i-b,i]$, we can construct a sliding window of size b, and compute $ \max_{A\le i \le B}(\textrm{prefixSum}[i]-\textrm{prefixSum}[j])$.
+
+```cpp:
+signed main()
+{
+    int n,a,b;
+    cin>>n>>a>>b;
+
+    vector < int > prefix_sum(n+1);
+	for (int i = 1; i <= n; i++) {
+		int a; cin >> a;
+		prefix_sum[i] = a + prefix_sum[i - 1];
+	} 
+
+    int ans = -1e18;
+    multiset<int> prefixes;
+
+    for (int i = a; i <= n; i++) {
+        if (i>b){
+            prefixes.erase(prefixes.find(prefix_sum[i-b-1]));
+        }
+        prefixes.insert(prefix_sum[i-a]);
+        ans = max(ans,prefix_sum[i]-*prefixes.begin());
+    }
+    cout<<ans;
+    return 0;
+}
+```
+
+<br>
+
+___
+
+<br>
+<br>
+Thanks for Reading.
+<br>
+<br>
