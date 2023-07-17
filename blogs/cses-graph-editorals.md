@@ -88,7 +88,9 @@ ___
 
 # Labyrinth
 
-Link: You are given a map of a labyrinth, and your task is to find a path from start to end. You can walk left, right, up and down.
+Link: https://cses.fi/problemset/task/1193
+
+You are given a map of a labyrinth, and your task is to find a path from start to end. You can walk left, right, up and down.
 
 Solution:
 
@@ -425,6 +427,7 @@ Link: https://cses.fi/problemset/task/1194
 You and some monsters are in a labyrinth. When taking a step to some direction in the labyrinth, each monster may simultaneously take one as well. Your goal is to reach one of the boundary squares without ever sharing a square with a monster.
 
 Solution:
+- This is a problem of multisource BFS.
 
 ```cpp:
 #include <bits/stdc++.h>
@@ -607,7 +610,7 @@ Link: https://cses.fi/problemset/task/1669
 Byteland has n cities and m roads between them. Your task is to design a round trip that begins in a city, goes through two or more other cities, and finally returns to the starting city. Every intermediate city on the route has to be distinct.
 
 Solution:
-- Run DFS, check for cycles (is next node is already visited, a cycle if detected!).
+- Run DFS, check for cycles ,is next node is already visited? if YES, a cycle if detected!.
 - If length of cycle is >3 print it.
 
 
@@ -707,6 +710,7 @@ Link: https://cses.fi/problemset/task/1671
 There are n cities and m flight connections between them. Your task is to determine the length of the shortest route from Syrjälä to every city.
 
 Solution:
+- This is a standered problem on dijkstra.
 
 ```cpp:
 #include<bits/stdc++.h>
@@ -831,6 +835,9 @@ You play a game consisting of n rooms and m tunnels. Your initial score is 0, an
 Your task is to walk from room 1 to room n. What is the maximum score you can get?
 
 Solution:
+- This is a standered problem of Bellman ford algorithm.
+- Instead of detecting a negative weight cycle, we have to detect positive weight cycle.
+- Whenever there is a positive weight cycle, check if its possible to reach n from that cycle, if yes? ans if INFINITY/-1.
 
 
 ```cpp:
@@ -917,76 +924,52 @@ Link: https://cses.fi/problemset/task/1195/
 Your task is to find a minimum-price flight route from Syrjälä to Metsälä. You have one discount coupon, using which you can halve the price of any single flight during the route. However, you can only use the coupon once.
 
 Solution:
+- We can solve this using dijkstra and dynamic programming.
+- Let DP[i][0] = min cost without using the ticket and
+- DP[i][1] = min cost after using the ticket.
+- For every node in dijkstra, calculate for all neighbors v: dp[v][1] = min(dp[i][1],cur_cost+w/2).
 
-```cpp:
-#include <bits/stdc++.h>
-using namespace std;
+
+*This python code gives TLE in 1 test case, but if you convert if to c++, it will pass all test cases.
+
+Here is code for cpp: https://cses.fi/paste/63266e6ff8d247946099cf/
+
+```python:
+import heapq
+import sys
+from collections import defaultdict
+from math import inf
  
-typedef long long ll;
-#define int ll
-#define endl '\n'
+n, m = map(int, sys.stdin.readline().split())
+graph = defaultdict(list)
  
-const ll mod = 1000000007;
-const int inf = INT64_MAX;
+for _ in range(m):
+    u, v, w = map(int, sys.stdin.readline().split())
+    graph[u].append((v, w))
  
-signed main()
-{
-    int n, m;
-    cin >> n >> m;
+# 0 - ticket used
+# 1 - ticket unused
+dist = [[inf, inf] for _ in range(n + 1)]
  
-    unordered_map<int, vector<pair<int, int>>> graph;
+# start with city 1 at distance 0 with ticket unused(0)
+pq = [(0, 1, 0)]
  
-    for (int i = 0; i < m; i++)
-    {
-        int u, v, w;
-        cin >> u >> v >> w;
-        graph[u].push_back(make_pair(v, w));
-    }
+while pq:
+    cur_dist, city, used = heapq.heappop(pq)
+    if cur_dist > dist[city][used]:
+        continue
  
-    vector<vector<int>> dist(n + 1, vector<int>(2, inf));
+    for v, w in graph[city]:
+        if used == 0:  # try using the ticket
+            if (new_cost := cur_dist + w // 2) < dist[v][1]:
+                dist[v][1] = new_cost
+                heapq.heappush(pq, (new_cost, v, 1))
  
-    priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<tuple<int, int, int>>> pq;
-    pq.push(make_tuple(0, 1, 0));
+        if (new_cost := cur_dist + w) < dist[v][used]:
+            dist[v][used] = new_cost
+            heapq.heappush(pq, (new_cost, v, used))
  
-    while (!pq.empty())
-    {
-        int cur_dist, city, used;
-        tie(cur_dist, city, used) = pq.top();
-        pq.pop();
- 
-        if (cur_dist > dist[city][used])
-        {
-            continue;
-        }
- 
-        for (const auto &neighbor : graph[city])
-        {
-            int v = neighbor.first;
-            int w = neighbor.second;
- 
-            if (used == 0)
-            { // try using the ticket
-                int new_cost = cur_dist + w / 2;
-                if (new_cost < dist[v][1])
-                {
-                    dist[v][1] = new_cost;
-                    pq.push(make_tuple(new_cost, v, 1));
-                }
-            }
- 
-            int new_cost = cur_dist + w;
-            if (new_cost < dist[v][used])
-            {
-                dist[v][used] = new_cost;
-                pq.push(make_tuple(new_cost, v, used));
-            }
-        }
-    }
- 
-    cout << dist[n][1] << endl;
- 
-    return 0;
-}
+print(dist[n][1])
 ```
 
 <br>
@@ -1001,6 +984,7 @@ Link: https://cses.fi/problemset/task/1197/
 You are given a directed graph, and your task is to find out if it contains a negative cycle, and also give an example of such a cycle.
 
 Solution:
+- This is a standered bellmanford problem.
 
 ```cpp:
 #include <bits/stdc++.h>
@@ -1289,6 +1273,7 @@ ___
 Link: https://cses.fi/problemset/task/1679
 
 Solution:
+- Standered problem on topological sorting.
 
 ```cpp:
 #include<bits/stdc++.h>
@@ -1374,7 +1359,7 @@ Solution:
 - This is problem of topological sorting and dynamic programming.
 - Let $dp[v]$ denote the length of the longest path ending at the node $v$.
 - Clearly $$dp[v]=\max_{\text{edge } u\to v \text{ exists}}dp[u]+1,$$
-- We only need to make sure that we travel u first, that we can do using topological sort with BFS for level order traversal.
+- We only need to make sure that we travel u first, that we can do using topological sort with BFS  for level order traversal using Kanh's algorithm.
 - Read more here: https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
 
 ```cpp:
@@ -1465,7 +1450,7 @@ Link: https://cses.fi/problemset/task/1681/
 A game has n levels, connected by m teleporters, and your task is to get from level 1 to level n. The game has been designed so that there are no directed cycles in the underlying graph. In how many ways can you complete the game?
 
 Solution:
-- Very similar to previous problem. The previous code can be modified a but to solve this.
+- Very similar to previous problem. The previous code can be modified to solve this.
 - Instead of taking max, just sum the distances.
 
 ```cpp:
@@ -1528,10 +1513,10 @@ ___
 Link: https://cses.fi/problemset/task/1202
 
 You are going to travel from Syrjälä to Lehmälä by plane. You would like to find answers to the following questions:
-    - what is the minimum price of such a route?
-    - how many minimum-price routes are there? (modulo 109+7)
-    - what is the minimum number of flights in a minimum-price route?
-    - what is the maximum number of flights in a minimum-price route?
+- what is the minimum price of such a route?
+- how many minimum-price routes are there?
+- what is the minimum number of flights in a minimum-price route?
+- what is the maximum number of flights in a minimum-price route?
 
 Solution:
 - Use dijkstra to get the shortest path. Whenever the distance changes, update the min and max values.
@@ -2288,6 +2273,7 @@ Link: https://cses.fi/problemset/task/1690
 There are n cities and m flight connections between them. You want to travel from Syrjälä to Lehmälä so that you visit each city exactly once. How many possible routes are there?
 
 Solution:
+- The constraints are small, use dp with bit masking.
 
 ```cpp:
 signed main()
