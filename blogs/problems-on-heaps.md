@@ -74,48 +74,58 @@ Algorithm:
     * If the window size is even, the median is the average of the root elements of both heaps.
 5. Repeat step 3 and step 4 until you have processed all windows in the array.
 
-```Python:
-import heapq
-
-def sliding_window_median(nums, k):
-    max_heap = []
-    min_heap = []
-    result = []
-
-    for i in range(k):
-        if i % 2 == 0:
-            heapq.heappush(max_heap, -nums[i])
-        else:
-            heapq.heappush(min_heap, nums[i])
-
-    for i in range(k, len(nums)):
-        if nums[i] <= -max_heap[0]:
-            heapq.heappush(max_heap, -nums[i])
-        else:
-            heapq.heappush(min_heap, nums[i])
-
-        if nums[i - k] <= -max_heap[0]:
-            max_heap.remove(-nums[i - k])
-            heapq.heapify(max_heap)
-        else:
-            min_heap.remove(nums[i - k])
-            heapq.heapify(min_heap)
-
-        if len(max_heap) > len(min_heap) + 1:
-            root = -heapq.heappop(max_heap)
-            heapq.heappush(min_heap, root)
-        elif len(max_heap) < len(min_heap):
-            root = heapq.heappop(min_heap)
-            heapq.heappush(max_heap, -root)
-
-        if k % 2 == 0:
-            median = (-max_heap[0] + min_heap[0]) / 2
-        else:
-            median = -max_heap[0]
-
-        result.append(median)
-
-    return result
+```cpp:
+void insert(int val, multiset<int>&low, multiset<int>&high,int &k){
+    int a = *low.rbegin(); // current median
+    if (a<val){
+        high.insert(val);
+        if (high.size()>k/2){
+            low.insert(*high.begin());
+            high.erase(high.find(*high.begin()));
+        }
+    } else {
+        low.insert(val);
+        if (low.size()>(k+1)/2){
+            high.insert(*low.rbegin());
+            low.erase(low.find(*low.rbegin()));
+        }
+    }
+ 
+}
+void erase(int val, multiset<int>&low, multiset<int>&high){
+	if (high.find(val) != high.end()) high.erase(high.find(val));
+	else low.erase(low.find(val));
+	if (low.empty()) {
+		low.insert(*high.begin());
+		high.erase(high.find(*high.begin()));
+	}
+}
+ 
+signed main()
+{ 
+    multiset<int>low,high;
+    int n,k;
+    cin>>n>>k;
+    vector < int > a(n,0);
+    for (int i = 0; i < n; i++) cin>>a[i];
+    low.insert(a[0]);
+    for (int i = 1; i < k; i++) insert(a[i],low,high,k);
+    cout<<*low.rbegin()<<" ";
+    for (int i = k; i < n; i++) {
+        if (k==1){
+            insert(a[i],low,high,k);
+            erase(a[i-1],low,high);
+        }
+        else{
+            erase(a[i-k],low,high);
+            insert(a[i],low,high,k);
+        }
+        cout<<*low.rbegin()<<" ";
+    }
+    cout<<endl;
+ 
+    return 0;
+}
 ```
 
 <br>
