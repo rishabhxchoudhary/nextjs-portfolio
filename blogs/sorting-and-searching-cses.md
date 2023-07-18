@@ -12,7 +12,7 @@ Important problems are marked with *
 
 Link: [https://cses.fi/problemset/task/1621](https://cses.fi/problemset/task/1621)
 
-You are given a list of \(n\) integers, and your task is to calculate the number of distinct values in the list.
+You are given a list of $n$ integers, and your task is to calculate the number of distinct values in the list.
 
 Solution:
 - There are several approaches to solve this problem.
@@ -53,7 +53,7 @@ ___
 
 Link: https://cses.fi/problemset/task/1084
 
-There are \(n\) applicants and \(m\) free apartments. Your task is to distribute the apartments so that as many applicants as possible will get an apartment.
+There are $n$ applicants and $m$ free apartments. Your task is to distribute the apartments so that as many applicants as possible will get an apartment.
 
 Each applicant has a desired apartment size, and they will accept any apartment whose size is close enough to the desired size.
 
@@ -61,9 +61,9 @@ Solution:
 
 - This problem is based on sorting and the two-pointer approach.
 - Sort both arrays of apartments and requirements.
-- Create two pointers, \(i\) and \(j\), pointing to the first elements of the arrays.
-- Increase \(j\) if \(requirement[i] - k > apartments[j]\), as the requirement is too big, and we cannot assign any apartment.
-- Increase \(i\) if \(requirement[i] + k < apartments[j]\), as the requirement is too small, and we cannot assign any apartment.
+- Create two pointers, $i$ and $j$, pointing to the first elements of the arrays.
+- Increase $j$ if $requirement[i] - k > apartments[j]$, as the requirement is too big, and we cannot assign any apartment.
+- Increase $i$ if $requirement[i] + k < apartments[j]$, as the requirement is too small, and we cannot assign any apartment.
 - Otherwise, assign the apartment and increase the count.
 
 ```cpp:
@@ -101,15 +101,15 @@ ___
 
 Link: [https://cses.fi/problemset/task/1090](https://cses.fi/problemset/task/1090)
 
-There are \(n\) children who want to go to a Ferris wheel, and your task is to find a gondola for each child.
-Each gondola may have one or two children in it, and in addition, the total weight in a gondola may not exceed \(x\). You know the weight of every child.
+There are $n$ children who want to go to a Ferris wheel, and your task is to find a gondola for each child.
+Each gondola may have one or two children in it, and in addition, the total weight in a gondola may not exceed $x$. You know the weight of every child.
 What is the minimum number of gondolas needed for the children?
 
 Solution:
 
-- Look at the constraints, \(n\) is in the order of \(10^5\). Also, the number of children in a gondola is at most 2. Hence, it can be solved greedily.
-- Sort the array and create 2 pointers. Set \(i\) to the start of the array and \(j\) to the end of the array.
-- Check if \(i\) and \(j\) both can sit in the same gondola. If yes, then increase \(i\) and decrease \(j\). Otherwise, only decrease \(j\).
+- Look at the constraints, $n$ is in the order of $10^5$. Also, the number of children in a gondola is at most 2. Hence, it can be solved greedily.
+- Sort the array and create 2 pointers. Set $i$ to the start of the array and $j$ to the end of the array.
+- Check if $i$ and $j$ both can sit in the same gondola. If yes, then increase $i$ and decrease $j$. Otherwise, only decrease $j$.
 
 ```cpp:
 signed main()
@@ -144,12 +144,12 @@ ___
 
 Link: [https://cses.fi/problemset/task/1091](https://cses.fi/problemset/task/1091)
 
-There are \(n\) concert tickets available, each with a certain price. Then, \(m\) customers arrive, one after another.
+There are $n$ concert tickets available, each with a certain price. Then, $m$ customers arrive, one after another.
 Each customer announces the maximum price they are willing to pay for a ticket, and after this, they will get a ticket with the nearest possible price such that it does not exceed the maximum price.
 
 Solution:
 - Clearly, the problem is based on sorting and binary search.
-- First, we will sort the array of prices. But we will create a new array of pairs \({\text{{value}}, \text{{index}}}\) to print the index.
+- First, we will sort the array of prices. But we will create a new array of pairs ${\text{{value}}, \text{{index}}}$ to print the index.
 - We can also use a multiset instead of an array.
 - For every person, we will use binary search to find the closest maximum price ticket.
 - This can be done very easily using the upper bound in C++, or a custom binary search function in other languages.
@@ -210,14 +210,14 @@ ___
 
 Link: [https://cses.fi/problemset/task/1619](https://cses.fi/problemset/task/1619)
 
-You are given the arrival and leaving times of \(n\) customers in a restaurant.
+You are given the arrival and leaving times of $n$ customers in a restaurant.
 What was the maximum number of customers in the restaurant at any time?
 
 Solution:
 - This is a standard problem on maximum overlapping intervals.
 - In such interval-related problems, we either have to sort the intervals by start time or end time.
 - We can solve it by sorting all the intervals by start time (sweep line algorithm).
-- Alternatively, for every interval, we can create a list of \(\{\text{{start\_time}},+1\}\), \(\{\text{{end\_time}},-1\}\) and sort them.
+- Alternatively, for every interval, we can create a list of $\{\text{{start\_time}},+1\}$, $\{\text{{end\_time}},-1\}$ and sort them.
 - Check for the maximum value while traversing.
 
 
@@ -246,7 +246,7 @@ ___
 
 Link: [https://cses.fi/problemset/task/1629](https://cses.fi/problemset/task/1629)
 
-In a movie festival, \(n\) movies will be shown. You know the starting and ending time of each movie. What is the maximum number of movies you can watch entirely?
+In a movie festival, $n$ movies will be shown. You know the starting and ending time of each movie. What is the maximum number of movies you can watch entirely?
 
 Solution:
 - This problem is also based on overlapping intervals.
@@ -283,7 +283,7 @@ ___
 
 Link: [https://cses.fi/problemset/task/1640/](https://cses.fi/problemset/task/1640/)
 
-You are given an array of \(n\) integers, and your task is to find two values (at distinct positions) whose sum is \(x\).
+You are given an array of $n$ integers, and your task is to find two values (at distinct positions) whose sum is $x$.
 
 Solution:
 - There are several ways to solve this problem. A simple approach is to use a map to store the elements and their indices, which will pass all the test cases.
@@ -327,11 +327,11 @@ ___
 
 Link: [https://cses.fi/problemset/task/1643](https://cses.fi/problemset/task/1643)
 
-Given an array of \(n\) integers, your task is to find the maximum sum of values in a contiguous, nonempty subarray.
+Given an array of $n$ integers, your task is to find the maximum sum of values in a contiguous, nonempty subarray.
 
 Solution:
 - This is a very standard problem based on Kadane's algorithm.
-- You can also solve it using Dynamic Programming. Both approaches work in \(O(n)\) time complexity, but Kadane's algorithm works in constant space.
+- You can also solve it using Dynamic Programming. Both approaches work in $O(n)$ time complexity, but Kadane's algorithm works in constant space.
 
 ```python:
 def main():
@@ -355,8 +355,8 @@ main()
 
 Link: [https://cses.fi/problemset/task/1074](https://cses.fi/problemset/task/1074)
 
-There are \(n\) sticks with some lengths. Your task is to modify the sticks so that each stick has the same length.
-You can either lengthen or shorten each stick. Both operations cost \(x\), where \(x\) is the difference between the new and original length.
+There are $n$ sticks with some lengths. Your task is to modify the sticks so that each stick has the same length.
+You can either lengthen or shorten each stick. Both operations cost $x$, where $x$ is the difference between the new and original length.
 What is the minimum total cost?
 
 Solution:
@@ -384,16 +384,16 @@ ___
 
 Link: [https://cses.fi/problemset/task/2183](https://cses.fi/problemset/task/2183)
 
-You have \(n\) coins with positive integer values. What is the smallest sum you cannot create using a subset of the coins?
+You have $n$ coins with positive integer values. What is the smallest sum you cannot create using a subset of the coins?
 
 Solution:
-- A very similar problem is to print all the possible values we can create using a set of coins, which can be solved using Dynamic Programming in \(O(n \cdot \text{{sum(coins)}})\).
-- We can modify the above approach to solve it in \(O(n \cdot \text{{sum(coins)}})\).
-- We can also use sorting and cumulative sums/prefix sums to solve this problem. It works in \(O(n \log n)\).
-- Sort the array and traverse the prefix sum. If \(\text{{arr}}[i] > \text{{prefix_sum}}[i] + 1\), then we will never be able to make \(\text{{prefix_sum}}[i] + 1\).
-- Actually, we can save space. We do not need the previous values less than \(i\) once we use them. Hence, take the cumulative sum in a variable.
-- For the given constraints, since the maximum sum of coins can go up to \(10^9 \times 2 \times 10^5\), the first approach will not work.
-- We can even reduce the sorting time by using algorithms like radix sort and optimize the solution to \(O(n)\).
+- A very similar problem is to print all the possible values we can create using a set of coins, which can be solved using Dynamic Programming in $O(n \cdot \text{{sum(coins)}})$.
+- We can modify the above approach to solve it in $O(n \cdot \text{{sum(coins)}})$.
+- We can also use sorting and cumulative sums/prefix sums to solve this problem. It works in $O(n \log n)$.
+- Sort the array and traverse the prefix sum. If $\text{{arr}}[i] > \text{{prefix_sum}}[i] + 1$, then we will never be able to make $\text{{prefix_sum}}[i] + 1$.
+- Actually, we can save space. We do not need the previous values less than $i$ once we use them. Hence, take the cumulative sum in a variable.
+- For the given constraints, since the maximum sum of coins can go up to $10^9 \times 2 \times 10^5$, the first approach will not work.
+- We can even reduce the sorting time by using algorithms like radix sort and optimize the solution to $O(n)$.
 
 
 ```cpp:
@@ -442,8 +442,8 @@ On each round, you go through the array from left to right and collect as many n
 Solution:
 - We can simply take as many numbers as possible in each round. Keep a boolean array to check if this number has been picked or not. Keep doing this until all the numbers are collected.
 - Another approach would be to use the fact that every number occurs once. We can actually make a position array instead of a normal array.
-- For every element \(x\), \(arr[x] = i\) instead of the normal \(arr[i] = x\).
-- Then, in this array, if \(arr[i] > arr[i+1]\), increase the number of rounds by 1.
+- For every element $x$, $arr[x] = i$ instead of the normal $arr[i] = x$.
+- Then, in this array, if $arr[i] > arr[i+1]$, increase the number of rounds by 1.
 
 
 ```Python:
@@ -525,7 +525,7 @@ ___
 
 # Playlist
 
-You are given a playlist of a radio station since its establishment. The playlist has a total of \(n\) songs.
+You are given a playlist of a radio station since its establishment. The playlist has a total of $n$ songs.
 What is the longest sequence of successive songs where each song is unique?
 
 Solution:
@@ -565,7 +565,7 @@ ___
 
 Link: [https://cses.fi/problemset/task/1073/](https://cses.fi/problemset/task/1073/)
 
-You are given \(n\) cubes in a certain order, and your task is to build towers using them. Whenever two cubes are one on top of the other, the upper cube must be smaller than the lower cube.
+You are given $n$ cubes in a certain order, and your task is to build towers using them. Whenever two cubes are one on top of the other, the upper cube must be smaller than the lower cube.
 
 You must process the cubes in the given order. You can always either place the cube on top of an existing tower or begin a new tower. What is the minimum possible number of towers?
 
@@ -605,13 +605,13 @@ ___
 
 Link: [https://cses.fi/problemset/task/1163/](https://cses.fi/problemset/task/1163/)
 
-There is a street of length \(x\) whose positions are numbered 0, 1, ..., \(x\). Initially, there are no traffic lights, but \(n\) sets of traffic lights are added to the street one after another.
+There is a street of length $x$ whose positions are numbered 0, 1, ..., $x$. Initially, there are no traffic lights, but $n$ sets of traffic lights are added to the street one after another.
 Your task is to calculate the length of the longest passage without traffic lights after each addition.
 
 Solution:
 - This problem can be solved by maintaining a set of partitions and a multiset of lengths of these partitions.
-- Whenever we add a traffic light \(p\), we add \(p\) to the set. Then we get the next and previous value in the set and delete the length of the next-prev partition from the multiset.
-- We add the two new lengths \(p\)-prev and \(p\)-next to the length multiset.
+- Whenever we add a traffic light $p$, we add $p$ to the set. Then we get the next and previous value in the set and delete the length of the next-prev partition from the multiset.
+- We add the two new lengths $p$-prev and $p$-next to the length multiset.
 
 
 ```cpp:
@@ -650,14 +650,14 @@ ___
 
 Link: [https://cses.fi/problemset/task/2162](https://cses.fi/problemset/task/2162)
 
-Consider a game where there are \(n\) children (numbered 1, 2, ..., \(n\)) in a circle. During the game, every other child is removed from the circle until there are no children left. In which order will the children be removed?
+Consider a game where there are $n$ children (numbered 1, 2, ..., $n$) in a circle. During the game, every other child is removed from the circle until there are no children left. In which order will the children be removed?
 
 Solution:
 - The Josephus problem is a famous theoretical problem that involves a group of people standing in a circle. Starting from a designated person, you count a fixed number of people in a clockwise direction and eliminate them one by one until only one person remains. The goal is to find the position of the last remaining person.
-- There is no standard approach to print the children one by one. Any solution with a time complexity of O(\(n \log n\)) or better will work.
-- For \(k = 1\), we will see a pattern of direction and step size.
-- The following code works in O(\(n\)).
-- In the next problem, we will discuss a general approach using a segment tree with a time complexity of O(\(n \log n\)). That code will also work here for \(k = 1\).
+- There is no standard approach to print the children one by one. Any solution with a time complexity of O($n \log n$) or better will work.
+- For $k = 1$, we will see a pattern of direction and step size.
+- The following code works in O($n$).
+- In the next problem, we will discuss a general approach using a segment tree with a time complexity of O($n \log n$). That code will also work here for $k = 1$.
 
 ```cpp:
 signed main()
@@ -688,11 +688,11 @@ ___
 
 Link: [https://cses.fi/problemset/task/2163/](https://cses.fi/problemset/task/2163/)
 
-Consider a game where there are \(n\) children (numbered 1, 2, ..., \(n\)) in a circle. During the game, repeatedly \(k\) children are skipped, and one child is removed from the circle. In which order will the children be removed?
+Consider a game where there are $n$ children (numbered 1, 2, ..., $n$) in a circle. During the game, repeatedly $k$ children are skipped, and one child is removed from the circle. In which order will the children be removed?
 
 Solution:
-- You can simulate it using an ordered set or a Segment Tree in \(O(n \log n)\).
-- An ordered set allows deletion in \(O(\log n)\).
+- You can simulate it using an ordered set or a Segment Tree in $O(n \log n)$.
+- An ordered set allows deletion in $O(\log n)$.
 - Below is an implementation using a Segment Tree.
 
 
@@ -809,7 +809,7 @@ ___
 
 # Room Allocation
 
-There is a large hotel, and \(n\) customers will arrive soon. Each customer wants to have a single room.
+There is a large hotel, and $n$ customers will arrive soon. Each customer wants to have a single room.
 You know each customer's arrival and departure day. Two customers can stay in the same room if the departure day of the first customer is earlier than the arrival day of the second customer.
 What is the minimum number of rooms that are needed to accommodate all customers? And how can the rooms be allocated?
 
@@ -875,20 +875,20 @@ ___
 
 Link: [https://cses.fi/problemset/task/1620](https://cses.fi/problemset/task/1620)
 
-A factory has \(n\) machines which can be used to make products. Your goal is to make a total of \(t\) products.
+A factory has $n$ machines which can be used to make products. Your goal is to make a total of $t$ products.
 For each machine, you know the number of seconds it needs to make a single product. The machines can work simultaneously, and you can freely decide their schedule.
-What is the shortest time needed to make \(t\) products?
+What is the shortest time needed to make $t$ products?
 
 Solution:
-- First, look at the constraints. \(n\) is on the order of \(2 \times 10^5\).
-- This question expects a solution in \(O(n \log n)\).
+- First, look at the constraints. $n$ is on the order of $2 \times 10^5$.
+- This question expects a solution in $O(n \log n)$.
 - We are given the number of products and asked to find the minimum time taken to make these products.
-- Let's try to solve a different problem. Suppose we are given a time \(x\). We also have an array \(machines\), where \(machines[i]\) represents the time taken to make 1 product by the \(i\)th machine. What is the maximum number of products you can make in time \(x\)?
-- This problem can be solved in \(O(n)\) using the formula \(\sum_{i=1}^{n} \frac{x}{{\text{machines}[i]}}\).
+- Let's try to solve a different problem. Suppose we are given a time $x$. We also have an array $machines$, where $machines[i]$ represents the time taken to make 1 product by the $i$th machine. What is the maximum number of products you can make in time $x$?
+- This problem can be solved in $O(n)$ using the formula $\sum_{i=1}^{n} \frac{x}{{\text{machines}[i]}}$.
 - Now we can use this to solve the main problem.
-- The lower bound to make products is 1, and the upper bound is \(10^{18}\).
-- We can apply modified binary search to solve this. The bounds represent time. At each iteration, we get the middle time. If the number of products I can make in mid time is less than \(t\), then I will need more time, so we set \(low = \text{{mid}} + 1\).
-- If the number of products is greater than or equal to \(t\), then I should try to check if it's possible to make the same number of products in an even lesser time.
+- The lower bound to make products is 1, and the upper bound is $10^{18}$.
+- We can apply modified binary search to solve this. The bounds represent time. At each iteration, we get the middle time. If the number of products I can make in mid time is less than $t$, then I will need more time, so we set $low = \text{{mid}} + 1$.
+- If the number of products is greater than or equal to $t$, then I should try to check if it's possible to make the same number of products in an even lesser time.
 - At each step, check for integer overflows.
 
 
@@ -935,31 +935,31 @@ ___
 
 Link: [https://cses.fi/problemset/task/1630/](https://cses.fi/problemset/task/1630/)
 
-You have to process \(n\) tasks. Each task has a duration and a deadline, and you will process the tasks in some order one after another. Your reward for a task is \(d-f\) where \(d\) is its deadline and \(f\) is your finishing time. (The starting time is 0, and you have to process all tasks even if a task would yield negative reward.)
+You have to process $n$ tasks. Each task has a duration and a deadline, and you will process the tasks in some order one after another. Your reward for a task is $d-f$ where $d$ is its deadline and $f$ is your finishing time. (The starting time is 0, and you have to process all tasks even if a task would yield negative reward.)
 What is your maximum reward if you act optimally?
 
 Solution:
 - The optimal strategy in this case is to process the tasks in ascending order of their duration.
 - Proof by Exchange Arguments:
-  - Suppose the Shortest Processing Time (SPT) algorithm processes the tasks in the order A, B, C, ..., N, where the tasks are indexed in the order they are processed. The completion times for these tasks are \(t(A)\), \(t(B)\), \(t(C)\), ..., \(t(N)\), respectively.
+  - Suppose the Shortest Processing Time (SPT) algorithm processes the tasks in the order A, B, C, ..., N, where the tasks are indexed in the order they are processed. The completion times for these tasks are $t(A)$, $t(B)$, $t(C)$, ..., $t(N)$, respectively.
   - Now, let's consider an optimal ordering of the tasks that yields a higher reward than the SPT algorithm. In this optimal ordering, let's say there are two adjacent tasks, X and Y, such that X is processed before Y, but Y has a shorter processing time than X. Therefore, X comes before Y in the optimal ordering.
   - If we swap the positions of X and Y in the ordering, we create a new ordering where Y is processed before X. Let's analyze the effect of this swap on the total reward.
   - Before the swap:
-    - Reward(X) = \(d(X) - t(X)\) [Reward for task X]
-    - Reward(Y) = \(d(Y) - t(Y)\) [Reward for task Y]
+    - Reward(X) = $d(X) - t(X)$ [Reward for task X]
+    - Reward(Y) = $d(Y) - t(Y)$ [Reward for task Y]
   - After the swap:
-    - Reward(X') = \(d(X) - t(Y)\) [Reward for task X after the swap]
-    - Reward(Y') = \(d(Y) - t(X)\) [Reward for task Y after the swap]
+    - Reward(X') = $d(X) - t(Y)$ [Reward for task X after the swap]
+    - Reward(Y') = $d(Y) - t(X)$ [Reward for task Y after the swap]
   - Since we assumed that the optimal ordering yields a higher reward, we have:
-    - \(Reward(X') + Reward(Y') > Reward(X) + Reward(Y)\)
+    - $Reward(X') + Reward(Y') > Reward(X) + Reward(Y)$
   - Substituting the expressions, we get:
-    - \(d(X) - t(Y) + d(Y) - t(X) > d(X) - t(X) + d(Y) - t(Y)\)
+    - $d(X) - t(Y) + d(Y) - t(X) > d(X) - t(X) + d(Y) - t(Y)$
   - Simplifying the inequality:
-    - \(d(X) - t(Y) + d(Y) - t(X) > d(X) + d(Y) - t(X) - t(Y)\)
+    - $d(X) - t(Y) + d(Y) - t(X) > d(X) + d(Y) - t(X) - t(Y)$
   - Rearranging the terms:
-    - \(t(X) - t(Y) > - t(X) - t(Y)\)
+    - $t(X) - t(Y) > - t(X) - t(Y)$
   - We can observe that all the terms on both sides of the inequality cancel out, leaving us with:
-    - \(0 > 0\)
+    - $0 > 0$
   - This is a contradiction because we have reached an inequality that is always false. Therefore, our initial assumption that an optimal ordering exists with a higher reward than the SPT algorithm is false.
   - Hence, we can conclude that the SPT algorithm is indeed optimal for maximizing the reward in this scenario, as proven by the exchange arguments.
 
@@ -994,22 +994,22 @@ ___
 
 Link: [https://cses.fi/problemset/task/1631/](https://cses.fi/problemset/task/1631/)
 
-There are \(n\) books, and Kotivalo and Justiina are going to read them all. For each book, you know the time it takes to read it.
+There are $n$ books, and Kotivalo and Justiina are going to read them all. For each book, you know the time it takes to read it.
 They both read each book from beginning to end, and they cannot read a book at the same time. What is the minimum total time required?
 
 Solution:
-- Let the largest time taken be \(T\).
-- Let the sum of all times be \(S\).
-- The minimum time taken will be \(\min(2 \times T, S)\).
+- Let the largest time taken be $T$.
+- Let the sum of all times be $S$.
+- The minimum time taken will be $\min(2 \times T, S)$.
 
 Proof:
-1. Case 1: \(T \geq S/2\)
-    - If the largest time taken, \(T\), is greater than or equal to half the sum of all times, \(S/2\), then it would be more efficient for Kotivalo and Justiina to read the books individually rather than simultaneously. In this case, the minimum total time required would be \(S\), as both Kotivalo and Justiina can read the books one after the other without overlapping.
+1. Case 1: $T \geq S/2$
+    - If the largest time taken, $T$, is greater than or equal to half the sum of all times, $S/2$, then it would be more efficient for Kotivalo and Justiina to read the books individually rather than simultaneously. In this case, the minimum total time required would be $S$, as both Kotivalo and Justiina can read the books one after the other without overlapping.
 
-2. Case 2: \(T < S/2\)
-    - If the largest time taken, \(T\), is less than half the sum of all times, \(S/2\), then it is more efficient for Kotivalo and Justiina to read the books simultaneously. In this case, the minimum total time required would be \(2 \times T\) because both of them can start reading the two longest books simultaneously and then continue with the remaining books once they finish those.
+2. Case 2: $T < S/2$
+    - If the largest time taken, $T$, is less than half the sum of all times, $S/2$, then it is more efficient for Kotivalo and Justiina to read the books simultaneously. In this case, the minimum total time required would be $2 \times T$ because both of them can start reading the two longest books simultaneously and then continue with the remaining books once they finish those.
 
-By considering these two cases, we can see that the minimum time taken will be either \(S\) or \(2 \times T\), whichever is smaller. This is because if \(T\) is greater than or equal to \(S/2\), it is more efficient to read the books individually, resulting in a total time of \(S\). On the other hand, if \(T\) is less than \(S/2\), it is more efficient to read the books simultaneously, resulting in a total time of \(2 \times T\). Therefore, the minimum time taken can be calculated as \(\min(2 \times T, S)\).
+By considering these two cases, we can see that the minimum time taken will be either $S$ or $2 \times T$, whichever is smaller. This is because if $T$ is greater than or equal to $S/2$, it is more efficient to read the books individually, resulting in a total time of $S$. On the other hand, if $T$ is less than $S/2$, it is more efficient to read the books simultaneously, resulting in a total time of $2 \times T$. Therefore, the minimum time taken can be calculated as $\min(2 \times T, S)$.
 
 
 ```cpp:
@@ -1037,7 +1037,7 @@ ___
 
 Link: [https://cses.fi/problemset/task/1641](https://cses.fi/problemset/task/1641)
 
-You are given an array of \(n\) integers, and your task is to find three values (at distinct positions) whose sum is \(x\).
+You are given an array of $n$ integers, and your task is to find three values (at distinct positions) whose sum is $x$.
 
 Solution:
 - We can fix the first element, then the problem becomes finding the sum of 2 values for the remaining part of the array.
@@ -1076,10 +1076,10 @@ ___
 
 Link: [https://cses.fi/problemset/task/1642/](https://cses.fi/problemset/task/1642/)
 
-You are given an array of \(n\) integers, and your task is to find four values (at distinct positions) whose sum is \(x\).
+You are given an array of $n$ integers, and your task is to find four values (at distinct positions) whose sum is $x$.
 
 Solution:
-- Store the sum of pairs in a dictionary/map and check if there are two pairs whose sum is \(x\) optimally.
+- Store the sum of pairs in a dictionary/map and check if there are two pairs whose sum is $x$ optimally.
 
 ```cpp:
 int main()
@@ -1115,7 +1115,7 @@ ___
 
 Link: [https://cses.fi/problemset/task/1645/](https://cses.fi/problemset/task/1645/)
 
-Given an array of \(n\) integers, your task is to find, for each array position, the nearest position to its left that has a smaller value.
+Given an array of $n$ integers, your task is to find, for each array position, the nearest position to its left that has a smaller value.
 
 Solution:
 - This is a standard problem on the Stack data structure.
@@ -1153,7 +1153,7 @@ ___
 
 Link: [https://cses.fi/problemset/task/1660/](https://cses.fi/problemset/task/1660/)
 
-Given an array of \(n\) positive integers, your task is to count the number of subarrays that have a sum of \(x\).
+Given an array of $n$ positive integers, your task is to count the number of subarrays that have a sum of $x$.
 
 Solution:
 - We can solve it using two pointers and a sliding window approach.
@@ -1188,12 +1188,12 @@ int main()
 
 Link: [https://cses.fi/problemset/task/1661/](https://cses.fi/problemset/task/1661/)
 
-Given an array of \(n\) integers, your task is to count the number of subarrays that have a sum of \(x\).
+Given an array of $n$ integers, your task is to count the number of subarrays that have a sum of $x$.
 
 Solution:
 - The only difference between this problem and the previous problem is that we can have negative numbers in the array.
 - Remember that we can find the sum of a subarray using prefix sums with the formula:
-    - \(\text{Sum}(A[i:j]) = \text{prefix\_sum}(A[j]) - \text{prefix\_sum}(A[i-1])\)
+    - $\text{Sum}(A[i:j]) = \text{prefix\_sum}(A[j]) - \text{prefix\_sum}(A[i-1])$
 - Using this, we can store the prefix sums in a map and calculate our answer.
 
 ```cpp:
@@ -1361,12 +1361,12 @@ ___
 
 Link: [https://cses.fi/problemset/task/1076/](https://cses.fi/problemset/task/1076/)
 
-You are given an array of \(n\) integers. Your task is to calculate the median of each window of \(k\) elements, from left to right.
+You are given an array of $n$ integers. Your task is to calculate the median of each window of $k$ elements, from left to right.
 The median is the middle element when the elements are sorted. If the number of elements is even, there are two possible medians, and we assume that the median is the smaller of them.
 
 Solution:
 - One possible way is to use two heaps.
-- Another approach is to use policy-based data structures like ordered_set, which allow insertion and deletion in \(O(\log n)\) time complexity to simulate the process.
+- Another approach is to use policy-based data structures like ordered_set, which allow insertion and deletion in $O(\log n)$ time complexity to simulate the process.
 - We can also use 2 multisets.
 - Another approach is to use fenwick tree to stimulate the ordred set.
 
