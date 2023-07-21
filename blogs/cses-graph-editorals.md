@@ -2266,6 +2266,180 @@ signed main()
 ___
 
 
+
+# Mail Delivery
+
+Link: https://cses.fi/problemset/task/1691
+
+Your task is to deliver mail to the inhabitants of a city. For this reason, you want to find a route whose starting and ending point are the post office, and that goes through every street exactly once.
+
+Solution:
+- This is a standered problem of Eulerian tour of an undirected graph.
+- An Eulerian path is a path that goes exactly once through each edge of the graph.
+- An Eulerian circuit is an Eulerian path that starts and ends at the same node.
+- So basically, we need to check if an Eulerian circuit exists or not.
+- Conditions:
+    - Degree of each node must be even .
+    - Number of edges in the Eulerian path must be m+1.
+- Read Mode: https://cp-algorithms.com/graph/euler_path.html
+- Read more here: https://usaco.guide/CPH.pdf#page=183
+
+
+```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int long long int
+#define endl '\n'
+typedef long long ll;
+
+const int MOD = 1000000007;
+
+const int N = 2e5+1;
+vector<int> adj[N];
+vector<int> edges[N];
+bool mark[N]{};
+int degree[N]{};
+
+int n,m;
+
+vector<int> path;
+
+// Euiler tour of undirected graph.
+void dfs(int node){
+    while(degree[node] < (int)adj[node].size()){
+        int child = adj[node][degree[node]];
+        int edge = edges[node][degree[node]];
+        degree[node]++;
+        if (!mark[edge]){
+            mark[edge]=true;
+            dfs(child);
+        }
+    }
+    path.push_back(node);
+}
+
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+
+    cin>>n>>m;
+    for (int i = 1; i <= m; i++) {
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+        // index all the edges
+        edges[u].push_back(i);
+        edges[v].push_back(i);
+    }
+    // check if all the nodes have even degree.
+    for (int i = 1; i <= n; i++) {
+        if (adj[i].size()%2!=0){
+            cout<<"IMPOSSIBLE"<<endl;
+            exit(0);
+        }
+    }
+
+    dfs(1);
+
+    // check if this circuit is connected.
+    if ( (int)path.size() != m+1 ) 
+        cout<<"IMPOSSIBLE"<<endl;
+    else{
+        for(int node: path) cout<<node<<" ";
+    }
+
+    return 0;
+}
+```
+
+<br>
+
+___
+
+# Teleporters Path
+
+Link: https://cses.fi/problemset/task/1693
+
+A game has n levels and m teleportes between them. You win the game if you move from level 1 to level n using every teleporter exactly once.
+Can you win the game, and what is a possible way to do it?
+
+Solution:
+- Very similar to the "Mail Delivery" problem, but for directed graph.
+- Conditions:
+    - All nodes with non-zero degree must belong to single Strongly Connected Component.
+    - Indegree and Outdegree must be same for every node except 1 and n.
+    - InDegree[1] = Outdegree[1]-1
+    - InDegree[n] = Outdegree[n]+1
+
+```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int long long int
+#define endl '\n'
+typedef long long ll;
+
+const int MOD = 1000000007;
+const int N = 1e5+1;
+
+vector<int> adj[N];
+int indegree[N]{}, outdegree[N]{};
+int n,m;
+vector<int> path;
+
+void dfs(int node){
+    while(adj[node].size()){
+        int v = adj[node].back();
+        adj[node].pop_back();
+        dfs(v);
+    }
+    path.push_back(node);
+}
+
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+
+    cin>>n>>m;
+    for (int i = 0; i < m; i++) {
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        outdegree[u]++;
+        indegree[v]++;
+    }
+	if(outdegree[1] != indegree[1]+1 || outdegree[n] != indegree[n]-1){
+		cout << "IMPOSSIBLE"<<endl;
+		exit(0);
+	}
+	for(int i = 2 ; i<n ; ++i){
+		if(indegree[i] != outdegree[i]){
+			cout << "IMPOSSIBLE"<<endl;;
+			exit(0);
+		}
+	}
+    dfs(1);
+	if(path.size() != m+1){
+		cout << "IMPOSSIBLE";
+	}
+    else{
+        reverse(path.begin(),path.end());
+        for(int x:path) cout<<x<<" ";
+        cout<<endl;
+    }
+
+    return 0;
+}
+```
+
+<br>
+
+___
+
 # Hamiltonian Flight
 
 Link: https://cses.fi/problemset/task/1690
@@ -2309,7 +2483,195 @@ signed main()
 
 ```
 
+
+# Download Speed
+
+Consider a network consisting of n computers and m connections. Each connection specifies how fast a computer can send data to another computer.
+Kotivalo wants to download some data from a server. What is the maximum speed he can do this, using the connections in the network?
+
+Link: https://cses.fi/problemset/task/1694
+
+Solution:
+- This is a standered problem on Max Flow.
+- You can use any of the flow algorithms to find the value.
+- If $V$ is the number of nodes and $E$ is the number of edges.
+    - Ford-Fulkerson & Edmonds-Karp : https://cp-algorithms.com/graph/edmonds_karp.html#edmonds-karp-algorithm
+    - Dinic's : https://cp-algorithms.com/graph/dinic.html
+    - Push-relabel : https://cp-algorithms.com/graph/push-relabel.html
+    - MPM Algorithm : https://cp-algorithms.com/graph/mpm.html
+- All of the above are pretty efficient and should pass all the testcases.
+- Below is the implementation of Dinic's algorithm.
+
+```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int long long int
+#define endl '\n'
+typedef long long ll;
+
+const int MOD = 1000000007;
+const int N = 501, M = 1001;
+int adj[N][N]{}, oadj[N][N]{};
+bool visited[N]{};
+int parent[N]{};
+
+int n,m;
+
+// check if its possible to reach sinc node or not.
+bool bfs(){
+    memset(visited, false, sizeof(visited));
+    queue<int> q;
+    q.push(1);
+    while(!q.empty()){
+        int node = q.front();
+        q.pop();
+        for (int j = 1; j <= n; j++) {
+            if (!visited[j] && adj[node][j]){
+                visited[j] = true;
+                parent[j] = node;
+                q.push(j);
+            }
+        }
+    }
+    return visited[n];
+}   
+
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+
+    cin>>n>>m;
+    for (int i = 0; i < m; i++) {
+        int u,v,c;
+        cin>>u>>v>>c;
+        adj[u][v]+=c;
+    }
+
+    int maxFlow = 0;
+    while(bfs()){
+        int flow = 1e18;
+		for (int node = n; node != 1; node = parent[node]) {
+			int par_node = parent[node];
+			flow = min(flow, adj[par_node][node]);
+		}
+        maxFlow+=flow;
+		for (int node = n; node != 1; node = parent[node]) {
+			int par_node = parent[node];
+            adj[par_node][node] -= flow;
+            adj[node][par_node] += flow;
+		}
+    }
+    cout<<maxFlow<<endl;
+
+
+    return 0;
+}
+```
+
+<br>
+
 ___
+
+
+# Police Chase
+
+Link: https://cses.fi/problemset/task/1695
+
+Kaaleppi has just robbed a bank and is now heading to the harbor. However, the police wants to stop him by closing some streets of the city.
+What is the minimum number of streets that should be closed so that there is no route between the bank and the harbor?
+
+Solution:
+- This is a min cut problem.
+- Run a max flow algorithm, then do a bfs from node 1.
+- If node $a$ is reachable, but node $b$ is not reachable, the edge $a→b$ should be removed.
+
+```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int long long int
+#define endl '\n'
+typedef long long ll;
+
+const int MOD = 1000000007;
+const int N = 501, M = 1001;
+int adj[N][N]{}, oadj[N][N]{};
+bool visited[N]{};
+int parent[N]{};
+
+int n,m;
+
+// check if its possible to reach sinc node or not.
+bool bfs(){
+    memset(visited, false, sizeof(visited));
+    queue<int> q;
+    visited[1]=true;
+    q.push(1);
+    while(!q.empty()){
+        int node = q.front();
+        q.pop();
+        for (int j = 1; j <= n; j++) {
+            if (!visited[j] && adj[node][j]){
+                visited[j] = true;
+                parent[j] = node;
+                q.push(j);
+            }
+        }
+    }
+    return visited[n];
+}   
+
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+
+    cin>>n>>m;
+    for (int i = 0; i < m; i++) {
+        int u,v;
+        cin>>u>>v;
+        adj[u][v]++; oadj[u][v]++;
+        adj[v][u]++; oadj[v][u]++;
+    }
+
+    int maxFlow = 0;
+    while(bfs()){
+        int flow = 1e18;
+		for (int node = n; node != 1; node = parent[node]) {
+			int par_node = parent[node];
+			flow = min(flow, adj[par_node][node]);
+		}
+        maxFlow+=flow;
+		for (int node = n; node != 1; node = parent[node]) {
+			int par_node = parent[node];
+            adj[par_node][node] -= flow;
+            adj[node][par_node] += flow;
+		}
+    }
+    bfs();
+    vector<pair<int,int> > ans;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (visited[i] && !visited[j] && oadj[i][j]){
+                ans.push_back({i,j});
+            }
+        }
+    }
+    cout<<ans.size()<<endl;
+    for(auto x:ans){
+        cout<<x.first<<" "<<x.second<<endl;
+    }
+
+    return 0;
+}
+```
+
+<br>
+
+___
+
 
 <footer>
 <br>
