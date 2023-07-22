@@ -13,27 +13,27 @@ about: Enhance your dynamic programming skills with our comprehensive collection
 Link: [LeetCode - Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
 
 ### Problem Description:
-You are climbing a staircase. It takes `n` steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+You are climbing a staircase. It takes $n$ steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
 
 ### Solution:
 
 To solve this problem, we can use dynamic programming to build the solution bottom-up. Let's define the subproblems and the transition states:
 
 1. **Subproblem:**
-   Let `DP[i]` be the number of distinct ways to reach step `i` of the staircase.
+   Let $DP[i]$ be the number of distinct ways to reach step $i$ of the staircase.
 
 2. **Base Cases:**
-   - `DP[0] = 1`: There is only one way to reach step 0, and that is by doing nothing (not taking any steps).
-   - `DP[1] = 1`: There is only one way to reach step 1, and that is by taking one step of size 1.
-   - `DP[2] = 2`: There are two ways to reach step 2: either take two steps of size 1 or take one step of size 2.
+   - $DP[0] = 1$: There is only one way to reach step 0, and that is by doing nothing (not taking any steps).
+   - $DP[1] = 1$: There is only one way to reach step 1, and that is by taking one step of size 1.
+   - $DP[2] = 2$: There are two ways to reach step 2: either take two steps of size 1 or take one step of size 2.
 
 3. **Transition State:**
-   To compute `DP[i]`, we can either take a single step of size 1 from `DP[i-1]` or take two steps of size 1 from `DP[i-2]`. Therefore, the transition equation is:
+   To compute $DP[i]$, we can either take a single step of size 1 from $DP[i-1]$ or take two steps of size 1 from $DP[i-2]$. Therefore, the transition equation is:
     - DP[i] = DP[i-1] + DP[i-2]
-    By using this transition equation, we can fill the DP table from `DP[3]` to `DP[n]`.
+    By using this transition equation, we can fill the DP table from $DP[3]$ to $DP[n]$.
 
 4. **Objective:**
-The objective is to find `DP[n]`, which represents the number of distinct ways to reach the top of the staircase when `n` steps are required.
+The objective is to find $DP[n]$, which represents the number of distinct ways to reach the top of the staircase when $n$ steps are required.
 
 
 Solution:
@@ -89,7 +89,7 @@ To compute $\text{DP}[i]$ for each $i$, we need to consider two possibilities:
 2. **Sell on Day $i$:**
 If we sell the stock on day $i$, we need to find the minimum stock price seen before day $i$ (i.e., the minimum of $prices[0:i]$) and calculate the profit that can be obtained by selling on day $i$:
 $$DP[i] = prices[i] - min_so_far$$
-where `min_so_far` is the minimum stock price seen up to day $i$.
+where $min_so_far$ is the minimum stock price seen up to day $i$.
 
 
 Solution:
@@ -198,9 +198,9 @@ $$C_n = \frac{{2n!}}{{(n+1)!n!}}$$
 
 To solve the problem, we need to compute the $n$-th Catalan number using the above formula. The result will be the answer to the problem.
 
-The algorithm for computing the Catalan numbers can be implemented using dynamic programming as shown in the solution. The function `solve(n)` computes the $n$-th Catalan number and returns the result.
+The algorithm for computing the Catalan numbers can be implemented using dynamic programming as shown in the solution. The function $solve(n)$ computes the $n$-th Catalan number and returns the result.
 
-The overall time complexity of the solution is $O(n^2)$ due to the nested loop in the `solve` function. The space complexity is $O(n)$ due to the usage of the `dp` array.
+The overall time complexity of the solution is $O(n^2)$ due to the nested loop in the $solve$ function. The space complexity is $O(n)$ due to the usage of the $dp$ array.
 
 Hence, by using the Catalan number formula and dynamic programming, we can efficiently compute the number of unique binary search trees that can be formed using the values $1$ to $n$.
 
@@ -473,20 +473,20 @@ Return the maximum number of points you can earn by applying the above operation
 
 ### Solution:
 
-To solve this problem, we can first preprocess the given array to create a new array `sums`, where `sums[i]` stores the sum of all occurrences of `i` in the original array `nums`.
+To solve this problem, we can first preprocess the given array to create a new array $sums$, where $sums[i]$ stores the sum of all occurrences of $i$ in the original array $nums$.
 
-After preprocessing, the problem is now reduced to a simple "house robber" problem. In the "house robber" problem, we are not allowed to rob consecutive houses. Similarly, in our current problem, we cannot earn points by deleting two adjacent elements in `nums` (i.e., `nums[i] - 1` and `nums[i] + 1`).
+After preprocessing, the problem is now reduced to a simple "house robber" problem. In the "house robber" problem, we are not allowed to rob consecutive houses. Similarly, in our current problem, we cannot earn points by deleting two adjacent elements in $nums$ (i.e., $nums[i] - 1$ and $nums[i] + 1$).
 
-To apply dynamic programming for the "house robber" problem, we create a new DP array `dp`, where `dp[i]` represents the maximum points that can be earned up to the element at index `i` (i.e., `nums[i]`). We can calculate `dp[i]` using the following recurrence relation:
+To apply dynamic programming for the "house robber" problem, we create a new DP array $dp$, where $dp[i]$ represents the maximum points that can be earned up to the element at index $i$ (i.e., $nums[i]$). We can calculate $dp[i]$ using the following recurrence relation:
 
 $$dp[i] = max(dp[i-1], dp[i-2] + sums[i])$$
 
-Finally, the answer will be the maximum of `dp[n]` and `dp[n-1]`, where `n` is the length of `nums`.
+Finally, the answer will be the maximum of $dp[n]$ and $dp[n-1]$, where $n$ is the length of $nums$.
 
 ### Complexity Analysis:
 
-- Time complexity: $ O(n) $, where $ n $ is the length of `nums`.
-- Space complexity: $ O(n) $ due to the usage of the `sums` and `dp` arrays.
+- Time complexity: $ O(n) $, where $ n $ is the length of $nums$.
+- Space complexity: $ O(n) $ due to the usage of the $sums$ and $dp$ arrays.
 
 
 ```cpp:
@@ -525,30 +525,30 @@ Link: [LeetCode - Domino and Tromino Tiling](https://leetcode.com/problems/domin
 
 We have two types of tiles: a 2x1 domino shape, and an "L" tromino shape. These shapes may be rotated.
 
-Given an integer `n`, return the number of ways to tile an `2 x n` board. The answer may be very large, so return it modulo `10^9 + 7`.
+Given an integer $n$, return the number of ways to tile an $2 x n$ board. The answer may be very large, so return it modulo $10^9 + 7$.
 
 A tiling is a filling of a region with non-overlapping tiles such that every empty square in the region is covered by exactly one tile. A rotation (reflection) of a shape consists of rotating (reflecting) it in a way such that all of the angles fit between the axes of symmetry.
 
 Note:
-- `n` will be in range `[1, 1000]`.
+- $n$ will be in range $[1, 1000]$.
 
 ### Solution:
 
-To solve this problem, we can use dynamic programming. Let's define a 1D DP array `D`, where `D[i]` represents the number of ways to tile a `2 x i` board.
+To solve this problem, we can use dynamic programming. Let's define a 1D DP array $D$, where $D[i]$ represents the number of ways to tile a $2 x i$ board.
 
 We initialize the DP array as follows:
-- `D[1] = 1` (as there is only one way to tile a `2 x 1` board with a single domino)
-- `D[2] = 2` (as there are two ways to tile a `2 x 2` board, either using two dominoes or a single tromino)
+- $D[1] = 1$ (as there is only one way to tile a $2 x 1$ board with a single domino)
+- $D[2] = 2$ (as there are two ways to tile a $2 x 2$ board, either using two dominoes or a single tromino)
 
-Now, for `i` from `3` to `n`, we calculate `D[i]` using the recurrence relation:
+Now, for $i$ from $3$ to $n$, we calculate $D[i]$ using the recurrence relation:
 $$D[i] = (D[i-1]*2 + D[i-3]) % (10^9 + 7)$$
 
-Finally, the answer will be `D[n]`.
+Finally, the answer will be $D[n]$.
 
 ### Complexity Analysis:
 
-- Time complexity: $O(n)$, where `n` is the given integer. We need to calculate `D[i]` for all `i` from `3` to `n`.
-- Space complexity: $O(n)$ due to the usage of the DP array `D`.
+- Time complexity: $O(n)$, where $n$ is the given integer. We need to calculate $D[i]$ for all $i$ from $3$ to $n$.
+- Space complexity: $O(n)$ due to the usage of the DP array $D$.
 
 
 ```Python:
@@ -587,21 +587,21 @@ As the answer may be very large, return the answer modulo \( 10^9 + 7 \).
 
 ### Solution:
 
-To solve this problem, we can use dynamic programming. We create a 2D DP array `dp`, where `dp[i][j]` represents the number of distinct phone numbers of length `i` that can be dialed starting from the numeric cell `j`.
+To solve this problem, we can use dynamic programming. We create a 2D DP array $dp$, where $dp[i][j]$ represents the number of distinct phone numbers of length $i$ that can be dialed starting from the numeric cell $j$.
 
 We initialize the DP array as follows:
-- For `i = 1`, all numeric cells are reachable in one step, so we set `dp[1][j] = 1` for all `j`.
-- For `i = 2`, we calculate the number of distinct phone numbers of length `2` that can be dialed from each numeric cell. We predefine the valid knight moves for each numeric cell, and for each numeric cell `j`, we count the number of distinct phone numbers that can be dialed in one step from the valid knight moves of `j`.
+- For $i = 1$, all numeric cells are reachable in one step, so we set $dp[1][j] = 1$ for all $j$.
+- For $i = 2$, we calculate the number of distinct phone numbers of length $2$ that can be dialed from each numeric cell. We predefine the valid knight moves for each numeric cell, and for each numeric cell $j$, we count the number of distinct phone numbers that can be dialed in one step from the valid knight moves of $j$.
 
-Now, for `i` from `3` to `n`, we calculate `dp[i][j]` using the following recurrence relation:
+Now, for $i$ from $3$ to $n$, we calculate $dp[i][j]$ using the following recurrence relation:
 $dp[i][j] = sum(dp[i-1][k])$ for all valid knight moves k of j
 
-Finally, the answer will be the sum of all `dp[n][j]` for all `j`.
+Finally, the answer will be the sum of all $dp[n][j]$ for all $j$.
 
 ### Complexity Analysis:
 
-- Time complexity: \( O(n) \), where `n` is the given integer. We need to calculate `dp[i][j]` for all `i` from `3` to `n` and all `j`.
-- Space complexity: \( O(n) \) due to the usage of the DP array `dp`.
+- Time complexity: \( O(n) \), where $n$ is the given integer. We need to calculate $dp[i][j]$ for all $i$ from $3$ to $n$ and all $j$.
+- Space complexity: \( O(n) \) due to the usage of the DP array $dp$.
 
 ```cpp:
 class Solution {
@@ -756,11 +756,11 @@ Link: [LeetCode - Filling Bookcase Shelves](https://leetcode.com/problems/fillin
 
 ### Problem Description:
 
-You are given an array `books` where `books[i] = [thickness_i, height_i]` indicates the thickness and height of the `ith` book. You are also given an integer `shelfWidth`.
+You are given an array $books$ where $books[i] = [thickness_i, height_i]$ indicates the thickness and height of the $ith$ book. You are also given an integer $shelfWidth$.
 
-We want to place these books in order onto bookcase shelves that have a total width `shelfWidth`.
+We want to place these books in order onto bookcase shelves that have a total width $shelfWidth$.
 
-We choose some of the books to place on this shelf such that the sum of their thickness is less than or equal to `shelfWidth`, then build another level of the shelf of the bookcase so that the total height of the bookcase has increased by the maximum height of the books we just put down. We repeat this process until there are no more books to place.
+We choose some of the books to place on this shelf such that the sum of their thickness is less than or equal to $shelfWidth$, then build another level of the shelf of the bookcase so that the total height of the bookcase has increased by the maximum height of the books we just put down. We repeat this process until there are no more books to place.
 
 Note that at each step of the above process, the order of the books we place is the same as the given sequence of books.
 
@@ -768,22 +768,22 @@ Return the minimum possible height that the total bookshelf can be after placing
 
 ### Solution:
 
-To solve this problem, we can use dynamic programming. Let's define a 1D DP array `dp`, where `dp[i]` represents the minimum possible height of the bookshelf when placing the books from index `i` to the end of the array.
+To solve this problem, we can use dynamic programming. Let's define a 1D DP array $dp$, where $dp[i]$ represents the minimum possible height of the bookshelf when placing the books from index $i$ to the end of the array.
 
 We initialize the DP array as follows:
-- `dp[n] = 0`, where `n` is the number of books. (as there are no books to place at the end, so the minimum height is 0)
+- $dp[n] = 0$, where $n$ is the number of books. (as there are no books to place at the end, so the minimum height is 0)
 
-Now, for `i` from `n-1` to 0, we calculate `dp[i]` using the following recurrence relation:
+Now, for $i$ from $n-1$ to 0, we calculate $dp[i]$ using the following recurrence relation:
 $dp[i] = min( books[j][1] + dp[j + 1] )$ for all j from i to n-1, where sum of thickness of books from index i to j <= shelfWidth
 
-We iterate through all possible partitions of the books from index `i` to the end, and take the minimum height among them.
+We iterate through all possible partitions of the books from index $i$ to the end, and take the minimum height among them.
 
-Finally, the answer will be `dp[0]`, which represents the minimum possible height of the bookshelf when placing the books from the beginning of the array.
+Finally, the answer will be $dp[0]$, which represents the minimum possible height of the bookshelf when placing the books from the beginning of the array.
 
 ### Complexity Analysis:
 
-- Time complexity: `O(n^2)`, where `n` is the number of books. We need to calculate `dp[i]` for all `i` from `n-1` to 0, and each calculation requires iterating through at most `n-1` elements.
-- Space complexity: `O(n)` due to the usage of the DP array `dp`.
+- Time complexity: $O(n^2)$, where $n$ is the number of books. We need to calculate $dp[i]$ for all $i$ from $n-1$ to 0, and each calculation requires iterating through at most $n-1$ elements.
+- Space complexity: $O(n)$ due to the usage of the DP array $dp$.
 
 
 ```cpp:
@@ -825,28 +825,28 @@ Link: [LeetCode - Longest Arithmetic Subsequence of Given Difference](https://le
 
 ### Problem Description:
 
-Given an integer array `arr` and an integer `difference`, return the length of the longest subsequence of the given array that is an arithmetic sequence with the difference `difference`.
+Given an integer array $arr$ and an integer $difference$, return the length of the longest subsequence of the given array that is an arithmetic sequence with the difference $difference$.
 
 A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
 
 ### Solution:
 
-To solve this problem, we can use dynamic programming. Let's define a 1D DP array `dp`, where `dp[i]` represents the length of the longest arithmetic subsequence with difference `difference` ending at index `i` of the array `arr`.
+To solve this problem, we can use dynamic programming. Let's define a 1D DP array $dp$, where $dp[i]$ represents the length of the longest arithmetic subsequence with difference $difference$ ending at index $i$ of the array $arr$.
 
 We initialize the DP array as follows:
-- `dp[i] = 1` for all `i` from 0 to `n-1`, where `n` is the number of elements in the array. (as a single element forms an arithmetic subsequence of length 1)
+- $dp[i] = 1$ for all $i$ from 0 to $n-1$, where $n$ is the number of elements in the array. (as a single element forms an arithmetic subsequence of length 1)
 
-Now, for each element `arr[i]` in the array, we check if `arr[i] - difference` exists in the array and calculate `dp[i]` using the following recurrence relation:
+Now, for each element $arr[i]$ in the array, we check if $arr[i] - difference$ exists in the array and calculate $dp[i]$ using the following recurrence relation:
 
 $dp[i] = dp[arr[i] - difference] + 1 if arr[i]$ - difference exists in the array, else $dp[i] = 1$
-We update the answer as the maximum value of `dp[i]` for all elements `arr[i]` in the array.
+We update the answer as the maximum value of $dp[i]$ for all elements $arr[i]$ in the array.
 
-Finally, the answer will be the maximum value in the DP array `dp`.
+Finally, the answer will be the maximum value in the DP array $dp$.
 
 ### Complexity Analysis:
 
-- Time complexity: `O(n)`, where `n` is the number of elements in the array. We need to calculate `dp[i]` for all elements in the array.
-- Space complexity: `O(n)` due to the usage of the DP array `dp`.
+- Time complexity: $O(n)$, where $n$ is the number of elements in the array. We need to calculate $dp[i]$ for all elements in the array.
+- Space complexity: $O(n)$ due to the usage of the DP array $dp$.
 
 ```cpp:
 class Solution {
@@ -875,27 +875,27 @@ Link: [LeetCode - Greatest Sum Divisible by Three](https://leetcode.com/problems
 
 ### Problem Description:
 
-Given an integer array `nums`, return the maximum possible sum of elements of the array such that it is divisible by three.
+Given an integer array $nums$, return the maximum possible sum of elements of the array such that it is divisible by three.
 
 ### Solution:
 
-To solve this problem, we can use dynamic programming. Let's define a 1D DP array `dp`, where `dp[i]` represents the maximum possible sum of elements of the array such that the sum is divisible by three and the remainder of the sum modulo three is `i`.
+To solve this problem, we can use dynamic programming. Let's define a 1D DP array $dp$, where $dp[i]$ represents the maximum possible sum of elements of the array such that the sum is divisible by three and the remainder of the sum modulo three is $i$.
 
 We initialize the DP array as follows:
-- `dp[0] = 0` (as there is no element in the array, so the maximum sum divisible by three with remainder 0 is 0)
+- $dp[0] = 0$ (as there is no element in the array, so the maximum sum divisible by three with remainder 0 is 0)
 
-Now, for each element `nums[i]` in the array, we update the DP array `dp` using the following recurrence relation:
+Now, for each element $nums[i]$ in the array, we update the DP array $dp$ using the following recurrence relation:
 $dp[rem] = max(dp[rem], dp[(rem - nums[i]) % 3] + nums[i])$ for all rem from 0 to 2
-where `rem` represents the remainder of the sum modulo three.
+where $rem$ represents the remainder of the sum modulo three.
 
-We update the DP array `dp` in such a way that at each index `i`, `dp[i]` represents the maximum sum of elements of the array such that the sum is divisible by three and the remainder of the sum modulo three is `i`.
+We update the DP array $dp$ in such a way that at each index $i$, $dp[i]$ represents the maximum sum of elements of the array such that the sum is divisible by three and the remainder of the sum modulo three is $i$.
 
-Finally, the answer will be `dp[0]`, which represents the maximum possible sum of elements of the array that is divisible by three.
+Finally, the answer will be $dp[0]$, which represents the maximum possible sum of elements of the array that is divisible by three.
 
 ### Complexity Analysis:
 
-- Time complexity: `O(n)`, where `n` is the number of elements in the array. We need to update the DP array `dp` for all elements in the array.
-- Space complexity: `O(1)` as we are using a constant space DP array `dp` of size 3.
+- Time complexity: $O(n)$, where $n$ is the number of elements in the array. We need to update the DP array $dp$ for all elements in the array.
+- Space complexity: $O(1)$ as we are using a constant space DP array $dp$ of size 3.
 
 
 ```cpp:
@@ -1030,15 +1030,15 @@ Since the answer may be very large, return it modulo $10^9 + 7$.
 
 To solve this problem, we can use dynamic programming. Let's define the following helper functions:
 
-- `oneDigit(char a)`: It returns the number of ways to decode a single digit $a$ (considering the '*' character).
+- $oneDigit(char a)$: It returns the number of ways to decode a single digit $a$ (considering the '*' character).
 
-- `twoDigit(char b, char a)`: It returns the number of ways to decode two digits $b$ and $a$ (considering the '*' character).
+- $twoDigit(char b, char a)$: It returns the number of ways to decode two digits $b$ and $a$ (considering the '*' character).
 
-We can use these helper functions to compute the number of ways to decode the entire string $s$. We use three variables `prev2`, `prev1`, and `curr` to keep track of the number of ways to decode the previous two characters, the previous character, and the current character, respectively.
+We can use these helper functions to compute the number of ways to decode the entire string $s$. We use three variables $prev2$, $prev1$, and $curr$ to keep track of the number of ways to decode the previous two characters, the previous character, and the current character, respectively.
 
-Starting from the second character of the string, we iterate through each character and update the variables `prev2`, `prev1`, and `curr` based on the helper functions' values. We use modular arithmetic to avoid overflow as the answer may be very large.
+Starting from the second character of the string, we iterate through each character and update the variables $prev2$, $prev1$, and $curr$ based on the helper functions' values. We use modular arithmetic to avoid overflow as the answer may be very large.
 
-Finally, the answer will be stored in the variable `prev1`.
+Finally, the answer will be stored in the variable $prev1$.
 
 ### Complexity Analysis:
 
