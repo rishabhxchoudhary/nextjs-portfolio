@@ -1572,12 +1572,17 @@ Note: You may not engage in multiple transactions simultaneously (i.e., you must
 
 ### Approach:
 To solve this problem, we can use a dynamic programming approach. We maintain four variables: $fb$, $p1$, $sb$, and $p2$, which represent the minimum buy price for the first transaction, the maximum profit for the first transaction, the minimum buy price for the second transaction, and the maximum profit for the second transaction, respectively.
+
 We initialize $fb$ and $sb$ to a very large value ($\text{INT_MAX}$) and $p1$ and $p2$ to 0. This is because we haven't made any transactions yet, so the maximum profit is 0, and we set $fb$ and $sb$ to large values so that we can find the minimum buy prices for the first and second transactions.
+
 For each day, we update the four variables based on the following rules:
 $fb$: The minimum buy price for the first transaction is the minimum of the previous $fb$ value and the current day's stock price.
 $p1$: The maximum profit for the first transaction is the maximum of the previous $p1$ value and the profit we can achieve by selling the stock on the current day minus the first transaction's buy price.
+
 $sb$: The minimum buy price for the second transaction is the minimum of the previous $sb$ value and the current day's stock price minus the profit we can achieve from the first transaction.
+
 $p2$: The maximum profit for the second transaction is the maximum of the previous $p2$ value and the profit we can achieve by selling the stock on the current day minus the second transaction's buy price.
+
 Finally, the maximum profit we can achieve is stored in the $p2$ variable.
 
 ### Complexity Analysis:
