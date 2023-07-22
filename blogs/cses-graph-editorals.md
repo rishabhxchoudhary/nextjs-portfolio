@@ -2673,6 +2673,26 @@ signed main()
 ___
 
 
+# School Dance
+
+Link: https://cses.fi/problemset/task/1696
+
+There are n boys and m girls in a school. Next week a school dance will be organized. A dance pair consists of a boy and a girl, and there are k potential pairs.
+Your task is to find out the maximum number of dance pairs and show how this number can be achieved.
+
+Solution:
+- This is problem of Maximum Matchings and can be solved using max flow.
+- Read more here: https://usaco.guide/CPH.pdf#page=197
+
+```
+
+```
+
+<br>
+
+___
+
+
 <footer>
 <br>
 <br>
