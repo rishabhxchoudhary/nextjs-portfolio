@@ -319,27 +319,27 @@ Link: [LeetCode - Wiggle Subsequence](https://leetcode.com/problems/wiggle-subse
 
 A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with fewer than two elements is trivially a wiggle sequence.
 
-For example, $$[1, 7, 4, 9, 2, 5]$$ is a wiggle sequence because the differences $$(6, -3, 5, -7, 3)$$ are alternately positive and negative.
+For example, $[1, 7, 4, 9, 2, 5]$ is a wiggle sequence because the differences $(6, -3, 5, -7, 3)$ are alternately positive and negative.
 
-Given an integer array $$\text{nums}$$, return the length of the longest wiggle subsequence of $$\text{nums}$$.
+Given an integer array $\text{nums}$, return the length of the longest wiggle subsequence of $\text{nums}$.
 
 A subsequence is obtained by deleting some elements (eventually, also zero) from the original array, leaving the remaining elements in their original order.
 
 ### Solution:
 
-The problem asks us to find the length of the longest wiggle subsequence in the given array $$\text{nums}$$.
+The problem asks us to find the length of the longest wiggle subsequence in the given array $\text{nums}$.
 
-A wiggle sequence is a sequence in which the differences between successive numbers strictly alternate between positive and negative. For example, the sequence $$[1, 7, 4, 9, 2, 5]$$ is a wiggle sequence because the differences $$(6, -3, 5, -7, 3)$$ are alternately positive and negative.
+A wiggle sequence is a sequence in which the differences between successive numbers strictly alternate between positive and negative. For example, the sequence $[1, 7, 4, 9, 2, 5]$ is a wiggle sequence because the differences $(6, -3, 5, -7, 3)$ are alternately positive and negative.
 
-To solve the problem, we can use dynamic programming. Let's define a 2D DP array $$\text{dp}$$, where $$\text{dp}[i][0]$$ represents the length of the longest wiggle subsequence ending at index $$i$$ with a negative difference, and $$\text{dp}[i][1]$$ represents the length of the longest wiggle subsequence ending at index $$i$$ with a positive difference.
+To solve the problem, we can use dynamic programming. Let's define a 2D DP array $\text{dp}$, where $\text{dp}[i][0]$ represents the length of the longest wiggle subsequence ending at index $i$ with a negative difference, and $\text{dp}[i][1]$ represents the length of the longest wiggle subsequence ending at index $i$ with a positive difference.
 
-To compute $$\text{dp}[i][0]$$ and $$\text{dp}[i][1]$$ for each index $$i$$ from $$1$$ to $$n-1$$, we iterate through all previous indices $$j$$ from $$0$$ to $$i-1$$. We check if the difference between $$\text{nums}[i]$$ and $$\text{nums}[j]$$ is positive or negative, and accordingly, update the values of $$\text{dp}[i][0]$$ and $$\text{dp}[i][1]$$. We also maintain a variable $$\text{ans}$$ to keep track of the maximum length of the wiggle subsequence seen so far.
+To compute $\text{dp}[i][0]$ and $\text{dp}[i][1]$ for each index $i$ from $1$ to $n-1$, we iterate through all previous indices $j$ from $0$ to $i-1$. We check if the difference between $\text{nums}[i]$ and $\text{nums}[j]$ is positive or negative, and accordingly, update the values of $\text{dp}[i][0]$ and $\text{dp}[i][1]$. We also maintain a variable $\text{ans}$ to keep track of the maximum length of the wiggle subsequence seen so far.
 
-Finally, the answer will be the maximum of $$\text{ans}$$, $$\text{dp}[n-1][0]$$, and $$\text{dp}[n-1][1]$$.
+Finally, the answer will be the maximum of $\text{ans}$, $\text{dp}[n-1][0]$, and $\text{dp}[n-1][1]$.
 
-The time complexity of the solution is $$O(n^2)$$ due to the nested loop. The space complexity is also $$O(n^2)$$ due to the usage of the 2D DP array.
+The time complexity of the solution is $O(n^2)$ due to the nested loop. The space complexity is also $O(n^2)$ due to the usage of the 2D DP array.
 
-Hence, by using dynamic programming, we can efficiently find the length of the longest wiggle subsequence in the given array $$\text{nums}$$.
+Hence, by using dynamic programming, we can efficiently find the length of the longest wiggle subsequence in the given array $\text{nums}$.
 
 ```cpp:
 class Solution {
