@@ -1103,7 +1103,7 @@ Link: [LeetCode - Triples with Bitwise AND Equal To Zero](https://leetcode.com/p
 
 ### Problem Description:
 
-Given an array $nums$ of integers, find the number of unique triplets $(i, j, k)$ such that $0 \leq i < j < k < \text{nums.length}$ and $nums[i] \& nums[j] \& nums[k] == 0$, where $\&$ represents the bitwise AND operator.
+Given an array $nums$ of integers, find the number of unique triplets $(i, j, k)$ such that $0 \leq i < j < k < \text{nums.length}$ and $nums[i]$ & $nums[j]$ & $nums[k] == 0$, where & represents the bitwise AND operator.
 
 ### Solution:
 
