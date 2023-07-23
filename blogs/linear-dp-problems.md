@@ -1173,7 +1173,7 @@ To solve this problem, we can use dynamic programming. We will sort the jobs bas
 
 ### Complexity Analysis
 
-The time complexity for sorting the jobs is $O(n \log n)$, where $n$ is the total number of jobs. The dynamic programming step takes $O(n^2)$ time. Therefore, the overall time complexity of the solution is $O(n^2)$.
+The overall time complexity of the solution is $O(n \log n)$.
 
 ```cpp:
 class Solution {
