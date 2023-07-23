@@ -76,7 +76,7 @@ Given *n* identical balls and *m* distinct boxes, this problem can be modeled as
 
 $$ x_1 + x_2 + x_3 + \ldots + x_m = n $$
 
-where each $x ≥ 0$.
+where each $ x \geq 0 $.
 
 The number of solutions is given by:
 
