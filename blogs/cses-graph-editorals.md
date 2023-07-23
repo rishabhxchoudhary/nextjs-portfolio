@@ -2484,6 +2484,109 @@ signed main()
 ```
 
 
+## Knight's Tour
+
+Link: https://cses.fi/problemset/task/1689
+
+Solution:
+- Use backtracking and always first move to positions with less possible moves.
+
+```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define int long long int
+#define endl '\n'
+typedef long long ll;
+ 
+const int MOD = 1000000007;
+ 
+// Idea is to always go to a square which has least number of possible neighbours.
+ 
+vector< pair<int,int> > graph[8][8];
+int board[8][8]{};
+ 
+bool check_valid(int x,int y){
+    if ((x>=0 && x<8) && (y>=0 && y<8) ) return true;
+    return false;
+}
+ 
+bool check = 0;
+ 
+int dfs(int x,int y, int depth){
+    board[x][y] = depth;
+    if (depth==64){
+        if (!check){
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    cout<<board[j][i]<<" ";
+                }
+                cout<<endl;
+                }
+            check=true;
+        }
+    }
+    pair<int,int> next;
+    set<pair<int,pair<int,int> > >s;
+    for(auto [nx,ny]:graph[x][y]){
+        if (board[nx][ny]) continue;
+        int count = 0;
+        for(auto [nnx,nny]:graph[nx][ny]){
+            if (board[nnx][nny]) continue;
+            count++;
+        }
+        s.insert({count,{nx,ny}});
+    }
+    int a=depth;
+    for(auto i: s){
+        a = dfs(i.second.first,i.second.second,depth+1);
+        if (a==64){
+            break;
+        }
+    }
+    board[x][y] = 0;
+    return a;
+}
+ 
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+ 
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            for (int _x:{+1,-1}){
+                for(int _y:{+2,-2}){
+                    int x = i+_x, y=j+_y;
+                    if (check_valid(x,y)){
+                        graph[i][j].push_back({x,y});
+                    }
+                }
+            }
+            for (int _y:{+1,-1}){
+                for(int _x:{+2,-2}){
+                    int x = i+_x, y=j+_y;
+                    if (check_valid(x,y)){
+                        graph[i][j].push_back({x,y});
+                    }
+                }
+            }
+        }
+    }
+ 
+    int x,y;
+    cin>>x>>y;
+    x--;y--;
+    dfs(x,y,1);
+ 
+    return 0;
+}
+```
+
+<br>
+
+___
+
 # Download Speed
 
 Consider a network consisting of n computers and m connections. Each connection specifies how fast a computer can send data to another computer.
