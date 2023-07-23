@@ -183,9 +183,81 @@ signed main()
 
 ___
 
+
+## Tree Distances I
+
+Link: https://cses.fi/problemset/task/1132
+
+You are given a tree consisting of n nodes.
+Your task is to determine for each node the maximum distance to another node.
+
+Solution:
+- Calculate the diameter of the tree.
+- Let the end nodes of the diameter be $a$ and $b$.
+- Now for every node, calculate $max ( dist(a,node), dist(b,node) )$ using DFS and dynamic programming.
+
+```CPP:
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define int long long int
+#define endl '\n'
+typedef long long ll;
+ 
+const int MOD = 1000000007;
+
+const int N = 2e5+1;
+ 
+vector<int> adj[N];
+ 
+int dist[2][N]{};
+ 
+int dfs(int node,int parent,int d,int i){
+    dist[i][node] = d;
+    int last_node = -1;
+    for(int child: adj[node]){
+        if (child==parent) continue;
+        int x = dfs(child,node,d+1,i);
+        if ( last_node==-1 || dist[i][x]>dist[i][last_node] ) last_node = x;
+    }
+    if (last_node!=-1) return last_node;
+    return node;
+}
+ 
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+ 
+    int n;
+    cin>>n;
+    for (int i = 0; i < n-1; i++) {
+        int a,b;
+        cin>>a>>b;
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+    int a = dfs(1,1,0,0);
+    int b = dfs(a,a,0,0);
+    dfs(b,b,0,1);
+	for (int i = 1; i <= n; i++) {
+		cout << max(dist[0][i], dist[1][i])<<" ";
+	}
+    cout<<endl;
+    return 0;
+}
+```
+
+<br>
+
+___
+
 # *Tree Distances II
 
-Link: 
+Link: https://cses.fi/problemset/task/1133
+
+You are given a tree consisting of n nodes.
+Your task is to determine for each node the sum of the distances from the node to all other nodes.
 
 Solution:
 - The key observation is that if we reroot the tree at node 1's neighbour (let's say node 2), then
