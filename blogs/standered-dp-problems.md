@@ -602,39 +602,110 @@ Link: https://cses.fi/problemset/task/1746
 You know that an array has n integers between 1 and m, and the absolute difference between two adjacent values is at most 1.
 Given a description of the array where some values may be unknown, your task is to count the number of arrays that match the description.
 
+Solution:
+- Let $DP[i][j]$ = number of arrays ending at number in A[:j].
+
+Recursion + Memoization (Gives TLE for some testcases):
 ```cpp:
-int main()
-{
-    fast;
-    int n,m;
-    cin>>n>>m;
-    vector<int> x(n+1);
-    for(int i=1;i<n+1;i++) cin>>x[i];
-    vector< vector<int> > dp(n+1, vector<int> (m+1,0));
-    if (x[1]==0) for(int i=0;i<m+1;i++) dp[1][i]=1;
-    else dp[1][x[1]]=1;
-    for(int i=2;i<n+1;i++){
-        int x0 = x[i];
-        if (x0==0){
-            for(int j=1;j<m+1;j++){
-                for(int k : {j-1,j,j+1}){
-                    if (k>=1 && k<=m) dp[i][j] = (dp[i][j]+dp[i-1][k])%mod;
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MOD = 1000000007;
+
+int n, m;
+vector<int> a;
+int memo[101][100001]{};
+
+// At every 0 try all the possible values and count.
+
+int dp(int i, int prev) {
+    if (memo[prev][i] != 0) return memo[prev][i];
+    if (i == n) return 1;
+    if (a[i] != 0 && abs(prev - a[i]) > 1) return 0;
+    if (a[i] != 0) return dp(i + 1, a[i]);
+
+    int count = 0;
+    for (int k = prev - 1; k <= prev + 1; k++) {
+        if (k >= 1 && k <= m) {
+            count += dp(i + 1, k);
+            if (count >= MOD) count -= MOD;
+        }
+    }
+    return memo[prev][i] = count;
+}
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+    cin >> n >> m;
+    a.resize(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    int ans = 0;
+    if (a[0] == 0) {
+        for (int i = 1; i <= m; i++) {
+            ans += dp(1, i);
+            if (ans > MOD) ans -= MOD;
+        }
+    } else {
+        ans = dp(1, a[0]);
+    }
+    cout << ans;
+
+    return 0;
+}
+
+```
+
+Tabulation:
+```cpp:
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MOD = 1000000007;
+
+int n, m;
+vector<int> a;
+int dp[101][100001]{};
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+
+    cin >> n >> m;
+    a.resize(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+
+    for (int prev = 1; prev <= m; prev++) {
+        dp[prev][1] = (a[0] == 0 || a[0] == prev) ? 1 : 0;
+    }
+
+    for (int i = 2; i <= n; i++) {
+        for (int prev = 1; prev <= m; prev++) {
+            if (a[i - 1] == 0 || a[i - 1] == prev) {
+                for (int k = prev - 1; k <= prev + 1; k++) {
+                    if (k >= 1 && k <= m) {
+                        dp[prev][i] = (dp[prev][i] + dp[k][i - 1]) % MOD;
+                    }
                 }
             }
         }
-        else{
-            for(int k : {x0-1,x0,x0+1}){
-                if (k>=1 && k<=m) dp[i][x0] = (dp[i][x0]+dp[i-1][k])%mod;
-            }
+    }
+
+    int ans = 0;
+    if (a[n - 1] == 0) {
+        for (int i = 1; i <= m; i++) {
+            ans = (ans + dp[i][n]) % MOD;
         }
+    } else {
+        ans = dp[a[n - 1]][n];
     }
- 
-    int ans=0;
-    for(int i=1;i<m+1;i++){
-        ans=(ans+dp[n][i])%mod;
-    }
-    cout<<ans<<endl;
-    
+    cout << ans;
+
     return 0;
 }
 ```
