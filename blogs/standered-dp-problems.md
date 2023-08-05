@@ -495,7 +495,7 @@ You have decided that the total price of your purchases will be at most $x$. Wha
 Solution:
 - This is very similar to the classical Dynamic Programming problem known as the "Knapsack Problem". In the Knapsack Problem, you are given a set of items, each with a weight and a value, and a knapsack with a maximum weight capacity. The goal is to select items to maximize the total value while ensuring that the total weight does not exceed the capacity of the knapsack.
 - The books correspond to the items in the Knapsack Problem, and the price of the books corresponds to the weight of the items. The number of pages in the books can be seen as the value of the items. You are trying to maximize the total number of pages (value) you can buy while ensuring that the total price (weight) does not exceed a given budget (capacity).
-
+- We should try to minimize the number of rows. Read more: https://www.geeksforgeeks.org/row-wise-vs-column-wise-traversal-matrix/
 - Let $DP[i][j]$ be the maximum number of pages that can be bought with a budget of $j$ considering the first $i$ books.
 - $DP[0][j] = 0$ for all $j$, as with no books, the number of pages is 0.
 - $DP[i][0] = 0$ for all $i$, as with no budget, the number of pages is 0.
@@ -504,28 +504,91 @@ Solution:
     2. We buy the current book $i$: In this case, $DP[i][j] = \text{pages}[i] + DP[i-1][j-\text{price}[i]]$, where
 - The maximum number of pages that can be bought will be the maximum value between the two choices: $DP[i][j] = \max(DP[i-1][j], \text{pages}[i] + DP[i-1][j-\text{price}[i]])$.
 
+Recursion + Memoization (Gives TLE probably because of function calls):
 
 ```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+ 
+const int MOD = 1000000007;
+ 
+int memo[1001][100001]{};
+int prices[1001], pages[1001]{};
+ 
+int n,x;
+// For each book I have 2 choices:
+// 1. Buy it.
+// 2. Dont buy it.
+ 
+// i is the amount of money i have, j is the first j books.
+int dp(int currentBook, int remainingMoney) {
+    // if no books left or no money left.
+    if (currentBook==0 || remainingMoney == 0) return 0; 
+    if (memo[currentBook][remainingMoney] != 0) {
+        return memo[currentBook][remainingMoney];
+    }
+    // Dont buy the current book
+    int ans = dp(currentBook-1,remainingMoney);
+    if (remainingMoney>=prices[currentBook]){
+        ans = max(ans, dp(currentBook-1,remainingMoney-prices[currentBook]) + pages[currentBook] );
+    }
+    return memo[currentBook][remainingMoney] = ans;
+}
+ 
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    int n,x;
+    cin>>n>>x;
+    for (int i = 1; i < n+1; i++) {
+        cin>>prices[i];
+    }
+    for (int i = 1; i < n+1; i++) {
+        cin>>pages[i];
+    }
+    cout<<dp(n,x);
+    return 0;
+}
+```
+
+Tabulation:
+```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+ 
+const int MOD = 1000000007;
+ 
+int dp[1001][100001]{};
+int prices[1001], pages[1001]{};
+ 
 int main()
 {
-    int n,x; cin>>n>>x;
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
  
-    vector<int> prices(n+1),pages(n+1);
-    prices[0]=0; pages[0]=0;
-    for(int i=1;i<n+1;i++) cin>>prices[i];
-    for(int i=1;i<n+1;i++) cin>>pages[i];
+    int n, x;
+    cin >> n >> x;
+    for (int i = 1; i <= n; i++) {
+        cin >> prices[i];
+    }
+    for (int i = 1; i <= n; i++) {
+        cin >> pages[i];
+    }
 
-    vector< vector<int> > dp(n+1,vector<int>(x+1,0));
- 
     for(int i=1;i<n+1;i++){
         for(int j=0;j<x+1;j++){
-            dp[i][j]=dp[i-1][j];
+            dp[i][j]=dp[i-1][j]; // Dont buy
             if(j-prices[i]>=0){
-                dp[i][j] = max ( dp[i][j], dp[i-1][j-prices[i]]+pages[i] );
+                dp[i][j] = max ( dp[i][j], dp[i-1][j-prices[i]]+pages[i] ); // Buy it.
             }
         }
     }
-    cout<<dp[n][x];
+    
+    cout << dp[n][x];
+    return 0;
 }
 ```
 
