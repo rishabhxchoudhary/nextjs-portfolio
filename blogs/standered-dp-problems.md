@@ -390,51 +390,94 @@ Solution:
 
 $$\text{dp}[x][y] = \begin{cases} \text{dp}[x-1][y] + \text{dp}[x][y-1] & \text{if $(x, y)$ is not a trap} \\ 0 & \text{if $(x, y)$ is a trap} \end{cases}$$
 
+Recursion + Memoization (Gives TLE on some Testcases):
+```CPP:
+#include<bits/stdc++.h>
+using namespace std;
 
-```cpp:
-typedef long long ll;
-ll mod = 1000000007;
-int main()
+#define int long long int
+#define endl '\n'
+
+const int MOD = 1000000007;
+
+int n;
+
+// I can either come from left or from up.
+int dp(int i,int j,vector<vector<char>> &grid,vector<vector<int>>&memo){
+    if (i<0 || i>=n ||j<0 || j>=n) return 0;
+    if (grid[i][j]=='*'){
+        return 0;
+    }
+    if (i==0 && j==0) return 1;
+    if (memo[i][j]!=0) return memo[i][j];
+    return memo[i][j] = (dp(i-1,j,grid,memo) + dp(i,j-1,grid,memo))%MOD;
+}
+
+signed main()
 {
-    ll n; cin>>n;
- 
-    ll arr[n][n];
- 
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<n;j++){
-            arr[i][j]=-1;
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+
+    cin>>n;
+    vector<vector<char> > grid(n,vector<char> (n) );
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin>>grid[i][j];
         }
     }
- 
-    for(ll i=0;i<n;i++){
-        char s[n];
-        for(int k=0;k<n;k++){
-            cin>>s[k];
-        }
-        for(ll j=0;j<n;j++){
-            if (s[j]=='*'){
-                arr[i][j]=0;
+    vector<vector<int>> memo(n,vector<int> (n+1,0));
+    cout<<dp(n-1,n-1,grid,memo);
+
+    return 0;
+}
+```
+
+Tabulation:
+```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int long long int
+#define endl '\n'
+
+const int MOD = 1000000007;
+
+int n;
+
+int dp(vector<vector<char>>& grid, vector<vector<int>>& memo) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (grid[i][j] == '*') {
+                memo[i][j] = 0;
+            } else {
+                if (i == 0 && j == 0) {
+                    memo[i][j] = 1;
+                } else {
+                    int from_left = (j - 1 >= 0) ? memo[i][j - 1] : 0;
+                    int from_up = (i - 1 >= 0) ? memo[i - 1][j] : 0;
+                    memo[i][j] = (from_left + from_up) % MOD;
+                }
             }
         }
     }
- 
-    for(ll i=0;i<n;i++){
-        if(arr[0][i]==-1) arr[0][i]=1;
-        if(arr[i][0]==-1) arr[i][0]=1;
-        if(i>0){
-            if (arr[0][i-1]==0) arr[0][i]=0;
-            if (arr[i-1][0]==0) arr[i][0]=0;
+    return memo[n - 1][n - 1];
+}
+
+signed main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    cin >> n;
+    vector<vector<char>> grid(n, vector<char>(n));
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> grid[i][j];
         }
     }
- 
-    for(ll i=1;i<n;i++){
-        for(ll j=1;j<n;j++){
-            if (arr[i][j]==-1){
-                arr[i][j] = (arr[i-1][j]+arr[i][j-1])%mod;
-            }
-        }
-    }
-    cout<<arr[n-1][n-1]<<endl;
+    vector<vector<int>> memo(n, vector<int>(n, 0));
+    cout << dp(grid, memo);
+
     return 0;
 }
 ```
