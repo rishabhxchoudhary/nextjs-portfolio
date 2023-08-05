@@ -57,6 +57,58 @@ Solution:
 - Let the target sum be $S$ and coins $c_1, c_2, c_3, \ldots, c_n$.
 - $DP[i] = \min(DP[i-c_1]+1, DP[i-c_2]+1, DP[i-c_3]+1, \ldots, DP[i-c_n]+1)$, as I can add 1 coin value to all these to make the sum $i$.
 
+Recursion + Memoization:
+
+```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define int long long int
+#define double long double
+#define endl '\n'
+typedef long long ll;
+ 
+const int MOD = 1000000007;
+int n,x;
+vector<int> coins;
+ 
+ 
+int dp(int k, vector<int> &memo){
+    if (memo[k]!=0) return memo[k];
+    if (k<0) return INT_MAX;
+    if (k==0) return 0;
+    int ans = INT_MAX;
+    for (int i = 0; i < n; i++) {
+        if (coins[i]>k) continue;
+        ans=min(ans,dp(k-coins[i],memo)+1);
+    }
+    memo[k] = ans;
+    return ans;
+}
+ 
+signed main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+ 
+ 
+    cin>>n>>x;
+    coins.resize(n);
+    for (int i = 0; i < n; i++) {
+        cin>>coins[i];
+    }
+    vector<int> memo(x+1,0);
+    int ans = dp(x,memo);
+    if(ans!=INT_MAX){
+        cout<<ans<<endl;
+    } else {
+        cout<<-1<<endl;
+    }
+    return 0;
+}
+```
+
+Tabulation:
 ```cpp:
 int main()
 {
@@ -112,6 +164,51 @@ Solution:
 - $DP[i] = DP[i-c_1] + DP[i-c_2] + DP[i-c_3] + \ldots + DP[i-c_n]$.
 - Notice that each of $DP[i-c_i]$ may contribute $1$ or more than $1$ to the answer.
 
+Recursion + Memoization (Gives TLE on 2 testcases)
+```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define endl '\n'
+ 
+const int MOD = 1000000007;
+ 
+int n,x;
+vector<int> coins;
+ 
+int dp(int k, vector<int> &memo){
+    if (k<0) return 0;
+    if (k==0) return 1;
+    if (memo[k]!=0) return memo[k];
+    int ans = 0;
+    for (int i = 0; i < n; i++) {
+        ans += dp(k-coins[i],memo);
+        if (ans >= MOD)
+            ans = ans - MOD;
+    }
+    memo[k]=ans;
+    return ans;
+}
+ 
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+ 
+    cin>>n>>x;
+    coins.resize(n);
+    for (int i = 0; i < n; i++) {
+        cin>>coins[i];
+    }
+ 
+    vector<int> memo(x+1,0);
+    cout<<dp(x,memo)<<endl;
+ 
+    return 0;
+}
+```
+
+Tabulation:
 ```cpp:
 int main()
 {
@@ -155,23 +252,125 @@ Solution:
 - At the end, $DP[n][x]$ will represent the total number of distinct ordered ways to produce the money sum $x$ using the available coins.
 - We can actually reduce the space to linear by iterating over the coins first.
 
+Recursion + Memoization (Gives TLE) :
 ```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define endl '\n'
+ 
+const int MOD = 1000000007;
+ 
+int n,x;
+vector<int> coins;
+ 
+ 
+// There are 2 possibilities:
+// 1) Use the jth coin.
+// 2) Dont use the jth coin.
+int dp(int i, int j,vector<vector<int>> &memo){
+    if (i<0) return 0;
+    if (i==0) return 1;
+    if (j==0) return 0;
+    if (memo[i][j]!=0) return memo[i][j];
+    int ans = 0;
+    ans+=dp(i-coins[j-1],j,memo); // use jth coin.
+    if (ans>=MOD) ans-=MOD;
+    ans+=dp(i,j-1,memo); // Dont use jth coin.
+    if (ans>=MOD) ans-=MOD;
+    return memo[i][j]=ans;
+}
+ 
 int main()
 {
-    int n,x;
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+ 
     cin>>n>>x;
-    ll coins[n];
-    for(int i=0;i<n;i++) cin>>coins[i];
-    vector<ll> dp(x+1,0);
-    dp[0]=1;
-    for(auto c:coins){
-        for(int i=1;i<x+1;i++){
-            if (i-c>=0){
-                dp[i]=(dp[i]+dp[i-c])%mod;
+    coins.resize(n);
+    for (int i = 0; i < n; i++) {
+        cin>>coins[i];
+    }
+    vector<vector<int>> memo(x+1, vector<int> (n+1,0));
+    cout<<dp(x,n,memo)<<endl;
+ 
+    return 0;
+}
+```
+
+Optimization using Tabulation (Gives TLE on 2 testcases):
+```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define endl '\n'
+ 
+const int MOD = 1000000007;
+ 
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+ 
+    int n, x;
+    cin >> n >> x;
+    vector<int> coins(n);
+    for (int i = 0; i < n; i++) {
+        cin >> coins[i];
+    }
+    vector<vector<int>> dp(x + 1, vector<int>(n + 1, 0));
+    // Base case: If the target sum is 0, there is one way.
+    for (int j = 0; j <= n; j++) {
+        dp[0][j] = 1;
+    }
+    for (int i = 1; i <= x; i++) {
+        for (int j = 1; j <= n; j++) {
+            dp[i][j] = dp[i][j - 1]; // Exclude the jth coin.
+            if (i - coins[j - 1] >= 0) {
+                dp[i][j] += dp[i - coins[j - 1]][j]; // Include the jth coin.
+                dp[i][j] %= MOD;
             }
         }
     }
-    cout<<dp[x];
+    cout << dp[x][n] << endl;
+ 
+    return 0;
+}
+```
+
+Final Optimization:
+```cpp:
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define endl '\n'
+ 
+const int MOD = 1000000007;
+ 
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+ 
+    int n, x;
+    cin >> n >> x;
+    vector<int> coins(n);
+    for (int i = 0; i < n; i++) {
+        cin >> coins[i];
+    }
+    vector<int> dp(x + 1, 0);
+    dp[0] = 1;
+
+    for (int j = 1; j <= n; j++) {
+        for (int i = 1; i <= x; i++) {
+            if (i - coins[j - 1] >= 0) {
+                dp[i] += dp[i - coins[j - 1]];
+                dp[i] %= MOD;
+            }
+        }
+    }
+    cout << dp[x] << endl;
+ 
     return 0;
 }
 ```
