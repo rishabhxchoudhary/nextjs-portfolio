@@ -1,5 +1,5 @@
 ---
-title: "Popular Sorting Algorithms"
+title: "Analysis of Popular Sorting Algorithms"
 date: "4 November 2023"
 category: "CP & Interviews"
 tags: ['Bubble Sort','Quick Sort','Insertion Sort','Selection Sort','Merge Sort','Radiax Sort','Count Sort','Bucket Sort','Shell Sorting','DNF Sort','Pancake Sort','Tim Sort']
