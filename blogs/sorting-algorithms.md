@@ -2,8 +2,8 @@
 title: "Popular Sorting Algorithms"
 date: "4 November 2023"
 category: "CP & Interviews"
-tags: ['Bubble Sort','Quick Sort','Insertion Sort','Selection Sort','Merge Sort','Radiax Sort','Count Sort','Bucket Sort','Shell Sorting','DNF Sort','Pancake Sort']
-about: "Sorting Algorithms for Competitive Programming and Interviews"
+tags: ['Bubble Sort','Quick Sort','Insertion Sort','Selection Sort','Merge Sort','Radiax Sort','Count Sort','Bucket Sort','Shell Sorting','DNF Sort','Pancake Sort','Tim Sort']
+about: "Explore the most efficient Sorting Algorithms for Competitive Programming and Interviews. Learn about Bubble Sort, Quick Sort, Insertion Sort, Selection Sort, Merge Sort, Radix Sort, Count Sort, Bucket Sort, Shell Sorting, DNF Sort, Pancake Sort, and Tim Sort. Master the art of sorting with our in-depth guide."
 ---
 
 # Bubble Sorting
@@ -297,6 +297,85 @@ void mergeSort(vector<int>& arr, int left, int right) {
         merge(arr, left, middle, right);
     }
 }
+```
+
+___
+
+# Tim Sort
+
+Tim Sort is a hybrid sorting algorithm that combines the principles of Merge Sort and Insertion Sort. It was designed to address the challenges posed by sorting arrays of various sizes efficiently. Tim Sort gets its name from its creator, Tim Peters, who developed it for the Python programming language.
+
+
+1. Divide into Runs: The input array is divided into small "runs" or subsequences of elements. These runs are identified in a way that each run is either non-decreasing or non-increasing.
+2. Sort Each Run: Each run is sorted individually using Insertion Sort. Insertion Sort is chosen because it performs well on small lists, and runs are typically short.
+3. Merge Runs: The sorted runs are then merged together using a modified merge operation similar to the one used in Merge Sort. This merging step creates larger runs that are still in sorted order.
+4. Repeat Merging: The merging step is repeated until the entire array is sorted. During this process, Tim Sort combines and sorts runs to create larger and larger sorted segments.
+
+## Time Complexity:
+- Best Case: $O(n)$
+- Average Case: $O(n log n)$ 
+- Worst Case: $O(n log n)$ 
+
+## Space Complexity: $O(n)$
+
+```Python:
+def insertion_sort(arr, left, right):
+    for i in range(left + 1, right + 1):
+        key_item = arr[i]
+        j = i - 1
+        while j >= left and arr[j] > key_item:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key_item
+
+def merge(arr, l, m, r):
+    len1, len2 = m - l + 1, r - m
+    left, right = [], []
+
+    for i in range(0, len1):
+        left.append(arr[l + i])
+    for i in range(0, len2):
+        right.append(arr[m + 1 + i])
+
+    i, j, k = 0, 0, l
+
+    while i < len1 and j < len2:
+        if left[i] <= right[j]:
+            arr[k] = left[i]
+            i += 1
+        else:
+            arr[k] = right[j]
+            j += 1
+        k += 1
+
+    while i < len1:
+        arr[k] = left[i]
+        i += 1
+        k += 1
+
+    while j < len2:
+        arr[k] = right[j]
+        j += 1
+        k += 1
+
+def timsort(arr):
+    min_run = 32
+
+    n = len(arr)
+
+    for start in range(0, n, min_run):
+        end = min((start + min_run - 1), (n - 1))
+        insertion_sort(arr, start, end)
+
+    size = min_run
+    while size < n:
+        for start in range(0, n, size * 2):
+            mid = min((n - 1), (start + size - 1))
+            end = min((n - 1), (start + size * 2 - 1))
+            if mid < end:
+                merge(arr, start, mid, end)
+        size *= 2
+
 ```
 
 ___
