@@ -157,6 +157,23 @@ int partition(int arr[], int low, int high) {
 
     return i + 1;
 }
+
+// Function to perform Quick Sort
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        // Find the pivot element such that
+        // element smaller than pivot are on the left
+        // and elements greater than pivot are on the right
+        int pivotIndex = partition(arr, low, high);
+
+        // Recursively sort the elements before and after the pivot
+        quickSort(arr, low, pivotIndex - 1);
+        quickSort(arr, pivotIndex + 1, high);
+    }
+}
+
+// Run quickSort(arr,0,n-1);
+
 ```
 
 ___
