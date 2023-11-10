@@ -2,7 +2,7 @@
 title: "Mastering React.js: Beginner to Advanced Projects for Hands-On Learning"
 date: "10 Nov 2023"
 category: "Web Development"
-tags: ['Interviews','Sliding Window']
+tags: ['Project Roadmmap','React JS']
 about: "Are you ready to delve into React.js and elevate your skills through practical projects? This guide offers a roadmap from beginner to advanced levels, packed with a series of real-world applications designed to reinforce your React knowledge. Explore foundational concepts through projects like to-do lists and weather apps, advance to handling APIs, complex state management, and culminate with full-stack integrations. Elevate your React.js expertise by learning through doing!"
 ---
 
