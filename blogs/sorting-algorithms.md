@@ -2,7 +2,7 @@
 title: "Analysis of Popular Sorting Algorithms"
 date: "4 November 2023"
 category: "CP & Interviews"
-tags: ['Bubble Sort','Quick Sort','Insertion Sort','Selection Sort','Merge Sort','Radiax Sort','Count Sort','Bucket Sort','Shell Sorting','DNF Sort','Pancake Sort','Tim Sort']
+tags: ['Bubble Sort','Quick Sort','Insertion Sort','Selection Sort','Merge Sort','Radix Sort','Count Sort','Bucket Sort','Shell Sorting','DNF Sort','Pancake Sort','Tim Sort']
 about: "Explore the most efficient Sorting Algorithms for Competitive Programming and Interviews. Learn about Bubble Sort, Quick Sort, Insertion Sort, Selection Sort, Merge Sort, Radix Sort, Count Sort, Bucket Sort, Shell Sorting, DNF Sort, Pancake Sort, and Tim Sort. Master the art of sorting with our in-depth guide."
 ---
 
@@ -489,7 +489,7 @@ void bucketSort(vector<float>& arr) {
 
 ___
 
-# Radiax Sorting
+# Radix Sorting
 
 Radix sort is a non-comparative sorting algorithm that processes data by taking a look at the individual digits of each number in the dataset. It sorts numbers based on the values of their digits, starting from the least significant digit (LSD) to the most significant digit (MSD). The term "radix" refers to the base of the number system, typically binary (base-2), decimal (base-10), or hexadecimal (base-16).
 
