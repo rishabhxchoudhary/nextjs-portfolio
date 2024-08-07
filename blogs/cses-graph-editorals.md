@@ -710,7 +710,7 @@ Link: https://cses.fi/problemset/task/1671
 There are n cities and m flight connections between them. Your task is to determine the length of the shortest route from Syrjälä to every city.
 
 Solution:
-- This is a standered problem on dijkstra.
+- This is a standard problem on dijkstra.
 
 ```cpp:
 #include<bits/stdc++.h>
@@ -835,9 +835,9 @@ You play a game consisting of n rooms and m tunnels. Your initial score is 0, an
 Your task is to walk from room 1 to room n. What is the maximum score you can get?
 
 Solution:
-- This is a standered problem of Bellman ford algorithm.
+- This is a standard problem of Bellman ford algorithm.
 - Instead of detecting a negative weight cycle, we have to detect positive weight cycle.
-- Whenever there is a positive weight cycle, check if its possible to reach n from that cycle, if yes? ans if INFINITY/-1.
+- Whenever there is a positive weight cycle, check if its possible to reach n from that cycle, if yes? ans is INFINITY/-1.
 
 
 ```cpp:
@@ -984,7 +984,7 @@ Link: https://cses.fi/problemset/task/1197/
 You are given a directed graph, and your task is to find out if it contains a negative cycle, and also give an example of such a cycle.
 
 Solution:
-- This is a standered bellmanford problem.
+- This is a standard bellmanford problem.
 
 ```cpp:
 #include <bits/stdc++.h>
@@ -1273,7 +1273,7 @@ ___
 Link: https://cses.fi/problemset/task/1679
 
 Solution:
-- Standered problem on topological sorting.
+- standard problem on topological sorting.
 
 ```cpp:
 #include<bits/stdc++.h>
@@ -1357,9 +1357,9 @@ Uolevi wants to fly from Syrjälä to Lehmälä so that he visits the maximum nu
 Solution:
 
 - This is problem of topological sorting and dynamic programming.
-- Let $dp[v]$ denote the length of the longest path ending at the node $v$.
+- Let $$dp[v]$$ denote the length of the longest path ending at the node $v$.
 - Clearly $$dp[v]=\max_{\text{edge } u\to v \text{ exists}}dp[u]+1,$$
-- We only need to make sure that we travel u first, that we can do using topological sort with BFS  for level order traversal using Kanh's algorithm.
+- We only need to make sure that we travel u first, that we can do using topological sort with BFS  for level order traversal using kahn's algorithm.
 - Read more here: https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
 
 ```cpp:
@@ -1391,7 +1391,7 @@ signed main()
         rev_graph[b].push_back(a);
     }
 
-    // Kanh's algorithm.
+    // kahn's algorithm.
     queue<int>q;
     for (int i = 1; i < n; i++) if (in_degree[i]==0) q.push(i);
     while(!q.empty()){
@@ -1440,6 +1440,76 @@ signed main()
 
 <br>
 
+
+code 2:
+
+```
+⁠ #include <bits/stdc++.h>
+using namespace std;
+
+const int MOD = 1e9+7;
+#define int long long int
+#define onedi(a,s,n) for(int e=s;e<n;++e) cin>>a[e];
+#define endl '\n'
+
+void solve(){
+    int n,m;
+    cin>>n>>m;
+    vector<int> adj[n+1];
+    vector<int> indeg(n+1,0);
+    for(int i = 0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        indeg[v]++;
+    }
+    queue<int> q;
+    for(int i = 1;i<=n;i++){
+        if(indeg[i]==0){
+            q.push(i);
+        }
+    }
+    vector<int> dp(n+1,-1e18);
+    vector<int> pre(n+1,-1);
+    dp[1] = 0;
+    while(!q.empty()){
+        int node = q.front();
+        q.pop();
+        for(auto value: adj[node]){
+            if(dp[value]<dp[node] + 1){
+                dp[value] = dp[node] + 1;
+                pre[value] = node;
+            }
+            indeg[value]--;
+            if(indeg[value]==0) q.push(value);
+        }
+    }
+    if(dp[n]<0){
+        cout<<"IMPOSSIBLE"<<endl;
+        return;
+    }
+    vector<int> ans;
+    int x = n;
+    while(x!=1){
+        ans.push_back(x);
+        x = pre[x];
+    }
+    ans.push_back(1);
+    reverse(ans.begin(),ans.end());
+    cout<<ans.size()<<endl;
+    for(auto value: ans) cout<<value<<" ";
+    cout<<endl;
+}
+
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    solve();
+} ⁠
+```
+
+<br>
+
 ___
 
 
@@ -1481,7 +1551,7 @@ signed main()
         rev_graph[b].push_back(a);
     }
 
-    // Kanh's algorithm.
+    // kahn's algorithm.
     dist[1]=1;
 
     queue<int>q;
@@ -1592,7 +1662,7 @@ You are playing a game consisting of n planets. Each planet has a teleporter to 
 Your task is to process q queries of the form: when you begin on planet x and travel through k teleporters, which planet will you reach?
 
 Solution:
-- This is a standered problem on functional graphs.
+- This is a standard problem on functional graphs.
 - Look at the constraints, 0≤k≤10^9, since k is very large, we cannot simply query in O(k).
 - This hints for some binary jumping approach or using a sparse table. 
 - We can store the next nodes at powers of 2 and then query. 
@@ -1735,7 +1805,7 @@ ___
 Link: https://cses.fi/problemset/task/1675
 
 Solution:
-- This is standered problem on Minimum spanning tree.
+- This is standard problem on Minimum spanning tree.
 - We just need to calculate the cost.
 - We can implement Krushkal's algorithm with DSU to achieve a better time complexity.
 - Read more here: https://cp-algorithms.com/graph/mst_kruskal_with_dsu.html
@@ -2274,7 +2344,7 @@ Link: https://cses.fi/problemset/task/1691
 Your task is to deliver mail to the inhabitants of a city. For this reason, you want to find a route whose starting and ending point are the post office, and that goes through every street exactly once.
 
 Solution:
-- This is a standered problem of Eulerian tour of an undirected graph.
+- This is a standard problem of Eulerian tour of an undirected graph.
 - An Eulerian path is a path that goes exactly once through each edge of the graph.
 - An Eulerian circuit is an Eulerian path that starts and ends at the same node.
 - So basically, we need to check if an Eulerian circuit exists or not.
@@ -2595,7 +2665,7 @@ Kotivalo wants to download some data from a server. What is the maximum speed he
 Link: https://cses.fi/problemset/task/1694
 
 Solution:
-- This is a standered problem on Max Flow.
+- This is a standard problem on Max Flow.
 - You can use any of the flow algorithms to find the value.
 - If $V$ is the number of nodes and $E$ is the number of edges.
     - Ford-Fulkerson & Edmonds-Karp : https://cp-algorithms.com/graph/edmonds_karp.html#edmonds-karp-algorithm
