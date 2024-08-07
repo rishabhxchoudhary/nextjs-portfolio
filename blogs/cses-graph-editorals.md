@@ -1443,7 +1443,7 @@ signed main()
 
 code 2:
 
-```
+```cpp
 ⁠ #include <bits/stdc++.h>
 using namespace std;
 
